@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">cinco5</property>
+        <property name="hibernate.connection.url">jdbc:mysql://creardecolombia.com.co:3306/grupocre_marketour</property>
+        <property name="hibernate.connection.username">grupocre_grupo</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.show_sql">true</property>
+        <mapping class="com.marketour.domain.ProveedorPublicacion" />
+        <mapping class="com.marketour.domain.RedSocial" />
+        <mapping class="com.marketour.domain.ClienteFavorito" />
+        <mapping class="com.marketour.domain.Producto" />
+        <mapping class="com.marketour.domain.PublicacionProducto" />
+        <mapping class="com.marketour.domain.Rol" />
+        <mapping class="com.marketour.domain.Moneda" />
+        <mapping class="com.marketour.domain.Favorito" />
+        <mapping class="com.marketour.domain.MedioPago" />
+        <mapping class="com.marketour.domain.TipoContenido" />
+        <mapping class="com.marketour.domain.Factura" />
+        <mapping class="com.marketour.domain.Promocion" />
+        <mapping class="com.marketour.domain.Usuario" />
+        <mapping class="com.marketour.domain.ClienteCompra" />
+        <mapping class="com.marketour.domain.RedesUsuario" />
+        <mapping class="com.marketour.domain.Compra" />
+        <mapping class="com.marketour.domain.FacturaProducto" />
+        <mapping class="com.marketour.domain.Publicacion" />
+    </session-factory>
+</hibernate-configuration>

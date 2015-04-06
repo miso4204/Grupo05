@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4/04/2015 03:32:22 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.marketour.domain.Publicacion" table="Publicacion" catalog="grupocre_marketour">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="titulo" type="string">
+            <column name="titulo" length="50" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="contenido" type="string">
+            <column name="contenido" length="1024" />
+        </property>
+        <property name="fechaPublicacion" type="date">
+            <column name="fechaPublicacion" length="10" />
+        </property>
+        <property name="idTipoContenido" type="java.lang.Integer">
+            <column name="idTipoContenido" />
+        </property>
+    </class>
+</hibernate-mapping>
