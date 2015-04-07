@@ -20,7 +20,6 @@
         <mapping class="com.marketour.domain.Rol" />
         <mapping class="com.marketour.domain.Moneda" />
         <mapping class="com.marketour.domain.MedioPago" />
-        <mapping class="com.marketour.domain.TipoContenido" />
         <mapping class="com.marketour.domain.Factura" />
         <mapping class="com.marketour.domain.Promocion" />
         <mapping class="com.marketour.domain.Usuario" />
