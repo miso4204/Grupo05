@@ -1,6 +1,6 @@
 package com.marketour.domain;
 
-// Generated 4/04/2015 03:32:21 PM by Hibernate Tools 4.0.0
+// Generated 7/04/2015 12:31:43 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

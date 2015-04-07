@@ -16,12 +16,9 @@
         <property name="hibernate.show_sql">true</property>
         <mapping class="com.marketour.domain.ProveedorPublicacion" />
         <mapping class="com.marketour.domain.RedSocial" />
-        <mapping class="com.marketour.domain.ClienteFavorito" />
         <mapping class="com.marketour.domain.Producto" />
-        <mapping class="com.marketour.domain.PublicacionProducto" />
         <mapping class="com.marketour.domain.Rol" />
         <mapping class="com.marketour.domain.Moneda" />
-        <mapping class="com.marketour.domain.Favorito" />
         <mapping class="com.marketour.domain.MedioPago" />
         <mapping class="com.marketour.domain.TipoContenido" />
         <mapping class="com.marketour.domain.Factura" />
@@ -31,6 +28,5 @@
         <mapping class="com.marketour.domain.RedesUsuario" />
         <mapping class="com.marketour.domain.Compra" />
         <mapping class="com.marketour.domain.FacturaProducto" />
-        <mapping class="com.marketour.domain.Publicacion" />
     </session-factory>
 </hibernate-configuration>
