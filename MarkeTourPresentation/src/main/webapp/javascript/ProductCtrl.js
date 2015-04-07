@@ -2,13 +2,13 @@
 
 	var ctrl = function($scope, $http) {
 
-		$scope.service = "http://localhost:8080/PublicationService/";
-		$scope.allpublications = {};
-		$scope.publication = {};
+		$scope.service = "http://localhost:8080/ProductService/";
+		$scope.allProducts = {};
+		$scope.product = {};
 
 		$scope.FindAll = function() {
 			$http.get($scope.service).success(function(response) {
-				$scope.allpublications = response;
+				$scope.allProducts = response;
 			});
 		};
 
@@ -46,6 +46,6 @@
 	};
 
 	var module = angular.module("MarkeTour");
-	module.controller("PublicationCtrl", ctrl);
+	module.controller("ProductCtrl", ctrl);
 
 }());
