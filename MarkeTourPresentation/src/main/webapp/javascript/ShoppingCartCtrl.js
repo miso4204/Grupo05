@@ -6,15 +6,19 @@
 		$scope.allItems = [];
 		$scope.item = {};
 		$scope.allProducts = [];
-		$scope.product = {};
-        alert(localStorage.getItem("articulos")+ " "+window.location);
+		$scope.product = {};        
+		$scope.total="";
         var html=window.location+"";
-        var entro=false;
-		if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCartView.html")>-1 && entro==false){
-			entro=true;
-			alert("entro");
-			 $scope.allItems=localStorage.getItem("articulos");;
-			 alert("entro");
+        
+	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCartView.html")>-1){		
+			articulos=JSON.parse(localStorage.getItem("articulos"));
+			 $scope.allItems=articulos;
+			 var suma =0;
+			 for (var i=0;i<articulos.lenght;i++){
+				 suma=suma+parseInt(articulos[i].valor);
+			 }
+			 $scope.total="Total a pagar: $ "+suma;	 
+			 
 		}
 		
 
@@ -56,9 +60,12 @@
 		
 
 		$scope.addItem = function(data) {
+			 if (localStorage.getItem("articulos")!=null ){		
+					articulos=JSON.parse(localStorage.getItem("articulos"));			 
+					 
+				}
 			articulos.push(data);
-			$scope.allItems.push(data);
-			localStorage.setItem("articulos",$scope.allItems);
+			localStorage.setItem("articulos",JSON.stringify(articulos));
 			
 		};
 		$scope.FindAll();

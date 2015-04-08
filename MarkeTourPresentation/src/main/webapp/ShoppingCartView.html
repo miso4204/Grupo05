@@ -22,6 +22,7 @@
 				<div style="float: left; width: 60%">
 					<label style="font-size: 30px; font-family: sans-serif">Tu
 						carrito</label>
+						<button class="btn btn-large btn-info" type="button" onclick="localStorage.removeItem('articulos');">Limpiar Carrito  <i class="glyphicon glyphicon-trash"></i></button>
 					<div ng-repeat="item in allItems " style="margin: 3%; box-shadow: 2px 2px 5px #5F8CF5; border-radius: 5px">
 						<table>
 							<tr style="vertical-align: top;">
@@ -48,9 +49,7 @@
 							de planes: 3</label>
 					</div>
 					<div style="margin: 3%">
-						<label
-							style="font-size: 30px; font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">Total
-							a pagar: $ 300,000</label>
+						<label 	style="font-size: 30px; font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{total}}</label>
 					</div>
 					<div style="margin: 3%">
 						Formas de pago aceptadas: <br> <IMG
