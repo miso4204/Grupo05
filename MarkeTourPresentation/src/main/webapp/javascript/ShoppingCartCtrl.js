@@ -8,16 +8,18 @@
 		$scope.allProducts = [];
 		$scope.product = {};        
 		$scope.total="";
+		$scope.totalPlanes="";
         var html=window.location+"";
         
 	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCartView.html")>-1){		
 			articulos=JSON.parse(localStorage.getItem("articulos"));
 			 $scope.allItems=articulos;
 			 var suma =0;
-			 for (var i=0;i<articulos.lenght;i++){
+			 for (var i=0;i<articulos.length;i++){
 				 suma=suma+parseInt(articulos[i].valor);
 			 }
 			 $scope.total="Total a pagar: $ "+suma;	 
+			 $scope.totalPlanes="Número de planes: " + articulos.length;
 			 
 		}
 		
