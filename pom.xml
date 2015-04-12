@@ -12,5 +12,6 @@
 		<module>MarkeTourPersistence</module>
 		<module>MarkeTourPresentation</module>
 		<module>MarkeTourServices</module>
+		<module>MarkeTourBusiness</module>
 	</modules>
 </project>

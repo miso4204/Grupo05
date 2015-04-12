@@ -14,18 +14,25 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping class="com.marketour.domain.ProveedorPublicacion" />
-        <mapping class="com.marketour.domain.RedSocial" />
+        <mapping class="com.marketour.domain.TarjetaCredito" />
+        <mapping class="com.marketour.domain.Administrador" />
+        <mapping class="com.marketour.domain.Departamento" />
+        <mapping class="com.marketour.domain.ItemCompra" />
         <mapping class="com.marketour.domain.Producto" />
-        <mapping class="com.marketour.domain.Rol" />
-        <mapping class="com.marketour.domain.Moneda" />
         <mapping class="com.marketour.domain.MedioPago" />
-        <mapping class="com.marketour.domain.Factura" />
-        <mapping class="com.marketour.domain.Promocion" />
+        <mapping class="com.marketour.domain.TipoContenido" />
+        <mapping class="com.marketour.domain.Proveedor" />
+        <mapping class="com.marketour.domain.Ciudad" />
+        <mapping class="com.marketour.domain.Cliente" />
+        <mapping class="com.marketour.domain.FormaPago" />
+        <mapping class="com.marketour.domain.Contenido" />
+        <mapping class="com.marketour.domain.Disponibilidad" />
         <mapping class="com.marketour.domain.Usuario" />
-        <mapping class="com.marketour.domain.ClienteCompra" />
-        <mapping class="com.marketour.domain.RedesUsuario" />
         <mapping class="com.marketour.domain.Compra" />
-        <mapping class="com.marketour.domain.FacturaProducto" />
+        <mapping class="com.marketour.domain.Categoria" />
+        <mapping class="com.marketour.domain.PaqueteProducto" />
+        <mapping class="com.marketour.domain.ContraEntrega" />
+        <mapping class="com.marketour.domain.Paquete" />
+        <mapping class="com.marketour.domain.Pse" />
     </session-factory>
 </hibernate-configuration>

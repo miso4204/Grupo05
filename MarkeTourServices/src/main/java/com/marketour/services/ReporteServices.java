@@ -1,6 +1,5 @@
 package com.marketour.services;
 
-
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -17,18 +16,19 @@ import com.marketour.persistence.*;
 
 @Path("/ReporteServices")
 @Produces(MediaType.APPLICATION_JSON)
-public class ReporteServices 
-{
+public class ReporteServices {
 	@SuppressWarnings("rawtypes")
 	private Repository repositoryFactura;
 
 	@SuppressWarnings("rawtypes")
 	private Repository repositoryFacturaProducto;
-	
-	public ReporteServices() 
-	{
-		repositoryFactura = new com.marketour.persistence.Repository<Factura>(Factura.class);
-		repositoryFacturaProducto = new com.marketour.persistence.Repository<FacturaProducto>(	FacturaProducto.class);
+
+	public ReporteServices() {
+		// repositoryFactura = new
+		// com.marketour.persistence.Repository<Factura>(Factura.class);
+		// repositoryFacturaProducto = new
+		// com.marketour.persistence.Repository<FacturaProducto>(
+		// FacturaProducto.class);
 	}
 
 	@GET
@@ -36,8 +36,7 @@ public class ReporteServices
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repositoryFactura.FindAll()).build();
-	}	
-
+	}
 
 	@OPTIONS
 	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {

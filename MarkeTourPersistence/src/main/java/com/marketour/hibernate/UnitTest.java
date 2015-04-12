@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.marketour.domain.Moneda;
+import com.marketour.domain.TipoContenido;
 import com.marketour.persistence.Repository;
 
 import junit.framework.Test;
@@ -23,29 +23,34 @@ public class UnitTest extends TestCase {
 	}
 
 	public void testFindAll() {
-		Repository<Moneda> rep = new Repository<Moneda>(Moneda.class);
+		Repository<TipoContenido> rep = new Repository<TipoContenido>(
+				TipoContenido.class);
 		assertTrue(rep.FindAll().size() > 0);
 	}
 
 	public void testFindByColumn() {
-		Repository<Moneda> rep = new Repository<Moneda>(Moneda.class);
+		Repository<TipoContenido> rep = new Repository<TipoContenido>(
+				TipoContenido.class);
 		assertTrue(rep.FindByColumn("descripcion = 'TEST'").size() > 0);
 	}
 
 	public void testFindById() {
-		Repository<Moneda> rep = new Repository<Moneda>(Moneda.class);
+		Repository<TipoContenido> rep = new Repository<TipoContenido>(
+				TipoContenido.class);
 		assertTrue(rep.FindById(2).getId() > 0);
 	}
 
 	public void testPersist() {
-		Repository<Moneda> rep = new Repository<Moneda>(Moneda.class);
-		Moneda moneda = new Moneda();
-		moneda.setDescripcion("TEST");
-		assertTrue(rep.Persist(moneda).getId() > 0);
+		Repository<TipoContenido> rep = new Repository<TipoContenido>(
+				TipoContenido.class);
+		TipoContenido TipoContenido = new TipoContenido();
+		TipoContenido.setDescripcion("TEST");
+		assertTrue(rep.Persist(TipoContenido).getId() > 0);
 	}
 
 	public void testDelete() {
-		Repository<Moneda> rep = new Repository<Moneda>(Moneda.class);
+		Repository<TipoContenido> rep = new Repository<TipoContenido>(
+				TipoContenido.class);
 		rep.Delete(1);
 		assertTrue(true);
 	}

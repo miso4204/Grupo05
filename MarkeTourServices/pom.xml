@@ -16,7 +16,7 @@
 
 		<dependency>
 			<groupId>com.marketour</groupId>
-			<artifactId>MarkeTourPersistence</artifactId>
+			<artifactId>MarkeTourBusiness</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
