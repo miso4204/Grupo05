@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 12/04/2015 01:17:24 PM by Hibernate Tools 4.0.0
+// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
@@ -23,6 +23,8 @@ public class Ciudad  implements java.io.Serializable {
      private String descripcion;
      private int departamento;
      private String codigo;
+     private String latitud;
+     private String longitud;
      private int estado;
 
     public Ciudad() {
@@ -34,10 +36,12 @@ public class Ciudad  implements java.io.Serializable {
         this.codigo = codigo;
         this.estado = estado;
     }
-    public Ciudad(String descripcion, int departamento, String codigo, int estado) {
+    public Ciudad(String descripcion, int departamento, String codigo, String latitud, String longitud, int estado) {
        this.descripcion = descripcion;
        this.departamento = departamento;
        this.codigo = codigo;
+       this.latitud = latitud;
+       this.longitud = longitud;
        this.estado = estado;
     }
    
@@ -81,6 +85,26 @@ public class Ciudad  implements java.io.Serializable {
     
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    
+    @Column(name="latitud", length=50)
+    public String getLatitud() {
+        return this.latitud;
+    }
+    
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    
+    @Column(name="longitud", length=50)
+    public String getLongitud() {
+        return this.longitud;
+    }
+    
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 
     

@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 12/04/2015 01:17:24 PM by Hibernate Tools 4.0.0
+// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class PaqueteProducto  implements java.io.Serializable {
 
 
-     private Long id;
+     private Integer id;
      private Integer paquete;
      private Integer producto;
 
@@ -35,11 +35,11 @@ public class PaqueteProducto  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
