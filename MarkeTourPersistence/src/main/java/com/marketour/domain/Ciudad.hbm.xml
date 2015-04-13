@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/04/2015 01:17:25 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="com.marketour.domain.Ciudad" table="Ciudad" catalog="grupocre_marketour">
         <id name="id" type="java.lang.Integer">
@@ -16,6 +16,12 @@
         </property>
         <property name="codigo" type="string">
             <column name="codigo" length="50" not-null="true" />
+        </property>
+        <property name="latitud" type="string">
+            <column name="latitud" length="50" />
+        </property>
+        <property name="longitud" type="string">
+            <column name="longitud" length="50" />
         </property>
         <property name="estado" type="int">
             <column name="estado" not-null="true" />
