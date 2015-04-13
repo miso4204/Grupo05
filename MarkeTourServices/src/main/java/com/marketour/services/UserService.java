@@ -35,7 +35,8 @@ public class UserService {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticate(Usuario entity) {
+	public Response authenticate(Usuario entity) 
+	{
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.authenticate(entity.getLogin(), entity.getPassword())).build();
 	}
