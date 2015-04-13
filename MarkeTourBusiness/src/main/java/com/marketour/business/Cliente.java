@@ -1,4 +1,5 @@
 
+package com.marketour.business;
 
 /**
  * @author Andres
@@ -10,15 +11,28 @@ public class Cliente extends Usuario {
 	private CarritoCompra m_CarritoCompra;
 	private MedioPago m_MedioPago;
 	private Compra m_Compra;
+    private int id;
+    private String descripcion;
 
 	public Cliente(){
 
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	public Integer getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	public CarritoCompra getCarritoCompra(){
 		return m_CarritoCompra;
 	}
@@ -54,5 +68,8 @@ public class Cliente extends Usuario {
 	public void setMedioPago(MedioPago newVal){
 		m_MedioPago = newVal;
 	}
+
+
+	
 
 }

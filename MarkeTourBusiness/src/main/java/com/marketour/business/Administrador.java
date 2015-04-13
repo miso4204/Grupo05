@@ -1,4 +1,5 @@
 
+package com.marketour.business;
 
 /**
  * @author Andres
@@ -7,14 +8,25 @@
  */
 public class Administrador extends Usuario {
 
-	private String tipoAdministrador;
 
-	public Administrador(){
+    private int id;
+    private String descripcion;
 
+	public Integer getId() {
+		return id;
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 
 }

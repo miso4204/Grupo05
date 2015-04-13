@@ -1,4 +1,6 @@
 
+package com.marketour.business;
+import java.util.Date;
 
 /**
  * @author Andres

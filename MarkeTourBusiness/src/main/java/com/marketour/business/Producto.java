@@ -1,4 +1,5 @@
 
+package com.marketour.business;
 
 /**
  * @author Andres
@@ -18,7 +19,7 @@ public class Producto extends ItemCompra {
 	private ItemCompra m_ItemCompra;
 	private Contenido m_Contenido;
 	private Disponibilidad m_Disponibilidad;
-	private Publicacion m_Publicacion;
+	
 
 	public Producto(){
 
@@ -48,9 +49,6 @@ public class Producto extends ItemCompra {
 		return m_ItemCompra;
 	}
 
-	public Publicacion getPublicacion(){
-		return m_Publicacion;
-	}
 
 	/**
 	 * 
@@ -92,12 +90,5 @@ public class Producto extends ItemCompra {
 		m_ItemCompra = newVal;
 	}
 
-	/**
-	 * 
-	 * @param newVal
-	 */
-	public void setPublicacion(Publicacion newVal){
-		m_Publicacion = newVal;
-	}
-
+	
 }
