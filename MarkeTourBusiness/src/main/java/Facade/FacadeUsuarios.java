@@ -67,5 +67,26 @@ public class FacadeUsuarios
 		return repository.authenticate(login, pass);
 	}
 		
+	public  static Boolean RegistrarCliente(Cliente cliente)
+	{
+		Boolean registro=false;
+		
+		com.marketour.domain.Cliente dbCliente= new com.marketour.domain.Cliente();
+		com.marketour.domain.Usuario dbUsuario=new com.marketour.domain.Usuario();
+		
+		dbCliente.setDescripcion(cliente.getDescripcion());
+		dbCliente.setId(cliente.getId());
+		
+		dbUsuario.setCelular(cliente.getCelular());
+		dbUsuario.setCorreo(cliente.getCelular());
+		dbUsuario.setDireccion(cliente.getCelular());
+		dbUsuario.setEstado(cliente.getEstado());
+		dbUsuario.setLogin(cliente.getLogin());
+		dbUsuario.setNombre(cliente.getNombre());
+		dbUsuario.setPassword(cliente.getPassword());
+		dbUsuario.setTelefono(cliente.getTelefono());
+		return registro;
+	
+	}
 	
 }
