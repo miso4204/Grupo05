@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+
 import com.marketour.persistence.*;
 import com.marketour.business.Administrador;
 import com.marketour.business.Cliente;
 import com.marketour.business.Proveedor;
 import com.marketour.domain.Compra;
 import com.marketour.domain.Usuario;
+import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
 import com.marketour.persistence.RepositoryUser;
 
@@ -71,8 +74,13 @@ public class FacadeUsuarios
 	{
 		Boolean registro=false;
 		
+		RepositoryUser repositoryUser=new com.marketour.persistence.RepositoryUser();
+		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repositoryClient=new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(com.marketour.domain.Cliente.class);
+				
 		com.marketour.domain.Cliente dbCliente= new com.marketour.domain.Cliente();
 		com.marketour.domain.Usuario dbUsuario=new com.marketour.domain.Usuario();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		dbCliente.setDescripcion(cliente.getDescripcion());
 		dbCliente.setId(cliente.getId());
@@ -85,6 +93,58 @@ public class FacadeUsuarios
 		dbUsuario.setNombre(cliente.getNombre());
 		dbUsuario.setPassword(cliente.getPassword());
 		dbUsuario.setTelefono(cliente.getTelefono());
+		try
+		{
+			session.beginTransaction();
+			repositoryUser.Persist(dbUsuario);
+			repositoryClient.Persist(dbCliente);
+			session.getTransaction().commit();
+			registro=true;
+		}
+		catch( Exception ex)
+		{
+			registro=false;
+		}
+		return registro;
+		
+	}
+	
+	
+	public  static Boolean RegistrarProveedor(Proveedor proveedor)
+	{
+		Boolean registro=false;
+		
+		RepositoryUser repositoryUser=new com.marketour.persistence.RepositoryUser();
+		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repositoryProveedor=new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(com.marketour.domain.Proveedor.class);
+				
+		com.marketour.domain.Proveedor dbProveedor= new com.marketour.domain.Proveedor();
+		com.marketour.domain.Usuario dbUsuario=new com.marketour.domain.Usuario();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		dbProveedor.setDescripcion(proveedor.getDescripcion());
+		dbProveedor.setId(proveedor.getId());
+		
+		dbUsuario.setCelular(proveedor.getCelular());
+		dbUsuario.setCorreo(proveedor.getCelular());
+		dbUsuario.setDireccion(proveedor.getCelular());
+		dbUsuario.setEstado(proveedor.getEstado());
+		dbUsuario.setLogin(proveedor.getLogin());
+		dbUsuario.setNombre(proveedor.getNombre());
+		dbUsuario.setPassword(proveedor.getPassword());
+		dbUsuario.setTelefono(proveedor.getTelefono());
+		try
+		{
+			session.beginTransaction();
+			repositoryUser.Persist(dbUsuario);
+			repositoryProveedor.Persist(dbProveedor);
+			session.getTransaction().commit();
+			registro=true;
+		}
+		catch( Exception ex)
+		{
+			registro=false;
+		}
 		return registro;
 	
 	}
