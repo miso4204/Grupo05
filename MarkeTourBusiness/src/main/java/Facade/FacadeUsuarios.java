@@ -86,8 +86,8 @@ public class FacadeUsuarios
 		dbCliente.setId(cliente.getId());
 		
 		dbUsuario.setCelular(cliente.getCelular());
-		dbUsuario.setCorreo(cliente.getCelular());
-		dbUsuario.setDireccion(cliente.getCelular());
+		dbUsuario.setCorreo(cliente.getCorreo());
+		dbUsuario.setDireccion(cliente.getDireccion());
 		dbUsuario.setEstado(cliente.getEstado());
 		dbUsuario.setLogin(cliente.getLogin());
 		dbUsuario.setNombre(cliente.getNombre());
