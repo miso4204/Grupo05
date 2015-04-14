@@ -12,6 +12,9 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import Facade.FacadeUsuarios;
+
+import com.marketour.business.Cliente;
 import com.marketour.domain.*;
 import com.marketour.persistence.*;
 
@@ -57,12 +60,19 @@ public class UserService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(true).build();
 	}
-
+/*
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Persist(Usuario entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.Persist(entity)).build();
+	}
+	*/
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Persist(Cliente entity) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
 	}
 
 	@OPTIONS

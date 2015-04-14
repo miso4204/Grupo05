@@ -70,9 +70,9 @@ public class FacadeUsuarios
 		return repository.authenticate(login, pass);
 	}
 		
-	public  static Boolean RegistrarCliente(Cliente cliente)
+	public  static com.marketour.persistence.Repository<com.marketour.domain.Cliente> RegistrarCliente(Cliente cliente)
 	{
-		Boolean registro=false;
+		
 		
 		RepositoryUser repositoryUser=new com.marketour.persistence.RepositoryUser();
 		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repositoryClient=new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(com.marketour.domain.Cliente.class);
@@ -96,16 +96,16 @@ public class FacadeUsuarios
 		try
 		{
 			session.beginTransaction();
-			repositoryUser.Persist(dbUsuario);
+			dbCliente.setId(repositoryUser.Persist(dbUsuario).getId());
 			repositoryClient.Persist(dbCliente);
 			session.getTransaction().commit();
-			registro=true;
+			
 		}
 		catch( Exception ex)
 		{
-			registro=false;
+			
 		}
-		return registro;
+		return (Repository<com.marketour.domain.Cliente>) repositoryClient;
 		
 	}
 	

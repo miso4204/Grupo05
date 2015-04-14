@@ -1,11 +1,18 @@
 package com.marketour.business;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author Andres
  * @version 1.0
  * @created 13-abr.-2015 9:52:43 a. m.
  */
-public class Usuario {
+@Entity
+@Table(name="Usuario"
+    ,catalog="grupocre_marketour"
+)
+public class Usuario implements java.io.Serializable {
 
 		
     public Integer getId() {

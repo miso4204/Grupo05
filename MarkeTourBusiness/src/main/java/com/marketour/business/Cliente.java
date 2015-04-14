@@ -1,12 +1,19 @@
 
 package com.marketour.business;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author Andres
  * @version 1.0
  * @created 13-abr.-2015 9:52:32 a. m.
  */
-public class Cliente extends Usuario {
+@Entity
+@Table(name="Cliente"
+    ,catalog="grupocre_marketour"
+)
+public class Cliente  extends Usuario implements java.io.Serializable {
 
 	private CarritoCompra m_CarritoCompra;
 	private MedioPago m_MedioPago;
