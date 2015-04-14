@@ -18,10 +18,11 @@ import com.marketour.persistence.*;
 @Produces(MediaType.APPLICATION_JSON)
 public class ContentServices {
 
-	private RepositoryProduct repository;
+	private Repository<Contenido> repository;
 
 	public ContentServices() {
-		repository = new com.marketour.persistence.RepositoryProduct();
+		repository = new com.marketour.persistence.Repository<Contenido>(
+				Contenido.class);
 	}
 
 	@GET
@@ -40,38 +41,11 @@ public class ContentServices {
 	}
 
 	@GET
-	@Path("package/{id}")
+	@Path("product/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByPackage(@PathParam("id") int id) {
+	public Response FindByProduct(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByPackage(id)).build();
-	}
-
-	@GET
-	@Path("provider/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByProvider(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("proveedor = " + id)).build();
-	}
-
-	@GET
-	@Path("name/{data}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByName(@PathParam("data") String data) {
-		return Response
-				.status(200)
-				.header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("nombre LIKE '%" + data + "%'"))
-				.build();
-	}
-
-	@GET
-	@Path("category/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByCategory(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("categoria = " + id)).build();
+				.entity(repository.FindByColumn("producto =" + id)).build();
 	}
 
 	@DELETE
@@ -85,7 +59,7 @@ public class ContentServices {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Producto entity) {
+	public Response Persist(Contenido entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.Persist(entity)).build();
 	}
