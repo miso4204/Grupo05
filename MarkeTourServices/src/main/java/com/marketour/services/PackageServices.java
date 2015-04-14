@@ -77,7 +77,7 @@ public class PackageServices {
 				.entity(repository.Persist(entity)).build();
 	}
 
-	@PUT
+	@GET
 	@Path("{id}/product/{data}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response PersistProduct(@PathParam("id") int id,
