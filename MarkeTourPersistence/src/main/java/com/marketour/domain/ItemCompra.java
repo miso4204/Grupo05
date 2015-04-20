@@ -1,13 +1,16 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -15,24 +18,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="ItemCompra"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class ItemCompra  implements java.io.Serializable {
 
 
      private Integer id;
-     private Integer paquete;
-     private Integer producto;
-     private Integer compra;
+     private Producto producto;
+     private Paquete paquete;
+     private Compra compra;
      private BigDecimal valor;
      private Integer cantidad;
 
     public ItemCompra() {
     }
 
-    public ItemCompra(Integer paquete, Integer producto, Integer compra, BigDecimal valor, Integer cantidad) {
-       this.paquete = paquete;
+    public ItemCompra(Producto producto, Paquete paquete, Compra compra, BigDecimal valor, Integer cantidad) {
        this.producto = producto;
+       this.paquete = paquete;
        this.compra = compra;
        this.valor = valor;
        this.cantidad = cantidad;
@@ -50,33 +53,33 @@ public class ItemCompra  implements java.io.Serializable {
         this.id = id;
     }
 
-    
-    @Column(name="paquete")
-    public Integer getPaquete() {
-        return this.paquete;
-    }
-    
-    public void setPaquete(Integer paquete) {
-        this.paquete = paquete;
-    }
-
-    
-    @Column(name="producto")
-    public Integer getProducto() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="producto")
+    public Producto getProducto() {
         return this.producto;
     }
     
-    public void setProducto(Integer producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="paquete")
+    public Paquete getPaquete() {
+        return this.paquete;
+    }
     
-    @Column(name="compra")
-    public Integer getCompra() {
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="compra")
+    public Compra getCompra() {
         return this.compra;
     }
     
-    public void setCompra(Integer compra) {
+    public void setCompra(Compra compra) {
         this.compra = compra;
     }
 

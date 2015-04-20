@@ -1,13 +1,16 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,13 +20,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="Disponibilidad"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Disponibilidad  implements java.io.Serializable {
 
 
      private Integer id;
-     private int producto;
+     private Producto producto;
      private Date fechaInicio;
      private Date fechaFin;
      private Integer personas;
@@ -32,10 +35,10 @@ public class Disponibilidad  implements java.io.Serializable {
     }
 
 	
-    public Disponibilidad(int producto) {
+    public Disponibilidad(Producto producto) {
         this.producto = producto;
     }
-    public Disponibilidad(int producto, Date fechaInicio, Date fechaFin, Integer personas) {
+    public Disponibilidad(Producto producto, Date fechaInicio, Date fechaFin, Integer personas) {
        this.producto = producto;
        this.fechaInicio = fechaInicio;
        this.fechaFin = fechaFin;
@@ -54,13 +57,13 @@ public class Disponibilidad  implements java.io.Serializable {
         this.id = id;
     }
 
-    
-    @Column(name="producto", nullable=false)
-    public int getProducto() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="producto", nullable=false)
+    public Producto getProducto() {
         return this.producto;
     }
     
-    public void setProducto(int producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
 

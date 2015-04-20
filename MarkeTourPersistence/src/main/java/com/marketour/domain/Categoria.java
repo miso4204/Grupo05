@@ -1,12 +1,16 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Categoria"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Categoria  implements java.io.Serializable {
 
@@ -22,6 +26,7 @@ public class Categoria  implements java.io.Serializable {
      private Integer id;
      private String descripcion;
      private int estado;
+     private Set<Producto> productos = new HashSet<Producto>(0);
 
     public Categoria() {
     }
@@ -30,9 +35,10 @@ public class Categoria  implements java.io.Serializable {
     public Categoria(int estado) {
         this.estado = estado;
     }
-    public Categoria(String descripcion, int estado) {
+    public Categoria(String descripcion, int estado, Set<Producto> productos) {
        this.descripcion = descripcion;
        this.estado = estado;
+       this.productos = productos;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -65,6 +71,15 @@ public class Categoria  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="categoria")
+    public Set<Producto> getProductos() {
+        return this.productos;
+    }
+    
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
     }
 
 

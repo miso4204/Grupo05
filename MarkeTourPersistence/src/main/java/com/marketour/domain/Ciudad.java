@@ -1,12 +1,18 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,35 +20,37 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Ciudad"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Ciudad  implements java.io.Serializable {
 
 
      private Integer id;
+     private Departamento departamento;
      private String descripcion;
-     private int departamento;
      private String codigo;
      private String latitud;
      private String longitud;
      private int estado;
+     private Set<Producto> productos = new HashSet<Producto>(0);
 
     public Ciudad() {
     }
 
 	
-    public Ciudad(int departamento, String codigo, int estado) {
+    public Ciudad(Departamento departamento, String codigo, int estado) {
         this.departamento = departamento;
         this.codigo = codigo;
         this.estado = estado;
     }
-    public Ciudad(String descripcion, int departamento, String codigo, String latitud, String longitud, int estado) {
-       this.descripcion = descripcion;
+    public Ciudad(Departamento departamento, String descripcion, String codigo, String latitud, String longitud, int estado, Set<Producto> productos) {
        this.departamento = departamento;
+       this.descripcion = descripcion;
        this.codigo = codigo;
        this.latitud = latitud;
        this.longitud = longitud;
        this.estado = estado;
+       this.productos = productos;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -57,6 +65,16 @@ public class Ciudad  implements java.io.Serializable {
         this.id = id;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="departamento", nullable=false)
+    public Departamento getDepartamento() {
+        return this.departamento;
+    }
+    
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
     
     @Column(name="descripcion")
     public String getDescripcion() {
@@ -65,16 +83,6 @@ public class Ciudad  implements java.io.Serializable {
     
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    
-    @Column(name="departamento", nullable=false)
-    public int getDepartamento() {
-        return this.departamento;
-    }
-    
-    public void setDepartamento(int departamento) {
-        this.departamento = departamento;
     }
 
     
@@ -115,6 +123,15 @@ public class Ciudad  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudad")
+    public Set<Producto> getProductos() {
+        return this.productos;
+    }
+    
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
     }
 
 

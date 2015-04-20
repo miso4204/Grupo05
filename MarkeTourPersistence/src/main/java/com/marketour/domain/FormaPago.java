@@ -1,13 +1,17 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="FormaPago"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class FormaPago  implements java.io.Serializable {
 
@@ -24,6 +28,7 @@ public class FormaPago  implements java.io.Serializable {
      private String descripcion;
      private BigDecimal recargo;
      private int estado;
+     private Set<MedioPago> medioPagos = new HashSet<MedioPago>(0);
 
     public FormaPago() {
     }
@@ -32,10 +37,11 @@ public class FormaPago  implements java.io.Serializable {
     public FormaPago(int estado) {
         this.estado = estado;
     }
-    public FormaPago(String descripcion, BigDecimal recargo, int estado) {
+    public FormaPago(String descripcion, BigDecimal recargo, int estado, Set<MedioPago> medioPagos) {
        this.descripcion = descripcion;
        this.recargo = recargo;
        this.estado = estado;
+       this.medioPagos = medioPagos;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -78,6 +84,15 @@ public class FormaPago  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="formaPago")
+    public Set<MedioPago> getMedioPagos() {
+        return this.medioPagos;
+    }
+    
+    public void setMedioPagos(Set<MedioPago> medioPagos) {
+        this.medioPagos = medioPagos;
     }
 
 

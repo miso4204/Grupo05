@@ -1,12 +1,15 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,30 +17,30 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Contenido"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Contenido  implements java.io.Serializable {
 
 
      private Integer id;
-     private int producto;
+     private Producto producto;
+     private TipoContenido tipoContenido;
      private String contenido;
-     private Integer tipo;
      private int estado;
 
     public Contenido() {
     }
 
 	
-    public Contenido(int producto, String contenido, int estado) {
+    public Contenido(Producto producto, String contenido, int estado) {
         this.producto = producto;
         this.contenido = contenido;
         this.estado = estado;
     }
-    public Contenido(int producto, String contenido, Integer tipo, int estado) {
+    public Contenido(Producto producto, TipoContenido tipoContenido, String contenido, int estado) {
        this.producto = producto;
+       this.tipoContenido = tipoContenido;
        this.contenido = contenido;
-       this.tipo = tipo;
        this.estado = estado;
     }
    
@@ -53,14 +56,24 @@ public class Contenido  implements java.io.Serializable {
         this.id = id;
     }
 
-    
-    @Column(name="producto", nullable=false)
-    public int getProducto() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="producto", nullable=false)
+    public Producto getProducto() {
         return this.producto;
     }
     
-    public void setProducto(int producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="tipo")
+    public TipoContenido getTipoContenido() {
+        return this.tipoContenido;
+    }
+    
+    public void setTipoContenido(TipoContenido tipoContenido) {
+        this.tipoContenido = tipoContenido;
     }
 
     
@@ -71,16 +84,6 @@ public class Contenido  implements java.io.Serializable {
     
     public void setContenido(String contenido) {
         this.contenido = contenido;
-    }
-
-    
-    @Column(name="tipo")
-    public Integer getTipo() {
-        return this.tipo;
-    }
-    
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
     }
 
     

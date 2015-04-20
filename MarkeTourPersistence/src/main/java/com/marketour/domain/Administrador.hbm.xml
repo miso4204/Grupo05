@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.marketour.domain.Administrador" table="Administrador" catalog="grupocre_marketour">
+    <class name="com.marketour.domain.Administrador" table="Administrador" catalog="devfloor_marketour">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="foreign">
+                <param name="property">usuario</param>
+            </generator>
         </id>
+        <one-to-one name="usuario" class="com.marketour.domain.Usuario" constrained="true"></one-to-one>
         <property name="descripcion" type="string">
             <column name="descripcion" />
         </property>

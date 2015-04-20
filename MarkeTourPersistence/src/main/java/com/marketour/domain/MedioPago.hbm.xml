@@ -1,21 +1,30 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.marketour.domain.MedioPago" table="MedioPago" catalog="grupocre_marketour">
+    <class name="com.marketour.domain.MedioPago" table="MedioPago" catalog="devfloor_marketour">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="cliente" type="java.lang.Integer">
-            <column name="cliente" />
-        </property>
-        <property name="forma" type="java.lang.Integer">
+        <many-to-one name="formaPago" class="com.marketour.domain.FormaPago" fetch="select">
             <column name="forma" />
-        </property>
+        </many-to-one>
+        <many-to-one name="cliente" class="com.marketour.domain.Cliente" fetch="select">
+            <column name="cliente" />
+        </many-to-one>
         <property name="estado" type="java.lang.Integer">
             <column name="estado" />
         </property>
+        <one-to-one name="pse" class="com.marketour.domain.Pse"></one-to-one>
+        <set name="compras" table="Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="medioPago" />
+            </key>
+            <one-to-many class="com.marketour.domain.Compra" />
+        </set>
+        <one-to-one name="tarjetaCredito" class="com.marketour.domain.TarjetaCredito"></one-to-one>
+        <one-to-one name="contraEntrega" class="com.marketour.domain.ContraEntrega"></one-to-one>
     </class>
 </hibernate-mapping>

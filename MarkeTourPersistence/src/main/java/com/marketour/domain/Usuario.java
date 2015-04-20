@@ -1,12 +1,14 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Usuario"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Usuario  implements java.io.Serializable {
 
@@ -28,6 +30,9 @@ public class Usuario  implements java.io.Serializable {
      private String correo;
      private String direccion;
      private int estado;
+     private Administrador administrador;
+     private Proveedor proveedor;
+     private Cliente cliente;
 
     public Usuario() {
     }
@@ -38,7 +43,7 @@ public class Usuario  implements java.io.Serializable {
         this.password = password;
         this.estado = estado;
     }
-    public Usuario(String login, String password, String nombre, String telefono, String celular, String correo, String direccion, int estado) {
+    public Usuario(String login, String password, String nombre, String telefono, String celular, String correo, String direccion, int estado, Administrador administrador, Proveedor proveedor, Cliente cliente) {
        this.login = login;
        this.password = password;
        this.nombre = nombre;
@@ -47,6 +52,9 @@ public class Usuario  implements java.io.Serializable {
        this.correo = correo;
        this.direccion = direccion;
        this.estado = estado;
+       this.administrador = administrador;
+       this.proveedor = proveedor;
+       this.cliente = cliente;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -139,6 +147,33 @@ public class Usuario  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+    public Administrador getAdministrador() {
+        return this.administrador;
+    }
+    
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+    public Proveedor getProveedor() {
+        return this.proveedor;
+    }
+    
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+    
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
 

@@ -1,27 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.marketour.domain.Compra" table="Compra" catalog="grupocre_marketour">
+    <class name="com.marketour.domain.Compra" table="Compra" catalog="devfloor_marketour">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="cliente" type="java.lang.Integer">
+        <many-to-one name="medioPago" class="com.marketour.domain.MedioPago" fetch="select">
+            <column name="medioPago" />
+        </many-to-one>
+        <many-to-one name="cliente" class="com.marketour.domain.Cliente" fetch="select">
             <column name="cliente" />
-        </property>
+        </many-to-one>
         <property name="fecha" type="date">
             <column name="fecha" length="10" />
         </property>
         <property name="calificacion" type="java.lang.Integer">
             <column name="calificacion" />
         </property>
-        <property name="medioPago" type="java.lang.Integer">
-            <column name="medioPago" />
-        </property>
         <property name="estado" type="java.lang.Integer">
             <column name="estado" />
         </property>
+        <set name="itemCompras" table="ItemCompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="compra" />
+            </key>
+            <one-to-many class="com.marketour.domain.ItemCompra" />
+        </set>
     </class>
 </hibernate-mapping>

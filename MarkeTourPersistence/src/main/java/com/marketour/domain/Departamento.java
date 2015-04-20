@@ -1,12 +1,16 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Departamento"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Departamento  implements java.io.Serializable {
 
@@ -23,6 +27,7 @@ public class Departamento  implements java.io.Serializable {
      private String descripcion;
      private String codigo;
      private int estado;
+     private Set<Ciudad> ciudads = new HashSet<Ciudad>(0);
 
     public Departamento() {
     }
@@ -32,10 +37,11 @@ public class Departamento  implements java.io.Serializable {
         this.codigo = codigo;
         this.estado = estado;
     }
-    public Departamento(String descripcion, String codigo, int estado) {
+    public Departamento(String descripcion, String codigo, int estado, Set<Ciudad> ciudads) {
        this.descripcion = descripcion;
        this.codigo = codigo;
        this.estado = estado;
+       this.ciudads = ciudads;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -78,6 +84,15 @@ public class Departamento  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
+    public Set<Ciudad> getCiudads() {
+        return this.ciudads;
+    }
+    
+    public void setCiudads(Set<Ciudad> ciudads) {
+        this.ciudads = ciudads;
     }
 
 

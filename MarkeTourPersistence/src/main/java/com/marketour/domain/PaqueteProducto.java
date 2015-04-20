@@ -1,12 +1,15 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,21 +17,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="PaqueteProducto"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class PaqueteProducto  implements java.io.Serializable {
 
 
      private Integer id;
-     private Integer paquete;
-     private Integer producto;
+     private Producto producto;
+     private Paquete paquete;
 
     public PaqueteProducto() {
     }
 
-    public PaqueteProducto(Integer paquete, Integer producto) {
-       this.paquete = paquete;
+    public PaqueteProducto(Producto producto, Paquete paquete) {
        this.producto = producto;
+       this.paquete = paquete;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -43,24 +46,24 @@ public class PaqueteProducto  implements java.io.Serializable {
         this.id = id;
     }
 
-    
-    @Column(name="paquete")
-    public Integer getPaquete() {
-        return this.paquete;
-    }
-    
-    public void setPaquete(Integer paquete) {
-        this.paquete = paquete;
-    }
-
-    
-    @Column(name="producto")
-    public Integer getProducto() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="producto")
+    public Producto getProducto() {
         return this.producto;
     }
     
-    public void setProducto(Integer producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="paquete")
+    public Paquete getPaquete() {
+        return this.paquete;
+    }
+    
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
     }
 
 

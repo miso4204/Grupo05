@@ -9,16 +9,16 @@ import com.marketour.hibernate.HibernateUtil;
 @SuppressWarnings("unchecked")
 public class Repository<T> {
 
-	private Class<T> entity;
+	private Class<T> entityClass;
 
-	public Repository(Class<T> clazz) {
-		this.entity = clazz;
+	public Repository(Class<T> entityClass) {
+		this.entityClass = entityClass;
 	}
 
 	public List<T> FindAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<T> list = session.createCriteria(this.entity).list();
+		List<T> list = session.createCriteria(this.entityClass).list();
 		session.getTransaction().commit();
 		return list;
 	}
@@ -28,10 +28,12 @@ public class Repository<T> {
 		session.beginTransaction();
 		List<T> list = session.createQuery(
 				"FROM "
-						+ this.entity.toString().substring(
-								this.entity.toString().lastIndexOf(".") + 1,
-								this.entity.toString().length()) + " WHERE "
-						+ filter).list();
+						+ this.entityClass.toString()
+								.substring(
+										this.entityClass.toString()
+												.lastIndexOf(".") + 1,
+										this.entityClass.toString().length())
+						+ " WHERE " + filter).list();
 		session.getTransaction().commit();
 		return list;
 	}
@@ -39,7 +41,7 @@ public class Repository<T> {
 	public T FindById(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		T entity = (T) session.get(this.entity, id);
+		T entity = (T) session.get(this.entityClass, id);
 		session.getTransaction().commit();
 		return entity;
 	}

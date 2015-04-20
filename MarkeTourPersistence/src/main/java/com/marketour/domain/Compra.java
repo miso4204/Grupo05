@@ -1,13 +1,19 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,27 +23,29 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="Compra"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Compra  implements java.io.Serializable {
 
 
      private Integer id;
-     private Integer cliente;
+     private MedioPago medioPago;
+     private Cliente cliente;
      private Date fecha;
      private Integer calificacion;
-     private Integer medioPago;
      private Integer estado;
+     private Set<ItemCompra> itemCompras = new HashSet<ItemCompra>(0);
 
     public Compra() {
     }
 
-    public Compra(Integer cliente, Date fecha, Integer calificacion, Integer medioPago, Integer estado) {
+    public Compra(MedioPago medioPago, Cliente cliente, Date fecha, Integer calificacion, Integer estado, Set<ItemCompra> itemCompras) {
+       this.medioPago = medioPago;
        this.cliente = cliente;
        this.fecha = fecha;
        this.calificacion = calificacion;
-       this.medioPago = medioPago;
        this.estado = estado;
+       this.itemCompras = itemCompras;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -52,13 +60,23 @@ public class Compra  implements java.io.Serializable {
         this.id = id;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="medioPago")
+    public MedioPago getMedioPago() {
+        return this.medioPago;
+    }
     
-    @Column(name="cliente")
-    public Integer getCliente() {
+    public void setMedioPago(MedioPago medioPago) {
+        this.medioPago = medioPago;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="cliente")
+    public Cliente getCliente() {
         return this.cliente;
     }
     
-    public void setCliente(Integer cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -83,16 +101,6 @@ public class Compra  implements java.io.Serializable {
     }
 
     
-    @Column(name="medioPago")
-    public Integer getMedioPago() {
-        return this.medioPago;
-    }
-    
-    public void setMedioPago(Integer medioPago) {
-        this.medioPago = medioPago;
-    }
-
-    
     @Column(name="estado")
     public Integer getEstado() {
         return this.estado;
@@ -100,6 +108,15 @@ public class Compra  implements java.io.Serializable {
     
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="compra")
+    public Set<ItemCompra> getItemCompras() {
+        return this.itemCompras;
+    }
+    
+    public void setItemCompras(Set<ItemCompra> itemCompras) {
+        this.itemCompras = itemCompras;
     }
 
 

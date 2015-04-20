@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.marketour.domain.ContraEntrega" table="ContraEntrega" catalog="grupocre_marketour">
+    <class name="com.marketour.domain.ContraEntrega" table="ContraEntrega" catalog="devfloor_marketour">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="foreign">
+                <param name="property">medioPago</param>
+            </generator>
         </id>
+        <one-to-one name="medioPago" class="com.marketour.domain.MedioPago" constrained="true"></one-to-one>
         <property name="direccion" type="string">
             <column name="direccion" />
         </property>

@@ -1,13 +1,19 @@
 package com.marketour.domain;
-// Generated 13/04/2015 12:03:59 AM by Hibernate Tools 4.0.0
+// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,45 +21,53 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Producto"
-    ,catalog="grupocre_marketour"
+    ,catalog="devfloor_marketour"
 )
 public class Producto  implements java.io.Serializable {
 
 
      private Integer id;
-     private int proveedor;
+     private Proveedor proveedor;
+     private Ciudad ciudad;
+     private Categoria categoria;
      private String nombre;
      private String descripcion;
-     private int categoria;
      private BigDecimal valor;
      private Integer visitas;
      private Integer capacidad;
-     private Integer ubicacion;
      private String coordenadas;
      private int estado;
+     private Set<Disponibilidad> disponibilidads = new HashSet<Disponibilidad>(0);
+     private Set<ItemCompra> itemCompras = new HashSet<ItemCompra>(0);
+     private Set<PaqueteProducto> paqueteProductos = new HashSet<PaqueteProducto>(0);
+     private Set<Contenido> contenidos = new HashSet<Contenido>(0);
 
     public Producto() {
     }
 
 	
-    public Producto(int proveedor, String nombre, int categoria, BigDecimal valor, int estado) {
+    public Producto(Proveedor proveedor, Categoria categoria, String nombre, BigDecimal valor, int estado) {
         this.proveedor = proveedor;
-        this.nombre = nombre;
         this.categoria = categoria;
+        this.nombre = nombre;
         this.valor = valor;
         this.estado = estado;
     }
-    public Producto(int proveedor, String nombre, String descripcion, int categoria, BigDecimal valor, Integer visitas, Integer capacidad, Integer ubicacion, String coordenadas, int estado) {
+    public Producto(Proveedor proveedor, Ciudad ciudad, Categoria categoria, String nombre, String descripcion, BigDecimal valor, Integer visitas, Integer capacidad, String coordenadas, int estado, Set<Disponibilidad> disponibilidads, Set<ItemCompra> itemCompras, Set<PaqueteProducto> paqueteProductos, Set<Contenido> contenidos) {
        this.proveedor = proveedor;
+       this.ciudad = ciudad;
+       this.categoria = categoria;
        this.nombre = nombre;
        this.descripcion = descripcion;
-       this.categoria = categoria;
        this.valor = valor;
        this.visitas = visitas;
        this.capacidad = capacidad;
-       this.ubicacion = ubicacion;
        this.coordenadas = coordenadas;
        this.estado = estado;
+       this.disponibilidads = disponibilidads;
+       this.itemCompras = itemCompras;
+       this.paqueteProductos = paqueteProductos;
+       this.contenidos = contenidos;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -68,14 +82,34 @@ public class Producto  implements java.io.Serializable {
         this.id = id;
     }
 
-    
-    @Column(name="proveedor", nullable=false)
-    public int getProveedor() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="proveedor", nullable=false)
+    public Proveedor getProveedor() {
         return this.proveedor;
     }
     
-    public void setProveedor(int proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ubicacion")
+    public Ciudad getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="categoria", nullable=false)
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+    
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     
@@ -96,16 +130,6 @@ public class Producto  implements java.io.Serializable {
     
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    
-    @Column(name="categoria", nullable=false)
-    public int getCategoria() {
-        return this.categoria;
-    }
-    
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
     }
 
     
@@ -139,16 +163,6 @@ public class Producto  implements java.io.Serializable {
     }
 
     
-    @Column(name="ubicacion")
-    public Integer getUbicacion() {
-        return this.ubicacion;
-    }
-    
-    public void setUbicacion(Integer ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    
     @Column(name="coordenadas", length=50)
     public String getCoordenadas() {
         return this.coordenadas;
@@ -166,6 +180,42 @@ public class Producto  implements java.io.Serializable {
     
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="producto")
+    public Set<Disponibilidad> getDisponibilidads() {
+        return this.disponibilidads;
+    }
+    
+    public void setDisponibilidads(Set<Disponibilidad> disponibilidads) {
+        this.disponibilidads = disponibilidads;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="producto")
+    public Set<ItemCompra> getItemCompras() {
+        return this.itemCompras;
+    }
+    
+    public void setItemCompras(Set<ItemCompra> itemCompras) {
+        this.itemCompras = itemCompras;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="producto")
+    public Set<PaqueteProducto> getPaqueteProductos() {
+        return this.paqueteProductos;
+    }
+    
+    public void setPaqueteProductos(Set<PaqueteProducto> paqueteProductos) {
+        this.paqueteProductos = paqueteProductos;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="producto")
+    public Set<Contenido> getContenidos() {
+        return this.contenidos;
+    }
+    
+    public void setContenidos(Set<Contenido> contenidos) {
+        this.contenidos = contenidos;
     }
 
 

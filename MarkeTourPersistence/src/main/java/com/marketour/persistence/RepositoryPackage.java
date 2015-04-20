@@ -22,8 +22,8 @@ public class RepositoryPackage extends Repository<Paquete> {
 			Repository repositoryRelation = new com.marketour.persistence.Repository<PaqueteProducto>(
 					PaqueteProducto.class);
 			PaqueteProducto relation = new PaqueteProducto();
-			relation.setPaquete(id);
-			relation.setProducto(data);
+			// relation.setPaquete(id);
+			// relation.setProducto(data);
 			repositoryRelation.Persist(relation);
 			result = true;
 		}

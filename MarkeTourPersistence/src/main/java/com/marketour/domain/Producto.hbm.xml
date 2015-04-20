@@ -1,24 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/04/2015 12:04:00 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.marketour.domain.Producto" table="Producto" catalog="grupocre_marketour">
+    <class name="com.marketour.domain.Producto" table="Producto" catalog="devfloor_marketour">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="proveedor" type="int">
+        <many-to-one name="proveedor" class="com.marketour.domain.Proveedor" fetch="select">
             <column name="proveedor" not-null="true" />
-        </property>
+        </many-to-one>
+        <many-to-one name="ciudad" class="com.marketour.domain.Ciudad" fetch="select">
+            <column name="ubicacion" />
+        </many-to-one>
+        <many-to-one name="categoria" class="com.marketour.domain.Categoria" fetch="select">
+            <column name="categoria" not-null="true" />
+        </many-to-one>
         <property name="nombre" type="string">
             <column name="nombre" length="50" not-null="true" />
         </property>
         <property name="descripcion" type="string">
             <column name="descripcion" />
-        </property>
-        <property name="categoria" type="int">
-            <column name="categoria" not-null="true" />
         </property>
         <property name="valor" type="big_decimal">
             <column name="valor" precision="10" not-null="true" />
@@ -29,14 +32,35 @@
         <property name="capacidad" type="java.lang.Integer">
             <column name="capacidad" />
         </property>
-        <property name="ubicacion" type="java.lang.Integer">
-            <column name="ubicacion" />
-        </property>
         <property name="coordenadas" type="string">
             <column name="coordenadas" length="50" />
         </property>
         <property name="estado" type="int">
             <column name="estado" not-null="true" />
         </property>
+        <set name="disponibilidads" table="Disponibilidad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="producto" not-null="true" />
+            </key>
+            <one-to-many class="com.marketour.domain.Disponibilidad" />
+        </set>
+        <set name="itemCompras" table="ItemCompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="producto" />
+            </key>
+            <one-to-many class="com.marketour.domain.ItemCompra" />
+        </set>
+        <set name="paqueteProductos" table="PaqueteProducto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="producto" />
+            </key>
+            <one-to-many class="com.marketour.domain.PaqueteProducto" />
+        </set>
+        <set name="contenidos" table="Contenido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="producto" not-null="true" />
+            </key>
+            <one-to-many class="com.marketour.domain.Contenido" />
+        </set>
     </class>
 </hibernate-mapping>
