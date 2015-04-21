@@ -1,0 +1,70 @@
+<!doctype html >
+<html lang="es-Es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>MarkeTour</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+<script src="javascript/App.js"></script>
+<script src="javascript/ShoppingCartCtrl.js"></script>
+
+</head>
+<body ng-app="MarkeTour">
+	<div ng-controller="ShoppingCartCtrl">
+		<div class="panel panel-primary">
+			<div class="panel-heading text-center">
+				<h3 class="panel-title">Carrito de Compas</h3>
+			</div>
+			<div class="panel-body" style="margin-left: 15%; margin-right: 15%">
+				<div style="float: left; width: 60%">
+					<label style="font-size: 30px; font-family: sans-serif">Tu
+						carrito</label>
+						<button class="btn btn-large btn-info" type="button" onclick="localStorage.removeItem('articulos');">Limpiar Carrito  <i class="glyphicon glyphicon-trash"></i></button>
+					<div ng-repeat="item in allItems " style="margin: 3%; box-shadow: 2px 2px 5px #5F8CF5; border-radius: 5px">
+						<table>
+							<tr style="vertical-align: top;">
+								<td><IMG SRC="imagenes/beach.png" style="float: none;"
+									height="100px" width="120px"></td>
+								<td><label style="font-size: 20px; font-family: sans-serif">{{item.nombre}}</label> <br> <label
+									style="font-size: 10px; font-family: sans-serif">{{item.descripcion}}</label> <br> <label
+									style="font-size: 15px; font-family: sans-serif">$ {{item.valor}}</label></td>
+							</tr>
+						</table>
+						
+					</div>
+					
+				</div>
+				
+				<div
+					style="float: left; width: 40%; box-shadow: 2px 2px 5px #5F8CF5; border-radius: 5px; background-color: #D0DBF0">
+					<label
+						style="color: white; font-size: 15px; text-align: center; width: 100%; background-color: #5F8CF5; border-top-left-radius: 3px; border-top-right-radius: 3px">Resumen
+						Compra</label>
+					<div style="margin: 3%">
+						<label
+							style="font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{totalPlanes}}</label>
+					</div>
+					<div style="margin: 3%">
+						<label 	style="font-size: 30px; font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{total}}</label>
+					</div>
+					<div style="margin: 3%">
+						Formas de pago aceptadas: <br> <IMG
+							SRC="imagenes/mastercard.png" height="35px" width="60px">&nbsp<IMG
+							SRC="imagenes/visa.png" height="35px" width="60px">&nbsp<IMG
+							SRC="imagenes/cash_delivery.png" height="35px" width="60px"
+							style="border-radius: 3px"> <br>
+						<button
+							style="color: white; font-size: 30px; font-family: sans-serif; background-color: #5F8CF5; text-align: center; width: 100%; border-radius: 10px;">Comprar
+							ahora</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
