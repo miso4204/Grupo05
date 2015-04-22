@@ -1,6 +1,7 @@
 package Facade;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,30 @@ public class FacadeUsuarios
 		return bCliente;
 		
 	}
+	public static List<Cliente> ConsultarClientes()
+	{
+		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repository;
+		repository = new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(com.marketour.domain.Cliente.class);
+		List<com.marketour.domain.Cliente> lstCliente=repository.FindAll();
+		List<com.marketour.business.Cliente> ListaCliente=new ArrayList<Cliente>();
+		for (com.marketour.domain.Cliente cliente2 : lstCliente) 
+		{	
+			
+			Cliente bCliente=new Cliente();
+			bCliente.setDescripcion(cliente2.getDescripcion());
+			bCliente.setId(cliente2.getId());
+			bCliente.setCelular(cliente2.getUsuario().getCelular());
+			bCliente.setCorreo(cliente2.getUsuario().getCorreo());
+			bCliente.setDireccion(cliente2.getUsuario().getCorreo());
+			bCliente.setEstado(cliente2.getUsuario().getEstado());
+			bCliente.setLogin(cliente2.getUsuario().getLogin());
+			bCliente.setNombre(cliente2.getUsuario().getNombre());
+			bCliente.setTelefono(cliente2.getUsuario().getTelefono());
+			ListaCliente.add(bCliente);
+		}
+		return ListaCliente;
+		
+	}
 	public static Proveedor ConsultarProveedor(int id)
 	{
 		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repository;
@@ -63,6 +88,7 @@ public class FacadeUsuarios
 		return bAdministrador;
 		
 	}
+	
 
 	public static Map<String, String> authenticate(String login, String pass)
 	{

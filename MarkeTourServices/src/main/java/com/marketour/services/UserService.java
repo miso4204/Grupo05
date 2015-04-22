@@ -33,7 +33,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindAll()).build();
+				.entity(FacadeUsuarios.ConsultarClientes()).build();
 	}
 	
 	@POST
