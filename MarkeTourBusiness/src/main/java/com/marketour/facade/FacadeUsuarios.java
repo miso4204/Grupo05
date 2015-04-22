@@ -19,8 +19,7 @@ import com.marketour.persistence.Repository;
 import com.marketour.persistence.RepositoryUser;
 
 public class FacadeUsuarios 
-{
-	
+{	
 	
 	public FacadeUsuarios() 
 	{
