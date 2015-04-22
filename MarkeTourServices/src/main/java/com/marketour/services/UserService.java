@@ -35,13 +35,15 @@ public class UserService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.FindAll()).build();
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticate(Usuario entity) 
-	{
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.authenticate(entity.getLogin(), entity.getPassword())).build();
+	public Response authenticate(Usuario entity) {
+		return Response
+				.status(200)
+				.header("Access-Control-Allow-Origin", "*")
+				.entity(repository.authenticate(entity.getLogin(),
+						entity.getPassword())).build();
 	}
 
 	@GET
@@ -60,14 +62,15 @@ public class UserService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(true).build();
 	}
-/*
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Usuario entity) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
-	}
-	*/
+
+	/*
+	 * @PUT
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public Response Persist(Usuario
+	 * entity) { return
+	 * Response.status(200).header("Access-Control-Allow-Origin", "*")
+	 * .entity(repository.Persist(entity)).build(); }
+	 */
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Persist(Cliente entity) {

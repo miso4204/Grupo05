@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/04/2015 12:40:09 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated 21/04/2015 08:03:18 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="com.marketour.domain.Producto" table="Producto" catalog="devfloor_marketour">
         <id name="id" type="java.lang.Integer">
@@ -50,11 +50,13 @@
             </key>
             <one-to-many class="com.marketour.domain.ItemCompra" />
         </set>
-        <set name="paqueteProductos" table="PaqueteProducto" inverse="true" lazy="true" fetch="select">
+        <set name="paquetes" table="Paquete_Producto" inverse="false" lazy="true" fetch="select">
             <key>
-                <column name="producto" />
+                <column name="producto" not-null="true" />
             </key>
-            <one-to-many class="com.marketour.domain.PaqueteProducto" />
+            <many-to-many entity-name="com.marketour.domain.Paquete">
+                <column name="paquete" not-null="true" />
+            </many-to-many>
         </set>
         <set name="contenidos" table="Contenido" inverse="true" lazy="true" fetch="select">
             <key>

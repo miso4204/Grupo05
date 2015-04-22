@@ -36,7 +36,6 @@
 		<mapping class="com.marketour.domain.Usuario" />
 		<mapping class="com.marketour.domain.Compra" />
 		<mapping class="com.marketour.domain.Categoria" />
-		<mapping class="com.marketour.domain.PaqueteProducto" />
 		<mapping class="com.marketour.domain.ContraEntrega" />
 		<mapping class="com.marketour.domain.Paquete" />
 		<mapping class="com.marketour.domain.Promocion" />

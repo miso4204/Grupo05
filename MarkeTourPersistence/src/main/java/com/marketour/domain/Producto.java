@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
+// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;
@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,7 +41,7 @@ public class Producto  implements java.io.Serializable {
      private int estado;
      private Set<Disponibilidad> disponibilidads = new HashSet<Disponibilidad>(0);
      private Set<ItemCompra> itemCompras = new HashSet<ItemCompra>(0);
-     private Set<PaqueteProducto> paqueteProductos = new HashSet<PaqueteProducto>(0);
+     private Set<Paquete> paquetes = new HashSet<Paquete>(0);
      private Set<Contenido> contenidos = new HashSet<Contenido>(0);
 
     public Producto() {
@@ -53,7 +55,7 @@ public class Producto  implements java.io.Serializable {
         this.valor = valor;
         this.estado = estado;
     }
-    public Producto(Proveedor proveedor, Ciudad ciudad, Categoria categoria, String nombre, String descripcion, BigDecimal valor, Integer visitas, Integer capacidad, String coordenadas, int estado, Set<Disponibilidad> disponibilidads, Set<ItemCompra> itemCompras, Set<PaqueteProducto> paqueteProductos, Set<Contenido> contenidos) {
+    public Producto(Proveedor proveedor, Ciudad ciudad, Categoria categoria, String nombre, String descripcion, BigDecimal valor, Integer visitas, Integer capacidad, String coordenadas, int estado, Set<Disponibilidad> disponibilidads, Set<ItemCompra> itemCompras, Set<Paquete> paquetes, Set<Contenido> contenidos) {
        this.proveedor = proveedor;
        this.ciudad = ciudad;
        this.categoria = categoria;
@@ -66,7 +68,7 @@ public class Producto  implements java.io.Serializable {
        this.estado = estado;
        this.disponibilidads = disponibilidads;
        this.itemCompras = itemCompras;
-       this.paqueteProductos = paqueteProductos;
+       this.paquetes = paquetes;
        this.contenidos = contenidos;
     }
    
@@ -200,13 +202,16 @@ public class Producto  implements java.io.Serializable {
         this.itemCompras = itemCompras;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="producto")
-    public Set<PaqueteProducto> getPaqueteProductos() {
-        return this.paqueteProductos;
+@ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="Paquete_Producto", catalog="devfloor_marketour", joinColumns = { 
+        @JoinColumn(name="producto", nullable=false, updatable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="paquete", nullable=false, updatable=false) })
+    public Set<Paquete> getPaquetes() {
+        return this.paquetes;
     }
     
-    public void setPaqueteProductos(Set<PaqueteProducto> paqueteProductos) {
-        this.paqueteProductos = paqueteProductos;
+    public void setPaquetes(Set<Paquete> paquetes) {
+        this.paquetes = paquetes;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="producto")

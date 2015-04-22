@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 20/04/2015 12:40:07 PM by Hibernate Tools 4.0.0
+// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;

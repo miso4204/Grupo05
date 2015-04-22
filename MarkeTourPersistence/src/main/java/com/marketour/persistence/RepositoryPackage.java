@@ -8,7 +8,7 @@ public class RepositoryPackage extends Repository<Paquete> {
 		super(Paquete.class);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public boolean PersistProduct(int id, int data) {
 		RepositoryProduct repositoryProduct = new com.marketour.persistence.RepositoryProduct();
 		boolean exists = false;
@@ -18,29 +18,30 @@ public class RepositoryPackage extends Repository<Paquete> {
 				exists = true;
 			}
 		}
-		if (!exists) {
-			Repository repositoryRelation = new com.marketour.persistence.Repository<PaqueteProducto>(
-					PaqueteProducto.class);
-			PaqueteProducto relation = new PaqueteProducto();
-			// relation.setPaquete(id);
-			// relation.setProducto(data);
-			repositoryRelation.Persist(relation);
-			result = true;
-		}
+		/*
+		 * if (!exists) { Repository repositoryRelation = new
+		 * com.marketour.persistence.Repository<PaqueteProducto>(
+		 * PaqueteProducto.class); PaqueteProducto relation = new
+		 * PaqueteProducto(); // relation.setPaquete(id); //
+		 * relation.setProducto(data); repositoryRelation.Persist(relation);
+		 * result = true; }
+		 */
 		return result;
 	}
 
 	public boolean DeleteProduct(int id, int data) {
-		Repository<PaqueteProducto> repositoryRelation = new com.marketour.persistence.Repository<PaqueteProducto>(
-				PaqueteProducto.class);
+		/*
+		 * Repository<PaqueteProducto> repositoryRelation = new
+		 * com.marketour.persistence.Repository<PaqueteProducto>(
+		 * PaqueteProducto.class);
+		 */
 		boolean result = false;
-		for (PaqueteProducto relation : repositoryRelation
-				.FindByColumn("paquete = " + id)) {
-			if (relation.getProducto().equals(data)) {
-				repositoryRelation.Delete(relation.getId());
-				result = true;
-			}
-		}
+		/*
+		 * for (PaqueteProducto relation : repositoryRelation
+		 * .FindByColumn("paquete = " + id)) { if
+		 * (relation.getProducto().equals(data)) {
+		 * repositoryRelation.Delete(relation.getId()); result = true; } }
+		 */
 		return result;
 	}
 }
