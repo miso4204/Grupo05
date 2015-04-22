@@ -76,7 +76,33 @@ public class Cliente  extends Usuario implements java.io.Serializable {
 		m_MedioPago = newVal;
 	}
 
-
+	
+	public static Cliente ConvertToBCliente(com.marketour.domain.Cliente cliente)
+    {
+		
+		Cliente bCliente=new Cliente();
+		bCliente.setDescripcion(cliente.getDescripcion());
+		bCliente.setId(cliente.getId());
+		
+		bCliente.setCelular(cliente.getUsuario().getCelular());
+		bCliente.setCorreo(cliente.getUsuario().getCorreo());
+		bCliente.setDireccion(cliente.getUsuario().getCorreo());
+		bCliente.setEstado(cliente.getUsuario().getEstado());
+		bCliente.setLogin(cliente.getUsuario().getLogin());
+		bCliente.setNombre(cliente.getUsuario().getNombre());
+		bCliente.setTelefono(cliente.getUsuario().getTelefono());
+		return bCliente;
+    	
+    }
+	public static com.marketour.domain.Cliente ConvertToDBProduct(Cliente cliente)
+    {
+		com.marketour.domain.Cliente dbcliente=new com.marketour.domain.Cliente();
+		
+		dbcliente.setDescripcion(cliente.getDescripcion());
+		dbcliente.setId(cliente.getId());
+		return dbcliente;
+    	
+    }
 	
 
 }

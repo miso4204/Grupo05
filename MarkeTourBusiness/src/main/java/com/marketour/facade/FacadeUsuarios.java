@@ -35,7 +35,7 @@ public class FacadeUsuarios
 		bCliente.setDescripcion(cliente.getDescripcion());
 		bCliente.setId(cliente.getId());
 		
-		return bCliente;
+		return Cliente.ConvertToBCliente(cliente);
 		
 	}
 	public static List<Cliente> ConsultarClientes()
@@ -46,18 +46,7 @@ public class FacadeUsuarios
 		List<com.marketour.business.Cliente> ListaCliente=new ArrayList<Cliente>();
 		for (com.marketour.domain.Cliente cliente2 : lstCliente) 
 		{	
-			
-			Cliente bCliente=new Cliente();
-			bCliente.setDescripcion(cliente2.getDescripcion());
-			bCliente.setId(cliente2.getId());
-			bCliente.setCelular(cliente2.getUsuario().getCelular());
-			bCliente.setCorreo(cliente2.getUsuario().getCorreo());
-			bCliente.setDireccion(cliente2.getUsuario().getCorreo());
-			bCliente.setEstado(cliente2.getUsuario().getEstado());
-			bCliente.setLogin(cliente2.getUsuario().getLogin());
-			bCliente.setNombre(cliente2.getUsuario().getNombre());
-			bCliente.setTelefono(cliente2.getUsuario().getTelefono());
-			ListaCliente.add(bCliente);
+			ListaCliente.add(Cliente.ConvertToBCliente(cliente2));
 		}
 		return ListaCliente;
 		
