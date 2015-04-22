@@ -12,10 +12,9 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import Facade.FacadeUsuarios;
-
 import com.marketour.business.Cliente;
 import com.marketour.domain.*;
+import com.marketour.facade.FacadeUsuarios;
 import com.marketour.persistence.*;
 
 @Path("/UserService")
