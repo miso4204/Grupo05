@@ -48,7 +48,7 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByProvider(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("proveedor = " + id)).build();
+				.entity(FacadeProductos.ConsultarPaquete(id)).build();
 	}
 
 	@GET

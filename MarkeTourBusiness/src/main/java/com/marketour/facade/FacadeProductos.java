@@ -38,19 +38,32 @@ public class FacadeProductos
 	public static Paquete ConsultarPaquete(int id)
 	{
 		Paquete paquete=new Paquete();
-		
-		return paquete;
+		com.marketour.persistence.Repository<com.marketour.domain.Paquete> repository= new com.marketour.persistence.Repository<com.marketour.domain.Paquete>(com.marketour.domain.Paquete.class);
+		return Paquete.ConvertToBProduct(repository.FindById(id));
 	}
 	public static Producto ConsultarProducto(int id)
 	{
 		Producto producto=new Producto();
 		
-		return producto;
+		com.marketour.persistence.Repository<com.marketour.domain.Producto> repository= new com.marketour.persistence.Repository<com.marketour.domain.Producto>(com.marketour.domain.Producto.class);
+		return Producto.ConvertToBProduct(repository.FindById(id));
+		
 	}
 	public static List<Paquete> ConsultarPaquetesXProveedor(int idProveedor)
 	{
 		List<Paquete> lstPaquete=new ArrayList<Paquete>();
+		List<com.marketour.domain.Paquete> lstdPaquete=new ArrayList<com.marketour.domain.Paquete>();
 		
+		com.marketour.persistence.Repository<com.marketour.domain.Paquete> repository= new com.marketour.persistence.Repository<com.marketour.domain.Paquete>(com.marketour.domain.Paquete.class);
+		lstdPaquete=repository.FindByColumn("proveedor = " + idProveedor);
+		for (com.marketour.domain.Paquete paquete : lstdPaquete) 
+		{
+			Paquete pac=new Paquete();
+			pac=Paquete.ConvertToBProduct(paquete);			
+			com.marketour.persistence.Repository<com.marketour.domain.Producto> repository1= new com.marketour.persistence.Repository<com.marketour.domain.Producto>(com.marketour.domain.Producto.class);
+			//repository1.FindByColumn("paquete = " + paquete.getId());
+			lstPaquete.add(pac);
+		}
 		return lstPaquete;
 	}
 	public static List<Paquete> ConsultarPaquetesTodos()
@@ -63,10 +76,10 @@ public class FacadeProductos
 		for (com.marketour.domain.Paquete paquete : lstdPaquete) 
 		{
 			Paquete pac=new Paquete();
-			pac.ConvertToBProduct(paquete);			
+			pac=Paquete.ConvertToBProduct(paquete);			
 			com.marketour.persistence.Repository<com.marketour.domain.Producto> repository1= new com.marketour.persistence.Repository<com.marketour.domain.Producto>(com.marketour.domain.Producto.class);
 			//repository1.FindByColumn("paquete = " + paquete.getId());
-			
+			lstPaquete.add(pac);
 		}
 		return lstPaquete;
 	}

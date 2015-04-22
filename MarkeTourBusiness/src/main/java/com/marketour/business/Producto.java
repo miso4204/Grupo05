@@ -133,7 +133,7 @@ public class Producto extends ItemCompra {
 		return pro;
     	
     }
-	public static com.marketour.domain.Producto ConvertToBProduct(Producto producto)
+	public static com.marketour.domain.Producto ConvertToDBProduct(Producto producto)
     {
 		com.marketour.domain.Producto pro=new com.marketour.domain.Producto();
 		//pro.setActivo(producto.getActivo());
