@@ -36,7 +36,7 @@ public class FacadeProductos
 		List<com.marketour.domain.Producto> lstdProducto=new ArrayList<com.marketour.domain.Producto>();
 		
 		com.marketour.persistence.Repository<com.marketour.domain.Producto> repository= new com.marketour.persistence.Repository<com.marketour.domain.Producto>(com.marketour.domain.Producto.class);
-		lstdProducto=repository.FindByColumn("proveedor = " + idPaquete);
+		lstdProducto=repository.FindByColumn("paquetes = " + idPaquete);
 		for (com.marketour.domain.Producto producto : lstdProducto) 
 		{
 			Producto pac=new Producto();

@@ -29,7 +29,7 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindAll()).build();
+				.entity(FacadeProductos.ConsultarPaquetesTodos()).build();
 	}
 
 	@GET

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class Producto  implements Serializable {
 
 	private int activo;
-	private int capacidad;
+	private Integer capacidad;
 	private String cordenadas;
 	private String descripcion;
 	private String nombre;
@@ -34,11 +34,11 @@ public class Producto  implements Serializable {
 		this.activo = activo;
 	}
 
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
@@ -78,11 +78,11 @@ public class Producto  implements Serializable {
 		return Categoria;
 	}
 
-	public void setM_Categoria(Categoria Categoria) {
+	public void setCategoria(Categoria Categoria) {
 		this.Categoria = Categoria;
 	}
 
-	public Ciudad getM_Ciudad() {
+	public Ciudad getCiudad() {
 		return Ciudad;
 	}
 
@@ -131,6 +131,10 @@ public class Producto  implements Serializable {
 		pro.setDescripcion(producto.getDescripcion());
 		pro.setNombre(producto.getNombre());
 		pro.setValor(producto.getValor());
+		pro.setCiudad(com.marketour.business.Ciudad.ConvertToBCiudad(producto.getCiudad()));
+		pro.setContenido(new Contenido());
+		pro.setItemCompra(new ItemCompra());
+		
 		return pro;
     	
     }

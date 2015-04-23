@@ -1,12 +1,14 @@
 
 package com.marketour.business;
 
+import java.io.Serializable;
+
 /**
  * @author Andres
  * @version 1.0
  * @created 13-abr.-2015 9:52:27 a. m.
  */
-public class Administrador extends Usuario {
+public class Administrador extends Usuario implements Serializable {
 
 
     private int id;
