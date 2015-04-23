@@ -1,6 +1,7 @@
 
 package com.marketour.business;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
  * @version 1.0
  * @created 13-abr.-2015 9:52:39 a. m.
  */
-public class Producto extends ItemCompra {
+public class Producto  implements Serializable {
 
 	private int activo;
 	private int capacidad;
@@ -18,11 +19,11 @@ public class Producto extends ItemCompra {
 	private String descripcion;
 	private String nombre;
 	private BigDecimal valor;
-	private Categoria m_Categoria;
-	private Ciudad m_Ciudad;
-	private ItemCompra m_ItemCompra;
-	private Contenido m_Contenido;
-	private Disponibilidad m_Disponibilidad;
+	private Categoria Categoria;
+	private Ciudad Ciudad;
+	private ItemCompra ItemCompra;
+	private Contenido Contenido;
+	private Disponibilidad Disponibilidad;
 	
 
 	public int getActivo() {
@@ -73,44 +74,44 @@ public class Producto extends ItemCompra {
 		this.valor = valor;
 	}
 
-	public Categoria getM_Categoria() {
-		return m_Categoria;
+	public Categoria getCategoria() {
+		return Categoria;
 	}
 
-	public void setM_Categoria(Categoria m_Categoria) {
-		this.m_Categoria = m_Categoria;
+	public void setM_Categoria(Categoria Categoria) {
+		this.Categoria = Categoria;
 	}
 
 	public Ciudad getM_Ciudad() {
-		return m_Ciudad;
+		return Ciudad;
 	}
 
-	public void setM_Ciudad(Ciudad m_Ciudad) {
-		this.m_Ciudad = m_Ciudad;
+	public void setCiudad(Ciudad Ciudad) {
+		this.Ciudad = Ciudad;
 	}
 
-	public ItemCompra getM_ItemCompra() {
-		return m_ItemCompra;
+	public ItemCompra getItemCompra() {
+		return ItemCompra;
 	}
 
-	public void setM_ItemCompra(ItemCompra m_ItemCompra) {
-		this.m_ItemCompra = m_ItemCompra;
+	public void setItemCompra(ItemCompra ItemCompra) {
+		this.ItemCompra = ItemCompra;
 	}
 
-	public Contenido getM_Contenido() {
-		return m_Contenido;
+	public Contenido getContenido() {
+		return Contenido;
 	}
 
-	public void setM_Contenido(Contenido m_Contenido) {
-		this.m_Contenido = m_Contenido;
+	public void setContenido(Contenido Contenido) {
+		this.Contenido = Contenido;
 	}
 
 	public Disponibilidad getM_Disponibilidad() {
-		return m_Disponibilidad;
+		return Disponibilidad;
 	}
 
 	public void setM_Disponibilidad(Disponibilidad m_Disponibilidad) {
-		this.m_Disponibilidad = m_Disponibilidad;
+		this.Disponibilidad = m_Disponibilidad;
 	}
 
 	public Producto(){

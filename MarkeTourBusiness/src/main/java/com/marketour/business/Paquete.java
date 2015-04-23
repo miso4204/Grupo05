@@ -1,8 +1,9 @@
 
 package com.marketour.business;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
 
 import com.marketour.domain.Producto;
 
@@ -11,7 +12,7 @@ import com.marketour.domain.Producto;
  * @version 1.0
  * @created 13-abr.-2015 9:52:38 a. m.
  */
-public class Paquete extends ItemCompra {
+public class Paquete implements Serializable {
 
 	private int activo;
 	private String descripcion;
@@ -63,6 +64,7 @@ public class Paquete extends ItemCompra {
 		pac.setActivo(paquete.getEstado());
 		pac.setDescripcion(paquete.getDescripcion());
 		pac.setNombre(paquete.getNombre());
+		pac.lstProducto=new ArrayList<Producto>();
     	return pac;
     }
 	public static com.marketour.domain.Paquete ConvertToDBProduct(Paquete paquete)
