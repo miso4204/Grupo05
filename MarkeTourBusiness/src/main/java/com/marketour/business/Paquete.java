@@ -58,7 +58,7 @@ public class Paquete implements Serializable {
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
-	public static Paquete ConvertToBProduct(com.marketour.domain.Paquete paquete)
+	public static Paquete ConvertToBPaquete(com.marketour.domain.Paquete paquete)
     {
     	Paquete pac=new Paquete();
 		pac.setActivo(paquete.getEstado());
@@ -67,7 +67,7 @@ public class Paquete implements Serializable {
 		pac.lstProducto=new ArrayList<Producto>();
     	return pac;
     }
-	public static com.marketour.domain.Paquete ConvertToDBProduct(Paquete paquete)
+	public static com.marketour.domain.Paquete ConvertToDBPaquete(Paquete paquete)
     {
 		com.marketour.domain.Paquete pac=new com.marketour.domain.Paquete();
 		pac.setEstado(paquete.getActivo());

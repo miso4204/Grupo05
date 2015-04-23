@@ -45,7 +45,7 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByPackage(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByPackage(id)).build();
+				.entity(FacadeProductos.ConsultarProductosXPaquetes(id)).build();
 	}
 
 	@GET
@@ -53,7 +53,7 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByProvider(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("proveedor = " + id)).build();
+				.entity(FacadeProductos.ConsultarProductosXProveedor(id)).build();
 	}
 
 	@GET
@@ -63,7 +63,7 @@ public class ProductServices {
 		return Response
 				.status(200)
 				.header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByColumn("nombre LIKE '%" + data + "%'"))
+				.entity(FacadeProductos.ConsultarProductoXNombre(data))
 				.build();
 	}
 
