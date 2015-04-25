@@ -13,7 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.domain.Compra;
+import com.marketour.facade.FacadeCompra;
 import com.marketour.persistence.*;
+import com.marketour.business.*;
 
 @Path("/PuschaseService")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,10 +31,11 @@ public class PuschaseService {
 	}
 
 	@GET
+	@Path("FormasPago")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindAll() {
+	public Response ConsultarFormasdePago() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindAll()).build();
+				.entity(FacadeCompra.ConsultarFormasdePago()).build();
 	}
 
 	@GET
@@ -53,9 +57,9 @@ public class PuschaseService {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Compra entity) {
+	public Response Persist(com.marketour.business.Compra entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeCompra.RegistrarCompra(entity)).build();
 	}
 	
 
