@@ -100,6 +100,22 @@ public class FacadeProductos {
 		return lstPaquete;
 	}
 
+	public static List<Paquete> ConsultarPaquetesTodos() {
+		List<Paquete> lstPaquete = new ArrayList<Paquete>();
+		List<com.marketour.domain.Paquete> lstdPaquete = new ArrayList<com.marketour.domain.Paquete>();
+		com.marketour.persistence.Repository<com.marketour.domain.Paquete> repository = new com.marketour.persistence.Repository<com.marketour.domain.Paquete>(
+				com.marketour.domain.Paquete.class);
+		lstdPaquete = repository.FindAll();
+		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
+			Paquete pac = new Paquete();
+			pac = Paquete.ConvertToBPaquete(paquete);
+			com.marketour.persistence.Repository<com.marketour.domain.Producto> repository1 = new com.marketour.persistence.Repository<com.marketour.domain.Producto>(
+					com.marketour.domain.Producto.class);
+			lstPaquete.add(pac);
+		}
+		return lstPaquete;
+	}
+
 	public static List<Producto> ConsultarProductoTodos() {
 		List<Producto> lstProducto = new ArrayList<Producto>();
 		List<com.marketour.domain.Producto> lstdProducto = new ArrayList<com.marketour.domain.Producto>();
