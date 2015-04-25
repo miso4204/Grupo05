@@ -72,9 +72,8 @@ public class ItemCompra  implements java.io.Serializable {
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
     }
-
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="compra")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="compra", referencedColumnName="id" )    
     public Compra getCompra() {
         return this.compra;
     }
