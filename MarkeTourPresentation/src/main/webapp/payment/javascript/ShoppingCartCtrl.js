@@ -15,16 +15,24 @@
 		$scope.total="";
 		$scope.totalPlanes="";
         var html=window.location+"";
+        function buscarArticulo(idArticulo){
+        for(i=0;i<articulos.length;i++){
+        	if (idArticulo==articulos[i].id){
+        		return i;
+        	}
+        }	
+        return -1;
+        }
+       
         
-        
-	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCartView.html")>-1){		
+	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCart.html")>-1){		
 			articulos=JSON.parse(localStorage.getItem("articulos"));
 			 $scope.allItems=articulos;
 			 var suma =0;
 			 for (var i=0;i<articulos.length;i++){
 				 suma=suma+parseInt(articulos[i].valor);
 			 }
-			 $scope.total="Total a pagar: $ "+suma;	 
+			 $scope.total=suma;	 
 			 $scope.totalPlanes="Numero de planes: " + articulos.length;
 			 
 		}
@@ -68,13 +76,45 @@
 		
 
 		$scope.addItem = function(data) {
+			data.cantidad=1;
 			 if (localStorage.getItem("articulos")!=null ){		
 					articulos=JSON.parse(localStorage.getItem("articulos"));			 
 					 
 				}
-			articulos.push(data);
+			var pos=buscarArticulo(data.id);
+			if (pos>=0){
+				articulos[i].cantidad=articulos[i].cantidad+1;
+				articulos[i].valor=articulos[i].valor+data.valor;
+			}else{
+				articulos.push(data);	
+			}
+			
 			localStorage.setItem("articulos",JSON.stringify(articulos));
 			
+		};
+		
+		$scope.sumar = function(idArticulo) {
+			for(i=0;i<articulos.length;i++){
+            	if (idArticulo==articulos[i].id){            		
+            		articulos[i].valor=articulos[i].valor+(articulos[i].valor/articulos[i].cantidad);
+            		articulos[i].cantidad=articulos[i].cantidad+1;
+            		localStorage.setItem("articulos",JSON.stringify(articulos));
+            		break;
+            	}
+            }
+		};
+		$scope.restar = function(idArticulo) {
+			for(i=0;i<articulos.length;i++){
+            	if (idArticulo==articulos[i].id){
+            		if (articulos[i].cantidad>1){
+            			articulos[i].valor=articulos[i].valor-(articulos[i].valor/articulos[i].cantidad);
+                		articulos[i].cantidad=articulos[i].cantidad-1;
+                		localStorage.setItem("articulos",JSON.stringify(articulos));
+            		}
+            		
+            		break;
+            	}
+            }
 		};
 		$scope.FindAll();
 	};
@@ -83,3 +123,4 @@
 	module.controller("ShoppingCartCtrl", ctrl);
 
 }());
+

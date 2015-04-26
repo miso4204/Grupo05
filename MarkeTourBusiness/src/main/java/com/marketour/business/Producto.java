@@ -3,6 +3,9 @@ package com.marketour.business;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 
@@ -24,7 +27,25 @@ public class Producto  implements Serializable {
 	private ItemCompra ItemCompra;
 	private Contenido Contenido;
 	private Disponibilidad Disponibilidad;
+	private Integer id;
+    private String imagen;
 	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public int getActivo() {
 		return activo;
@@ -125,6 +146,8 @@ public class Producto  implements Serializable {
 	public static Producto ConvertToBProduct(com.marketour.domain.Producto producto)
     {
 		Producto pro=new Producto();
+		
+		pro.setId(producto.getId());
 		pro.setActivo(producto.getEstado());
 		pro.setCapacidad(producto.getCapacidad());
 		pro.setCordenadas(producto.getCoordenadas());
@@ -132,9 +155,17 @@ public class Producto  implements Serializable {
 		pro.setNombre(producto.getNombre());
 		pro.setValor(producto.getValor());
 		pro.setCiudad(com.marketour.business.Ciudad.ConvertToBCiudad(producto.getCiudad()));
-		pro.setContenido(new Contenido());
-		pro.setItemCompra(new ItemCompra());
-		
+		//pro.setContenido(new Contenido());
+		//pro.setItemCompra(new ItemCompra());
+		Set<com.marketour.domain.Contenido> con= producto.getContenidos();
+		pro.setImagen("imagenes/beach.png");
+		for (int i=0;i<con.size();i++){
+			if (((com.marketour.domain.Contenido)con.toArray()[i]).getTipoContenido().getDescripcion().equals("Imagen")){
+				pro.setImagen(((com.marketour.domain.Contenido)con.toArray()[i]).getContenido());
+				break;
+			}
+			
+		}
 		return pro;
     	
     }

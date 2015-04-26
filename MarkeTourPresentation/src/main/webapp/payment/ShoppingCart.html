@@ -116,15 +116,23 @@
          <div >
 					<label style="font-size: 30px; font-family: sans-serif">Tu carrito</label>
 						<button class="btn btn-large btn-success" type="button" onclick="localStorage.removeItem('articulos');">Limpiar Carrito  <i class="glyphicon glyphicon-trash"></i></button>
-					    <div ng-repeat="item in items " class="row" style="margin: 3%; box-shadow: 2px 2px 5px gray; border-radius: 5px">
+					    <div ng-repeat="item in allItems " class="row" style="margin: 3%; box-shadow: 2px 2px 5px gray; border-radius: 5px">
 						<div class="col-md-3">
-						<IMG SRC="imagenes/beach.png" height="100px" width="120px">
+						<IMG ng-src="{{item.imagen}}" height="100px" width="120px">
 						</div>
-						<div class="col-md-9" align="left">			
+						<div class="col-md-5" align="left">			
 							<label style="font-size: 20px; font-family: sans-serif">{{item.nombre}}</label> <br> 
 							<label style="font-size: 10px; font-family: sans-serif">{{item.descripcion}}</label> <br> 
-							<label style="font-size: 15px; font-family: sans-serif">$ {{item.valor}}</label>
+							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{item.valor | currency}}</label>
 							
+						</div>
+						<div class="col-md-3" align="left">
+						<img Style="cursor: pointer;" alt="Agregar" src="imagenes/mas.png" ng-click="sumar(item.id);">
+						<label style="font-size: 15px; font-family: sans-serif">&nbsp;&nbsp;{{item.cantidad}}</label>
+						<img Style="cursor: pointer;" alt="Quitar" src="imagenes/menos.gif" ng-click="restar(item.id);">
+						</div>
+						<div class="col-md-1" align="right" vertical-align="top">
+						<img Style="cursor: pointer;" alt="Eliminar" src="imagenes/borrar.png">
 						</div>
 						
 					</div>
@@ -143,7 +151,7 @@
 							style="font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{totalPlanes}}</label>
 					</div>
 					<div style="background-color: white;margin: 3%; height: 100%">
-						<label 	style="margin:3%; font-size: 30px; font-family: sans-serif;  text-align: center; width: 100%; border-radius: 3px;">{{total}}</label>
+						<label 	style="margin:3%; font-size: 30px; font-family: sans-serif;  text-align: center; width: 100%; border-radius: 3px;">Total: {{total | currency}}</label>
 					</div>
 					<div style="margin: 3%">
 						Formas de pago aceptadas: <br> 
