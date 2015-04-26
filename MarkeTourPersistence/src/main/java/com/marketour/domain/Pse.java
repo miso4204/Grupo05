@@ -51,7 +51,7 @@ public class Pse  implements java.io.Serializable {
         this.id = id;
     }
 
-@OneToOne(fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
     public MedioPago getMedioPago() {
         return this.medioPago;
     }

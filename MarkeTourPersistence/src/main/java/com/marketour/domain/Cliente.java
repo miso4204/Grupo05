@@ -58,7 +58,7 @@ public class Cliente  implements java.io.Serializable {
         this.id = id;
     }
 
-@OneToOne(fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
     public Usuario getUsuario() {
         return this.usuario;
     }
@@ -77,7 +77,7 @@ public class Cliente  implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="cliente")
     public Set<MedioPago> getMedioPagos() {
         return this.medioPagos;
     }
@@ -86,7 +86,7 @@ public class Cliente  implements java.io.Serializable {
         this.medioPagos = medioPagos;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="cliente")
     public Set<Compra> getCompras() {
         return this.compras;
     }

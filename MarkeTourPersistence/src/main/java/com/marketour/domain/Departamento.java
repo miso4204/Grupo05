@@ -86,7 +86,7 @@ public class Departamento  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="departamento")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="departamento")
     public Set<Ciudad> getCiudads() {
         return this.ciudads;
     }

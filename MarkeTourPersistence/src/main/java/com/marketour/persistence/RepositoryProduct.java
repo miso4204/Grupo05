@@ -23,5 +23,4 @@ public class RepositoryProduct extends Repository<Producto> {
 		session.getTransaction().commit();
 		return list;
 	}
-
 }

@@ -1,35 +1,75 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-
+import com.marketour.domain.Categoria;
+import com.marketour.domain.Proveedor;
 
 /**
  * @author Andres
  * @version 1.0
  * @created 13-abr.-2015 9:52:39 a. m.
  */
-public class Producto  implements Serializable {
+public class Producto implements Serializable {
 
-	private int activo;
-	private Integer capacidad;
-	private String cordenadas;
-	private String descripcion;
-	private String nombre;
-	private BigDecimal valor;
-	private Categoria Categoria;
-	private Ciudad Ciudad;
-	private ItemCompra ItemCompra;
-	private Contenido Contenido;
-	private Disponibilidad Disponibilidad;
 	private Integer id;
-    private String imagen;
-	
+	private Proveedor proveedor;
+	private String ciudad;
+	private String categoria;
+	private String nombre;
+	private String descripcion;
+	private BigDecimal valor;
+	private Integer visitas;
+	private Integer capacidad;
+	private String coordenadas;
+	private int estado;
+
+	private List<com.marketour.business.Contenido> contenidos = new ArrayList<com.marketour.business.Contenido>();
+
+	public static Producto ConvertToBProduct(
+			com.marketour.domain.Producto domain) {
+		Producto business = new Producto();
+		business.setId(domain.getId());
+		business.setNombre(domain.getNombre());
+		business.setDescripcion(domain.getDescripcion());
+		business.setValor(domain.getValor());
+		business.setVisitas(domain.getVisitas());
+		business.setCapacidad(domain.getCapacidad());
+		business.setCoordenadas(domain.getCoordenadas());
+		business.setEstado(domain.getEstado());
+		// Category
+		if (domain.getCategoria() != null)
+			business.setCategoria(domain.getCategoria().getDescripcion());
+		// Ciudad
+		if (domain.getCiudad() != null)
+			business.setCiudad(domain.getCiudad().getDescripcion());
+		// Content
+		if (domain.getContenidos() != null) {
+			List<com.marketour.business.Contenido> contentB = new ArrayList<com.marketour.business.Contenido>();
+			for (com.marketour.domain.Contenido contentD : domain
+					.getContenidos()) {
+				contentB.add(new com.marketour.business.Contenido()
+						.ConvertToBContent(contentD));
+			}
+			business.setContenidos(contentB);
+		}
+		return business;
+	}
+
+	public static com.marketour.domain.Producto ConvertToDBProduct(
+			Producto producto) {
+		com.marketour.domain.Producto pro = new com.marketour.domain.Producto();
+		// pro.setActivo(producto.getActivo());
+		pro.setCapacidad(producto.getCapacidad());
+		// pro.setCordenadas(producto.getCordenadas());
+		pro.setDescripcion(producto.getDescripcion());
+		pro.setNombre(producto.getNombre());
+		pro.setValor(producto.getValor());
+		return pro;
+
+	}
 
 	public Integer getId() {
 		return id;
@@ -39,44 +79,28 @@ public class Producto  implements Serializable {
 		this.id = id;
 	}
 
-	public String getImagen() {
-		return imagen;
+	public Proveedor getProveedor() {
+		return proveedor;
 	}
 
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 
-	public int getActivo() {
-		return activo;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setActivo(int activo) {
-		this.activo = activo;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public Integer getCapacidad() {
-		return capacidad;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setCapacidad(Integer capacidad) {
-		this.capacidad = capacidad;
-	}
-
-	public String getCordenadas() {
-		return cordenadas;
-	}
-
-	public void setCordenadas(String cordenadas) {
-		this.cordenadas = cordenadas;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getNombre() {
@@ -87,6 +111,14 @@ public class Producto  implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -95,91 +127,44 @@ public class Producto  implements Serializable {
 		this.valor = valor;
 	}
 
-	public Categoria getCategoria() {
-		return Categoria;
+	public Integer getVisitas() {
+		return visitas;
 	}
 
-	public void setCategoria(Categoria Categoria) {
-		this.Categoria = Categoria;
+	public void setVisitas(Integer visitas) {
+		this.visitas = visitas;
 	}
 
-	public Ciudad getCiudad() {
-		return Ciudad;
+	public Integer getCapacidad() {
+		return capacidad;
 	}
 
-	public void setCiudad(Ciudad Ciudad) {
-		this.Ciudad = Ciudad;
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
 	}
 
-	public ItemCompra getItemCompra() {
-		return ItemCompra;
+	public String getCoordenadas() {
+		return coordenadas;
 	}
 
-	public void setItemCompra(ItemCompra ItemCompra) {
-		this.ItemCompra = ItemCompra;
+	public void setCoordenadas(String coordenadas) {
+		this.coordenadas = coordenadas;
 	}
 
-	public Contenido getContenido() {
-		return Contenido;
+	public int getEstado() {
+		return estado;
 	}
 
-	public void setContenido(Contenido Contenido) {
-		this.Contenido = Contenido;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
-	public Disponibilidad getM_Disponibilidad() {
-		return Disponibilidad;
+	public List<com.marketour.business.Contenido> getContenidos() {
+		return contenidos;
 	}
 
-	public void setM_Disponibilidad(Disponibilidad m_Disponibilidad) {
-		this.Disponibilidad = m_Disponibilidad;
+	public void setContenidos(List<com.marketour.business.Contenido> contenidos) {
+		this.contenidos = contenidos;
 	}
 
-	public Producto(){
-
-	}
-
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-
-	public static Producto ConvertToBProduct(com.marketour.domain.Producto producto)
-    {
-		Producto pro=new Producto();
-		
-		pro.setId(producto.getId());
-		pro.setActivo(producto.getEstado());
-		pro.setCapacidad(producto.getCapacidad());
-		pro.setCordenadas(producto.getCoordenadas());
-		pro.setDescripcion(producto.getDescripcion());
-		pro.setNombre(producto.getNombre());
-		pro.setValor(producto.getValor());
-		pro.setCiudad(com.marketour.business.Ciudad.ConvertToBCiudad(producto.getCiudad()));
-		//pro.setContenido(new Contenido());
-		//pro.setItemCompra(new ItemCompra());
-		Set<com.marketour.domain.Contenido> con= producto.getContenidos();
-		pro.setImagen("imagenes/beach.png");
-		for (int i=0;i<con.size();i++){
-			if (((com.marketour.domain.Contenido)con.toArray()[i]).getTipoContenido().getDescripcion().equals("Imagen")){
-				pro.setImagen(((com.marketour.domain.Contenido)con.toArray()[i]).getContenido());
-				break;
-			}
-			
-		}
-		return pro;
-    	
-    }
-	public static com.marketour.domain.Producto ConvertToDBProduct(Producto producto)
-    {
-		com.marketour.domain.Producto pro=new com.marketour.domain.Producto();
-		//pro.setActivo(producto.getActivo());
-		pro.setCapacidad(producto.getCapacidad());
-		//pro.setCordenadas(producto.getCordenadas());
-		pro.setDescripcion(producto.getDescripcion());
-		pro.setNombre(producto.getNombre());
-		pro.setValor(producto.getValor());
-		return pro;
-    	
-    }
-	
 }

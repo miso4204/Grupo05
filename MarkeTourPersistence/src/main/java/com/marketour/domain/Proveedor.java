@@ -62,7 +62,7 @@ public class Proveedor  implements java.io.Serializable {
         this.id = id;
     }
 
-@OneToOne(fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
     public Usuario getUsuario() {
         return this.usuario;
     }
@@ -101,7 +101,7 @@ public class Proveedor  implements java.io.Serializable {
         this.cuenta = cuenta;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="proveedor")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="proveedor")
     public Set<Paquete> getPaquetes() {
         return this.paquetes;
     }
@@ -110,7 +110,7 @@ public class Proveedor  implements java.io.Serializable {
         this.paquetes = paquetes;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="proveedor")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="proveedor")
     public Set<Producto> getProductos() {
         return this.productos;
     }

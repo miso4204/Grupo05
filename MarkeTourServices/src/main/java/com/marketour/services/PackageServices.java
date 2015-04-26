@@ -2,6 +2,7 @@ package com.marketour.services;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -48,18 +49,16 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByProvider(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesXProveedor(id)).build();
+				.entity(FacadeProductos.ConsultarPaquetesXProveedor(id))
+				.build();
 	}
 
 	@GET
 	@Path("name/{data}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByName(@PathParam("data") String data) {
-		return Response
-				.status(200)
-				.header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesXNombre(data))
-				.build();
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeProductos.ConsultarPaquetesXNombre(data)).build();
 	}
 
 	@DELETE
@@ -73,9 +72,10 @@ public class PackageServices {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Paquete entity) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response Persist(com.marketour.business.Paquete business) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeProductos.Persist(business)).build();
 	}
 
 	@GET
