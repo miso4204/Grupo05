@@ -1,11 +1,16 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.marketour.domain.ItemCompra;
 import com.marketour.domain.Producto;
+import com.marketour.domain.Promocion;
+import com.marketour.domain.Proveedor;
 
 /**
  * @author Andres
@@ -14,29 +19,72 @@ import com.marketour.domain.Producto;
  */
 public class Paquete implements Serializable {
 
-	private int activo;
-	private String descripcion;
+	private Integer id;
+	private Proveedor proveedor;
+	private Promocion promocion;
 	private String nombre;
-	private List<Producto> lstProducto;
+	private String descripcion;
+	private BigDecimal valor;
+	private Integer visitas;
+	private int estado;
+	private List<com.marketour.business.Producto> productos = new ArrayList();
 
-	public Paquete(){
-
+	public static Paquete ConvertToBPaquete(com.marketour.domain.Paquete domain) {
+		Paquete business = new Paquete();
+		business.setId(domain.getId());
+		// business.setProveedor(domain.getProveedor());
+		// business.setPromocion(domain.getPromocion());
+		business.setNombre(domain.getNombre());
+		business.setDescripcion(domain.getDescripcion());
+		business.setValor(domain.getValor());
+		business.setVisitas(domain.getVisitas());
+		business.setEstado(domain.getEstado());
+		List<com.marketour.business.Producto> productB = new ArrayList();
+		for (com.marketour.domain.Producto productD : domain.getProductos()) {
+			productB.add(new com.marketour.business.Producto()
+					.ConvertToBProduct(productD));
+		}
+		business.setProductos(productB);
+		return business;
 	}
 
-	public int getActivo() {
-		return activo;
+	public static com.marketour.domain.Paquete ConvertToDBPaquete(
+			Paquete business) {
+		com.marketour.domain.Paquete domain = new com.marketour.domain.Paquete();
+		domain.setId(business.getId());
+		domain.setProveedor(business.getProveedor());
+		domain.setPromocion(business.getPromocion());
+		domain.setNombre(business.getNombre());
+		domain.setDescripcion(business.getDescripcion());
+		domain.setValor(business.getValor());
+		domain.setVisitas(business.getVisitas());
+		domain.setEstado(business.getEstado());
+		// domain.setProductos(business.getProductos());
+		return domain;
 	}
 
-	public void setActivo(int activo) {
-		this.activo = activo;
+	public Integer getId() {
+		return id;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public Promocion getPromocion() {
+		return promocion;
+	}
+
+	public void setPromocion(Promocion promocion) {
+		this.promocion = promocion;
 	}
 
 	public String getNombre() {
@@ -47,33 +95,44 @@ public class Paquete implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Producto> getlstProducto() {
-		return lstProducto;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setlstProducto(List<Producto>  lstProducto) {
-		this.lstProducto = lstProducto;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	public BigDecimal getValor() {
+		return valor;
 	}
-	public static Paquete ConvertToBPaquete(com.marketour.domain.Paquete paquete)
-    {
-    	Paquete pac=new Paquete();
-		pac.setActivo(paquete.getEstado());
-		pac.setDescripcion(paquete.getDescripcion());
-		pac.setNombre(paquete.getNombre());
-		pac.lstProducto=new ArrayList<Producto>();
-    	return pac;
-    }
-	public static com.marketour.domain.Paquete ConvertToDBPaquete(Paquete paquete)
-    {
-		com.marketour.domain.Paquete pac=new com.marketour.domain.Paquete();
-		pac.setEstado(paquete.getActivo());
-		pac.setDescripcion(paquete.getDescripcion());
-		pac.setNombre(paquete.getNombre());
-    	return pac;
-    }
-	
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public Integer getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(Integer visitas) {
+		this.visitas = visitas;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public List<com.marketour.business.Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<com.marketour.business.Producto> productos) {
+		this.productos = productos;
+	}
+
 }
