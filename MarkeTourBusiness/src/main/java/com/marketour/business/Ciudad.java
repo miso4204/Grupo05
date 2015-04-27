@@ -1,8 +1,6 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
-
 
 /**
  * @author Andres
@@ -14,26 +12,14 @@ public class Ciudad implements Serializable {
 	private String ciudad;
 	private Departamento Departamento;
 
-	public Ciudad(){
-
-	}
-
-	public void finalize() throws Throwable {
-
-	}
-
-	public Departamento getDepartamento(){
+	public Departamento getDepartamento() {
 		return Departamento;
 	}
 
-	/**
-	 * 
-	 * @param newVal
-	 */
-	public void setDepartamento(Departamento newVal){
+	public void setDepartamento(Departamento newVal) {
 		Departamento = newVal;
 	}
-	
+
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -42,26 +28,19 @@ public class Ciudad implements Serializable {
 		this.ciudad = ciudad;
 	}
 
-	public static Ciudad ConvertToBCiudad(com.marketour.domain.Ciudad ciudad)
-    {
-		
-		Ciudad ciu=new Ciudad();
-		
-		ciu.setDepartamento(new Departamento());//com.marketour.business.Departamento.ConvertToBDepartamento( ciudad.getDepartamento()));
+	public static Ciudad ConvertToBCiudad(com.marketour.domain.Ciudad ciudad) {
+		Ciudad ciu = new Ciudad();
+		ciu.setDepartamento(new Departamento()); // com.marketour.business.Departamento.ConvertToBDepartamento(
+		// ciudad.getDepartamento()));
 		ciu.setCiudad("ciudad");
-		
 		return ciu;
-		
-    	
-    }
-	public static com.marketour.domain.Ciudad ConvertToDBCiudad(Ciudad ciudad)
-    {
-		com.marketour.domain.Ciudad ciu=new com.marketour.domain.Ciudad();
-		ciu.setDepartamento(com.marketour.business.Departamento.ConvertToDBDepartamento(ciudad.getDepartamento()));
-		ciu.setDescripcion(ciudad.getCiudad());
-		
-		return ciu;
-    	
-    }
+	}
 
+	public static com.marketour.domain.Ciudad ConvertToDBCiudad(Ciudad ciudad) {
+		com.marketour.domain.Ciudad ciu = new com.marketour.domain.Ciudad();
+		ciu.setDepartamento(com.marketour.business.Departamento
+				.ConvertToDBDepartamento(ciudad.getDepartamento()));
+		ciu.setDescripcion(ciudad.getCiudad());
+		return ciu;
+	}
 }

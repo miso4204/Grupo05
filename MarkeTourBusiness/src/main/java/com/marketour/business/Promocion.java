@@ -6,150 +6,117 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
-
 import com.marketour.domain.Paquete;
 import com.marketour.domain.Producto;
 
-public class Promocion implements Serializable{
+public class Promocion implements Serializable {
 
 	private Integer id;
-    private String descripcion;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private String condiciones;
-    private long descuento;
-    private String codigo;
-    private int estado;
-    private Set<Paquete> paquetes = new HashSet<Paquete>(0);
+	private String descripcion;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private String condiciones;
+	private long descuento;
+	private String codigo;
+	private int estado;
 
-   public Promocion() {
-   }
+	public Integer getId() {
+		return this.id;
+	}
 
-	
-   public Promocion(long descuento, int estado) {
-       this.descuento = descuento;
-       this.estado = estado;
-   }
-   public Promocion(String descripcion, Date fechaInicio, Date fechaFin, String condiciones, long descuento, String codigo, int estado, Set<Paquete> paquetes) {
-      this.descripcion = descripcion;
-      this.fechaInicio = fechaInicio;
-      this.fechaFin = fechaFin;
-      this.condiciones = condiciones;
-      this.descuento = descuento;
-      this.codigo = codigo;
-      this.estado = estado;
-      this.paquetes = paquetes;
-   }
-  
-   public Integer getId() {
-       return this.id;
-   }
-   
-   public void setId(Integer id) {
-       this.id = id;
-   }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-   public String getDescripcion() {
-       return this.descripcion;
-   }
-   
-   public void setDescripcion(String descripcion) {
-       this.descripcion = descripcion;
-   }
+	public String getDescripcion() {
+		return this.descripcion;
+	}
 
-   public Date getFechaInicio() {
-       return this.fechaInicio;
-   }
-   
-   public void setFechaInicio(Date fechaInicio) {
-       this.fechaInicio = fechaInicio;
-   }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-   public Date getFechaFin() {
-       return this.fechaFin;
-   }
-   
-   public void setFechaFin(Date fechaFin) {
-       this.fechaFin = fechaFin;
-   }
+	public Date getFechaInicio() {
+		return this.fechaInicio;
+	}
 
-   public String getCondiciones() {
-       return this.condiciones;
-   }
-   
-   public void setCondiciones(String condiciones) {
-       this.condiciones = condiciones;
-   }
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
 
-   public long getDescuento() {
-       return this.descuento;
-   }
-   
-   public void setDescuento(long descuento) {
-       this.descuento = descuento;
-   }
+	public Date getFechaFin() {
+		return this.fechaFin;
+	}
 
-   public String getCodigo() {
-       return this.codigo;
-   }
-   
-   public void setCodigo(String codigo) {
-       this.codigo = codigo;
-   }
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
 
-   public int getEstado() {
-       return this.estado;
-   }
-   
-   public void setEstado(int estado) {
-       this.estado = estado;
-   }
+	public String getCondiciones() {
+		return this.condiciones;
+	}
 
-   public Set<Paquete> getPaquetes() {
-       return this.paquetes;
-   }
-   
-   public void setPaquetes(Set<Paquete> paquetes) {
-       this.paquetes = paquetes;
-   }
-   
-   public static Promocion ConvertToBPromocion(com.marketour.domain.Promocion promocion)
-   {
-   	Promocion pro=new Promocion();
-   		
-   	pro.setCodigo(promocion.getCodigo());
-   	pro.setCondiciones(promocion.getCondiciones());
-   	pro.setDescripcion(promocion.getDescripcion());
-   	pro.setDescuento(promocion.getDescuento());
-   	pro.setEstado(promocion.getEstado());
-   	pro.setFechaFin(promocion.getFechaFin());
-   	pro.setFechaInicio(promocion.getFechaInicio());
-   	pro.setId(promocion.getId());
-   	
-   	if(promocion.getPaquetes() != null){
-   		pro.setPaquetes(promocion.getPaquetes());
-   	}
-   	
-   	return pro;
-   }
-	public static com.marketour.domain.Promocion ConvertToDBPromocion(Promocion promocion)
-   {
-		com.marketour.domain.Promocion pro=new com.marketour.domain.Promocion();
+	public void setCondiciones(String condiciones) {
+		this.condiciones = condiciones;
+	}
+
+	public long getDescuento() {
+		return this.descuento;
+	}
+
+	public void setDescuento(long descuento) {
+		this.descuento = descuento;
+	}
+
+	public String getCodigo() {
+		return this.codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public int getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public static Promocion ConvertToBPromocion(
+			com.marketour.domain.Promocion domain) {
+		Promocion business = new Promocion();
+		business.setCodigo(domain.getCodigo());
+		business.setCondiciones(domain.getCondiciones());
+		business.setDescripcion(domain.getDescripcion());
+		business.setDescuento(domain.getDescuento());
+		business.setEstado(domain.getEstado());
+		business.setFechaFin(domain.getFechaFin());
+		business.setFechaInicio(domain.getFechaInicio());
+		business.setId(domain.getId());
+
+		return business;
+	}
+
+	public static com.marketour.domain.Promocion ConvertToDBPromocion(
+			Promocion promocion) {
+		com.marketour.domain.Promocion pro = new com.marketour.domain.Promocion();
 		pro.setCodigo(promocion.getCodigo());
-	   	pro.setCondiciones(promocion.getCondiciones());
-	   	pro.setDescripcion(promocion.getDescripcion());
-	   	pro.setDescuento(promocion.getDescuento());
-	   	pro.setEstado(promocion.getEstado());
-	   	pro.setFechaFin(promocion.getFechaFin());
-	   	pro.setFechaInicio(promocion.getFechaInicio());
-	   	pro.setId(promocion.getId());
-	   	
-	   	if(promocion.getPaquetes() != null){
-	   		pro.setPaquetes(promocion.getPaquetes());
-	   	}
-	   	
-	   	return pro;
-   }
+		pro.setCondiciones(promocion.getCondiciones());
+		pro.setDescripcion(promocion.getDescripcion());
+		pro.setDescuento(promocion.getDescuento());
+		pro.setEstado(promocion.getEstado());
+		pro.setFechaFin(promocion.getFechaFin());
+		pro.setFechaInicio(promocion.getFechaInicio());
+		pro.setId(promocion.getId());
+
+		/*
+		 * if (promocion.getPaquetes() != null) {
+		 * pro.setPaquetes(promocion.getPaquetes()); }
+		 */
+
+		return pro;
+	}
 
 }

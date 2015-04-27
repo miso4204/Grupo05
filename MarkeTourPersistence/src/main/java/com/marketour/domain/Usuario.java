@@ -149,7 +149,7 @@ public class Usuario  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
     public Administrador getAdministrador() {
         return this.administrador;
     }
@@ -158,7 +158,7 @@ public class Usuario  implements java.io.Serializable {
         this.administrador = administrador;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
     public Proveedor getProveedor() {
         return this.proveedor;
     }
@@ -167,7 +167,7 @@ public class Usuario  implements java.io.Serializable {
         this.proveedor = proveedor;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
     public Cliente getCliente() {
         return this.cliente;
     }

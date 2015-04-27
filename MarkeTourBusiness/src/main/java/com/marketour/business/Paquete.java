@@ -11,6 +11,7 @@ import com.marketour.domain.ItemCompra;
 import com.marketour.domain.Producto;
 import com.marketour.domain.Promocion;
 import com.marketour.domain.Proveedor;
+import com.marketour.persistence.Repository;
 
 /**
  * @author Andres
@@ -21,45 +22,50 @@ public class Paquete implements Serializable {
 
 	private Integer id;
 	private Proveedor proveedor;
-	private Promocion promocion;
 	private String nombre;
 	private String descripcion;
 	private BigDecimal valor;
 	private Integer visitas;
 	private int estado;
 	private List<com.marketour.business.Producto> productos = new ArrayList();
+	private com.marketour.business.Promocion promocion = new com.marketour.business.Promocion();
 
 	public static Paquete ConvertToBPaquete(com.marketour.domain.Paquete domain) {
 		Paquete business = new Paquete();
 		business.setId(domain.getId());
-		// business.setProveedor(domain.getProveedor());
-		// business.setPromocion(domain.getPromocion());
 		business.setNombre(domain.getNombre());
 		business.setDescripcion(domain.getDescripcion());
 		business.setValor(domain.getValor());
 		business.setVisitas(domain.getVisitas());
 		business.setEstado(domain.getEstado());
-		List<com.marketour.business.Producto> productB = new ArrayList();
-		for (com.marketour.domain.Producto productD : domain.getProductos()) {
-			productB.add(new com.marketour.business.Producto()
-					.ConvertToBProduct(productD));
+
+		// Product
+		if (domain.getProductos() != null) {
+			List<com.marketour.business.Producto> productB = new ArrayList();
+			for (com.marketour.domain.Producto productD : domain.getProductos()) {
+				productB.add(new com.marketour.business.Producto()
+						.ConvertToBProduct(productD));
+			}
+			business.setProductos(productB);
 		}
-		business.setProductos(productB);
+
+		// Offer
+		if (domain.getPromocion() != null) {
+			com.marketour.business.Promocion promocionB = com.marketour.business.Promocion
+					.ConvertToBPromocion(domain.getPromocion());
+			business.setPromocion(promocionB);
+		}
+
 		return business;
 	}
 
 	public static com.marketour.domain.Paquete ConvertToDBPaquete(
-			Paquete business) {
-		com.marketour.domain.Paquete domain = new com.marketour.domain.Paquete();
-		domain.setId(business.getId());
-		domain.setProveedor(business.getProveedor());
-		domain.setPromocion(business.getPromocion());
+			Paquete business, com.marketour.domain.Paquete domain) {
 		domain.setNombre(business.getNombre());
 		domain.setDescripcion(business.getDescripcion());
 		domain.setValor(business.getValor());
 		domain.setVisitas(business.getVisitas());
 		domain.setEstado(business.getEstado());
-		// domain.setProductos(business.getProductos());
 		return domain;
 	}
 
@@ -79,11 +85,11 @@ public class Paquete implements Serializable {
 		this.proveedor = proveedor;
 	}
 
-	public Promocion getPromocion() {
+	public com.marketour.business.Promocion getPromocion() {
 		return promocion;
 	}
 
-	public void setPromocion(Promocion promocion) {
+	public void setPromocion(com.marketour.business.Promocion promocion) {
 		this.promocion = promocion;
 	}
 

@@ -73,7 +73,7 @@ public class Categoria  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="categoria")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="categoria")
     public Set<Producto> getProductos() {
         return this.productos;
     }

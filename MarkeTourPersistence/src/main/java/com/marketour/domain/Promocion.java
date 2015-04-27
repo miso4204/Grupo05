@@ -137,7 +137,7 @@ public class Promocion  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="promocion")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="promocion")
     public Set<Paquete> getPaquetes() {
         return this.paquetes;
     }

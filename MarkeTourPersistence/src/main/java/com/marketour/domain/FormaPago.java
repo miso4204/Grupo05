@@ -86,7 +86,7 @@ public class FormaPago  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="formaPago")
+@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="formaPago")
     public Set<MedioPago> getMedioPagos() {
         return this.medioPagos;
     }

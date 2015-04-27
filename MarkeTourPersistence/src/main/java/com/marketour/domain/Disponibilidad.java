@@ -57,7 +57,7 @@ public class Disponibilidad  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="producto", nullable=false)
     public Producto getProducto() {
         return this.producto;
