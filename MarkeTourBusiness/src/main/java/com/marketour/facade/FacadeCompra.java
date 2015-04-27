@@ -11,6 +11,7 @@ import com.marketour.business.Cliente;
 import com.marketour.business.Compra;
 import com.marketour.domain.FormaPago;
 import com.marketour.domain.ItemCompra;
+import com.marketour.domain.MedioPago;
 import com.marketour.domain.Paquete;
 import com.marketour.domain.Producto;
 import com.marketour.hibernate.HibernateUtil;
@@ -86,5 +87,40 @@ public class FacadeCompra {
 			lstFormaPago.add(fp);
 		}
 		return lstFormaPago;
+	}
+	
+	public static List<com.marketour.business.MedioPago> ConsultarMedioPagoXCliente(int idCliente, int idFormaPago)
+	{
+		List<com.marketour.business.MedioPago> lstMedioPago=new ArrayList<com.marketour.business.MedioPago>();
+		List<MedioPago> lstdbMedioPago=new ArrayList<MedioPago>();
+		
+		com.marketour.persistence.Repository<MedioPago> repository= new com.marketour.persistence.Repository<MedioPago>(MedioPago.class);
+		lstdbMedioPago=repository.FindByColumn("cliente = " + idCliente + " and forma = " + idFormaPago);
+		for (MedioPago medioPago : lstdbMedioPago) 
+		{
+			com.marketour.business.MedioPago mp=new com.marketour.business.MedioPago();
+			mp.setId(medioPago.getId());
+			mp.setCliente(medioPago.getCliente().getId());
+			if (medioPago.getTarjetaCredito()!=null){
+				com.marketour.business.TarjetaCredito tc=new com.marketour.business.TarjetaCredito();
+				tc.setId(medioPago.getTarjetaCredito().getId());
+				tc.setNombre(medioPago.getTarjetaCredito().getNombre());
+				tc.setNumero(medioPago.getTarjetaCredito().getNumero());
+				tc.setCodigo(medioPago.getTarjetaCredito().getCodigo());
+				tc.setVencimiento(medioPago.getTarjetaCredito().getVencimiento());
+				mp.setTarjetaCredito(tc);	
+			}
+			
+			if (medioPago.getContraEntrega()!=null){
+				com.marketour.business.ContraEntrega co=new com.marketour.business.ContraEntrega();
+				co.setId(medioPago.getContraEntrega().getId());
+				co.setDireccion(medioPago.getContraEntrega().getDireccion());
+				mp.setContraEntrega(co);
+			}
+						
+
+			lstMedioPago.add(mp);
+		}
+		return lstMedioPago;
 	}
 }

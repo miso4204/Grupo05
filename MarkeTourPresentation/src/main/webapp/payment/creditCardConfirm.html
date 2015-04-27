@@ -19,8 +19,7 @@
     <meta name="author" content="templatemo">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/font-awesome.css">
     <link rel="stylesheet" href="../css/animate.css">
     <link rel="stylesheet" href="../css/templatemo_misc.css">
@@ -55,6 +54,9 @@
                                 </a>
                             </li>
                         </ul>
+                        <a href="#" class="toggle-menu visible-sm visible-xs">
+                            <i class="fa fa-bars"></i>
+                        </a>
                     </div>
                     <!-- /.main-menu -->
                 </div>
@@ -82,9 +84,6 @@
                             <li><a href="../about.html">About Us</a></li>
                             <li><a href="../contact.html">Contact</a></li>
                         </ul>
-                        <a href="#" class="toggle-menu visible-sm visible-xs">
-                            <i class="fa fa-bars"></i>
-                        </a>
                     </div> <!-- /.main-menu -->
                 </div> <!-- /.col-md-8 -->
             </div> <!-- /.row -->
@@ -108,96 +107,61 @@
 <div class="page-top" id="templatemo_contact">
 </div> <!-- /.page-header -->
 
-<div class="contact-page" ng-controller="ShoppingCartCtrl">
-    <div class="container">
+<div class="contact-page">
+    <div class="container" ng-controller="ShoppingCartCtrl">
         <div class="row">
-        <div  style="">
- <div class="col-md-8">
-         <div >
-					<label style="font-size: 30px; font-family: sans-serif">Tu carrito</label><br>
-						<button class="btn btn-large btn-success" type="button" ng-click="limpiarCarrito();">Limpiar Carrito  <i class="glyphicon glyphicon-trash"></i></button>
-						<br><br>
-						<label style="font-size: 20px; font-family: sans-serif">Productos</label>
-					    <div ng-repeat="item in allItems " class="row" style="margin: 3%; box-shadow: 2px 2px 5px gray; border-radius: 5px">
-						<div class="col-md-3">
-						<IMG ng-src="{{item.imagen}}" height="100px" width="120px">
-						</div>
-						<div class="col-md-7" align="left">			
-							<label style="font-size: 20px; font-family: sans-serif">{{item.nombre}}</label> <br> 
-							<label style="font-size: 10px; font-family: sans-serif">{{item.descripcion}}</label> <br> 
-							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{item.valor | currency}}</label>
-							
-						</div>
-						<div class="col-md-1" align="left">
-						<img Style="cursor: pointer;" alt="Agregar" src="imagenes/mas.png" ng-click="sumar(item.id);">
-						<label style="font-size: 15px; font-family: sans-serif">&nbsp;&nbsp;{{item.cantidad}}</label>
-						<img Style="cursor: pointer;" alt="Quitar" src="imagenes/menos.gif" ng-click="restar(item.id);">
-						</div>
-						<div class="col-md-1" align="right" vertical-align="top">
-						<img Style="cursor: pointer;" alt="Eliminar" src="imagenes/borrar.png" ng-click="eliminar(item.id);">
-						</div>
-						
-					</div>
-					
-					<br>
-					<label style="font-size: 20px; font-family: sans-serif">Paquetes</label>
-					<div ng-repeat="package in allPackages " class="row" style="margin: 3%; box-shadow: 2px 2px 5px gray; border-radius: 5px">
-						<div class="col-md-3">
-						<IMG ng-src="{{package.productos[0].imagen}}" height="100px" width="120px">
-						</div>
-						<div class="col-md-7" align="left">			
-							<label style="font-size: 20px; font-family: sans-serif">{{package.nombre}}</label> <br> 
-							<label style="font-size: 10px; font-family: sans-serif">{{package.descripcion}}</label> <br> 
-							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{package.valor | currency}}</label>
-							
-						</div>
-						<div class="col-md-1" align="left">
-						<img Style="cursor: pointer;" alt="Agregar" src="imagenes/mas.png" ng-click="sumarPaquete(package.id);">
-						<label style="font-size: 15px; font-family: sans-serif">&nbsp;&nbsp;{{package.cantidad}}</label>
-						<img Style="cursor: pointer;" alt="Quitar" src="imagenes/menos.gif" ng-click="restarPaquete(package.id);">
-						</div>
-						<div class="col-md-1" align="right" vertical-align="top">
-						<img Style="cursor: pointer;" alt="Eliminar" src="imagenes/borrar.png" ng-click="eliminarPaquete(package.id);">
-						</div>
-						
-					</div>
-					
-				</div>
-				
-    
-     </div>
-     <div class="col-md-4">
-         <div style="box-shadow: 2px 2px 5px gray; border-radius: 5px; background-color: #E2ECDE">
-					<label
-						style="color: white; font-size: 15px; text-align: center; width: 100%; background-color: #62CB59; border-top-left-radius: 3px; border-top-right-radius: 3px">Resumen
-						Compra</label>
-					<div style="margin: 3%">
-						<label
-							style="font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{totalPlanes}}</label>
-					</div>
-					<div style="background-color: white;margin: 3%; height: 100%">
-						<label 	style="margin:3%; font-size: 30px; font-family: sans-serif;  text-align: center; width: 100%; border-radius: 3px;">Total: {{total | currency}}</label>
-					</div>
-					<div style="margin: 3%">
-						Seleccione fomra de pago: <br> 						
-						<IMG SRC="imagenes/formasPago.png" height="35px" width="200px" style="border-radius: 3px"> <br>
-						
-						<select ng-model="f"  ng-change="cambioMedioPago()" id="forma" >
-						<option value="">Seleccione >></option>
-							<option ng-value="{{forma.id}}" ng-repeat="forma in listaFormaPago ">{{forma.descripcion}}</option>
-						</select>
-						<br>
-						<label	style="color: red; font-size: 15px;">{{error}}</label>
-						<button ng-click="comprar();"
-							style="color: white; font-size: 30px; font-family: sans-serif; background-color: #62CB59; text-align: center; width: 100%; border-radius: 10px;">Comprar
-							ahora</button>
-					</div>
-				</div>
-      </div>
-   
- 
-           
-				</div>
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+                <h3 class="widget-title">CONFIRMAR TARJETA DE CREDITO</h3>
+                <div class="contact-form form">
+                    <form role="form" id="payment-form">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cardNumber">NÚMERO DE TARJETA</label>
+                                    <div class="input-group">
+                                        <input ng-value="medioPago[0].tarjetaCredito.numero" type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label for="expMonth" class="pull-left">FECHA DE EXPIRACIÓN</label>
+                                    <div style="clear: both"></div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input ng-value="medioPago[0].tarjetaCredito.vencimiento| date: 'MM' " type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input ng-value="medioPago[0].tarjetaCredito.vencimiento| date: 'yyyy' " type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cvCode">CÓDIGO DE VERIFICACIÓN</label>
+                                    <input ng-value="medioPago[0].tarjetaCredito.codigo " class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <button class="btn btn-success btn-lg btn-block" type="button">Modificar datos</button>
+                            </div>
+                            <div class="col-xs-7">
+                                <button ng-click="confirmarComprar();" class="btn btn-success btn-lg btn-block" type="submit">Pagar ahora</button>
+                            </div>
+                            
+                        </div>
+                        <div class="row" style="display:none;">
+                            <div class="col-xs-12">
+                                <p class="payment-errors"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- /.contact-form -->
+            </div>
         </div>
     </div>
 </div>

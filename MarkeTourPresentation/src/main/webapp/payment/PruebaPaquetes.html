@@ -1,0 +1,92 @@
+<!doctype html >
+<html>
+<head>
+<title>MarkeTour</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+<script src="javascript/App.js"></script>
+<script src="javascript/ShoppingCartCtrl.js"></script>
+</head>
+<body ng-app="MarkeTour">
+	<div ng-controller="ShoppingCartCtrl">
+		<div class="panel panel-primary">
+			<div class="panel-heading text-center">
+				<table style="width: 100%">
+					<tr>
+						<td align="left" style="width: 20%"><IMG
+							SRC="imagenes/logo2.png" style="border-radius: 5px" height="35px"
+							width="100px"></td>
+						<td style="vertical-align: bottom; width: 50%" align="right">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Buscar..."
+									name="srch-term" id="srch-term">
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="submit"
+										onclick="document.getElementById('lista').style.display = 'block';"
+										onmousedown="document.getElementById('logo').style.display = 'none';">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
+							</div>
+						</td>
+						<td align="right" style="width: 10%"></td>
+						<td align="right" style="width: 20%">
+							<button class="btn btn-large btn-info" type="button"
+								onclick="window.location='Login.html'">
+								<i class="glyphicon glyphicon-user"></i>
+							</button>
+							<button class="btn btn-large btn-info" type="button"
+								onclick="window.location='ShoppingCart.html'">
+								<i class="glyphicon glyphicon-shopping-cart"></i>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br />
+			<div class="btn-group" style="margin-left: 1%;" role="group"
+				aria-label="Default button group">
+				<a href="Login.html" type="button" class="btn btn-default">Login</a>
+				<a href="SignUp.html" type="button" class="btn btn-default">Registro</a>
+				<a href="ProductView.html" type="button" class="btn btn-default">Paquetes
+					Turísticos</a> <a href="ReporteView.html" type="button"
+					class="btn btn-default">Reportes</a>
+			</div>
+			<div class="panel-body" style="margin-left: 15%; margin-right: 15%">
+				<div align="center">
+					<IMG SRC="imagenes/logo.png" style="border-radius: 5px" id="logo">
+				</div>
+				<div id="lista"
+					style="display: none; width: 100%; border-left: 1px solid gray; border-right: 1px solid gray">
+					<div ng-repeat="package in packagesList | orderBy:'+id'"
+						style="margin: 3%; box-shadow: 2px 2px 5px #5F8CF5; border-radius: 5px">
+						<table width="100%">
+							<tr style="vertical-align: top;">
+								<td width="20%"><img ng-src="{{package.productos[0].imagen}}"
+									style="float: none;" height="100px" width="120px"></td>
+								<td width="50%" text-align="left"><label
+									style="font-size: 20px; font-family: sans-serif">{{package.nombre}}</label>
+									<br> <label
+									style="font-size: 10px; font-family: sans-serif">{{package.descripcion}}</label>
+									<br> <label
+									style="font-size: 15px; font-family: sans-serif">$
+										{{package.valor}}</label></td>
+								<td valign="middle">
+									<button class="btn btn-large btn-info" type="button"
+										ng-click="addPackage(package);">
+										Agregar a carrito <i class="glyphicon glyphicon-shopping-cart"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

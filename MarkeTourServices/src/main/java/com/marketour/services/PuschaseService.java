@@ -37,6 +37,14 @@ public class PuschaseService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeCompra.ConsultarFormasdePago()).build();
 	}
+	
+	@GET
+	@Path("MedioPagoCliente/{id}/{idForma}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ConsultarMedioPagoXCliente(@PathParam("id") int id,@PathParam("idForma") int idForma) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarMedioPagoXCliente(id,idForma)).build();
+	}
 
 	@GET
 	@Path("{id}")
