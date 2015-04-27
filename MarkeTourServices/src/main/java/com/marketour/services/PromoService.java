@@ -71,6 +71,7 @@ public class PromoService {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Delete(@PathParam("id") int id) {
+		System.out.println("DELETE: " + id);
 		repository.Delete(id);
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(true).build();
