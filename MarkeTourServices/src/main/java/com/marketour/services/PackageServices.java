@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.facade.FacadePackage;
 import com.marketour.facade.FacadeProductos;
 import com.marketour.persistence.*;
 
@@ -33,7 +34,7 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesTodos()).build();
+				.entity(FacadePackage.ConsultarPaquetesTodos()).build();
 	}
 
 	@GET
@@ -41,7 +42,7 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindById(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquete(id)).build();
+				.entity(FacadePackage.ConsultarPaquete(id)).build();
 	}
 
 	@GET
@@ -49,8 +50,7 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByProvider(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesXProveedor(id))
-				.build();
+				.entity(FacadePackage.ConsultarPaquetesXProveedor(id)).build();
 	}
 
 	@GET
@@ -58,7 +58,7 @@ public class PackageServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByName(@PathParam("data") String data) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesXNombre(data)).build();
+				.entity(FacadePackage.ConsultarPaquetesXNombre(data)).build();
 	}
 
 	@DELETE
@@ -75,7 +75,7 @@ public class PackageServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response Persist(com.marketour.business.Paquete business) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.Persist(business)).build();
+				.entity(FacadePackage.Persist(business)).build();
 	}
 
 	@GET

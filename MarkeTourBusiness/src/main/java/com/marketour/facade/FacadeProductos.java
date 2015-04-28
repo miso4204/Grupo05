@@ -3,10 +3,11 @@ package com.marketour.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.marketour.business.Categoria;
+import com.marketour.business.Ciudad;
+import com.marketour.business.Departamento;
 import com.marketour.business.Producto;
 import com.marketour.business.Paquete;
-import com.marketour.domain.Promocion;
-import com.marketour.domain.Proveedor;
 import com.marketour.persistence.Repository;
 
 public class FacadeProductos {
@@ -44,31 +45,6 @@ public class FacadeProductos {
 		return lstProducto;
 	}
 
-	public static Paquete ConsultarPaquete(int id) {
-		Paquete paquete = new Paquete();
-		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
-				com.marketour.domain.Paquete.class);
-		Paquete business = new Paquete();
-		com.marketour.domain.Paquete domain = repository.FindById(id);
-		if (domain != null)
-			business = Paquete.ConvertToBPaquete(domain);
-		return business;
-	}
-
-	public static List<Paquete> ConsultarPaquetesXNombre(String nombre) {
-		List<Paquete> lstPaquete = new ArrayList<Paquete>();
-		List<com.marketour.domain.Paquete> lstdPaquete = new ArrayList<com.marketour.domain.Paquete>();
-		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
-				com.marketour.domain.Paquete.class);
-		lstdPaquete = repository.FindByColumn("nombre LIKE '%" + nombre + "%'");
-		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
-			Paquete pac = new Paquete();
-			pac = Paquete.ConvertToBPaquete(paquete);
-			lstPaquete.add(pac);
-		}
-		return lstPaquete;
-	}
-
 	public static List<Producto> ConsultarProductoXNombre(String nombre) {
 		List<Producto> lstProducto = new ArrayList<Producto>();
 		List<com.marketour.domain.Producto> lstdProducto = new ArrayList<com.marketour.domain.Producto>();
@@ -94,38 +70,6 @@ public class FacadeProductos {
 		return business;
 	}
 
-	public static List<Paquete> ConsultarPaquetesXProveedor(int idProveedor) {
-		List<Paquete> lstPaquete = new ArrayList<Paquete>();
-		List<com.marketour.domain.Paquete> lstdPaquete = new ArrayList<com.marketour.domain.Paquete>();
-		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
-				com.marketour.domain.Paquete.class);
-		lstdPaquete = repository.FindByColumn("proveedor = " + idProveedor);
-		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
-			Paquete pac = new Paquete();
-			pac = Paquete.ConvertToBPaquete(paquete);
-			Repository<com.marketour.domain.Producto> repository1 = new Repository<com.marketour.domain.Producto>(
-					com.marketour.domain.Producto.class);
-			lstPaquete.add(pac);
-		}
-		return lstPaquete;
-	}
-
-	public static List<Paquete> ConsultarPaquetesTodos() {
-		List<Paquete> lstPaquete = new ArrayList<Paquete>();
-		List<com.marketour.domain.Paquete> lstdPaquete = new ArrayList<com.marketour.domain.Paquete>();
-		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
-				com.marketour.domain.Paquete.class);
-		lstdPaquete = repository.FindAll();
-		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
-			Paquete pac = new Paquete();
-			pac = Paquete.ConvertToBPaquete(paquete);
-			Repository<com.marketour.domain.Producto> repository1 = new Repository<com.marketour.domain.Producto>(
-					com.marketour.domain.Producto.class);
-			lstPaquete.add(pac);
-		}
-		return lstPaquete;
-	}
-
 	public static List<Producto> ConsultarProductoTodos() {
 		List<Producto> lstProducto = new ArrayList<Producto>();
 		List<com.marketour.domain.Producto> lstdProducto = new ArrayList<com.marketour.domain.Producto>();
@@ -140,46 +84,79 @@ public class FacadeProductos {
 		return lstProducto;
 	}
 
-	public static com.marketour.business.Paquete Persist(Paquete business) {
-		Repository<com.marketour.domain.Paquete> repositoryPackage = new Repository<com.marketour.domain.Paquete>(
-				com.marketour.domain.Paquete.class);
-		com.marketour.domain.Paquete domain = null;
+	public static List<Categoria> ConsultarCategoriasTodos() {
+		List<Categoria> business = new ArrayList<Categoria>();
+		List<com.marketour.domain.Categoria> domain = new ArrayList<com.marketour.domain.Categoria>();
+		Repository<com.marketour.domain.Categoria> repository = new Repository<com.marketour.domain.Categoria>(
+				com.marketour.domain.Categoria.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.Categoria item : domain) {
+
+			business.add(Categoria.ConvertToBCategoria(item));
+		}
+		return business;
+	}
+
+	public static List<Ciudad> ConsultarCiudadesTodos() {
+		List<Ciudad> business = new ArrayList<Ciudad>();
+		List<com.marketour.domain.Ciudad> domain = new ArrayList<com.marketour.domain.Ciudad>();
+		Repository<com.marketour.domain.Ciudad> repository = new Repository<com.marketour.domain.Ciudad>(
+				com.marketour.domain.Ciudad.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.Ciudad item : domain) {
+
+			business.add(Ciudad.ConvertToBCiudad(item));
+		}
+		return business;
+	}
+
+	public static List<Departamento> ConsultarDepartamentosTodos() {
+		List<Departamento> business = new ArrayList<Departamento>();
+		List<com.marketour.domain.Departamento> domain = new ArrayList<com.marketour.domain.Departamento>();
+		Repository<com.marketour.domain.Departamento> repository = new Repository<com.marketour.domain.Departamento>(
+				com.marketour.domain.Departamento.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.Departamento item : domain) {
+			business.add(Departamento.ConvertToBDepartamento(item));
+		}
+		return business;
+	}
+
+	public static Producto Persist(com.marketour.business.Producto business) {
+		Repository<com.marketour.domain.Producto> repositoryProduct = new Repository<com.marketour.domain.Producto>(
+				com.marketour.domain.Producto.class);
+		com.marketour.domain.Producto domain = null;
 		if (business.getId() > 0) {
-			domain = repositoryPackage.FindById(business.getId());
-			domain = business.ConvertToDBPaquete(business, domain);
-			// Offer
-			Repository<com.marketour.domain.Promocion> repositoryOffer = new Repository<com.marketour.domain.Promocion>(
-					com.marketour.domain.Promocion.class);
-			repositoryOffer.Update(domain.getPromocion());
-			// Products
-			Repository<com.marketour.domain.Producto> repositoryProduct = new Repository<com.marketour.domain.Producto>(
-					com.marketour.domain.Producto.class);
-			for (Producto productB : business.getProductos()) {
-				domain.getProductos().add(
-						repositoryProduct.FindById(productB.getId()));
-			}
-			repositoryPackage.Update(domain);
+			domain = repositoryProduct.FindById(business.getId());
+			domain = Producto.ConvertToDBProducto(business, domain);
+			// Category
+			Repository<com.marketour.domain.Categoria> repositoryCategory = new Repository<com.marketour.domain.Categoria>(
+					com.marketour.domain.Categoria.class);
+			domain.setCategoria(repositoryCategory.FindById(business
+					.getIdCategoria()));
+			// City
+			Repository<com.marketour.domain.Ciudad> repositoryCity = new Repository<com.marketour.domain.Ciudad>(
+					com.marketour.domain.Ciudad.class);
+			domain.setCiudad(repositoryCity.FindById(business.getIdCiudad()));
+			repositoryProduct.Update(domain);
 		} else {
-			domain = business.ConvertToDBPaquete(business,
-					new com.marketour.domain.Paquete());
+			domain = Producto.ConvertToDBProducto(business,
+					new com.marketour.domain.Producto());
 			// Provider
 			Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
 					com.marketour.domain.Proveedor.class);
 			domain.setProveedor(repositoryProvider.FindById(1));
-			// Offer
-			Repository<com.marketour.domain.Promocion> repositoryOffer = new Repository<com.marketour.domain.Promocion>(
-					com.marketour.domain.Promocion.class);
-			repositoryOffer.Save(domain.getPromocion());
-			// Products
-			Repository<com.marketour.domain.Producto> repositoryProduct = new Repository<com.marketour.domain.Producto>(
-					com.marketour.domain.Producto.class);
-			for (Producto productB : business.getProductos()) {
-				domain.getProductos().add(
-						repositoryProduct.FindById(productB.getId()));
-			}
-			repositoryPackage.Save(domain);
+			// Category
+			Repository<com.marketour.domain.Categoria> repositoryCategory = new Repository<com.marketour.domain.Categoria>(
+					com.marketour.domain.Categoria.class);
+			domain.setCategoria(repositoryCategory.FindById(business
+					.getIdCategoria()));
+			// City
+			Repository<com.marketour.domain.Ciudad> repositoryCity = new Repository<com.marketour.domain.Ciudad>(
+					com.marketour.domain.Ciudad.class);
+			domain.setCiudad(repositoryCity.FindById(business.getIdCiudad()));
+			repositoryProduct.Save(domain);
 		}
-
-		return ConsultarPaquete(domain.getId());
+		return ConsultarProducto(domain.getId());
 	}
 }

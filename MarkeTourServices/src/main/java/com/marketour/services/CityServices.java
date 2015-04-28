@@ -14,55 +14,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.facade.FacadeProductos;
 import com.marketour.persistence.*;
 
 @Path("/CityServices")
 @Produces(MediaType.APPLICATION_JSON)
 public class CityServices {
 
-	private RepositoryCity repository;
-
-	public CityServices() {
-		repository = new com.marketour.persistence.RepositoryCity();
-	}
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindAll()).build();
-	}
-
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindById(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindById(id)).build();
-	}
-
-	@GET
-	@Path("departament/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByDepartment(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindByDepartment(id)).build();
-	}
-
-	@DELETE
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Delete(@PathParam("id") int id) {
-		repository.Delete(id);
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(true).build();
-	}
-
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Ciudad entity) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeProductos.ConsultarCiudadesTodos()).build();
 	}
 
 	@OPTIONS

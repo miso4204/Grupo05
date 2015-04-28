@@ -1,8 +1,6 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
-
 
 /**
  * @author Andres
@@ -11,11 +9,16 @@ import java.io.Serializable;
  */
 public class Categoria implements Serializable {
 
+	private Integer id;
 	private String descripcion;
-	private String nonbre;
+	private int estado;
 
-	public Categoria(){
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {
@@ -26,16 +29,20 @@ public class Categoria implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public String getNonbre() {
-		return nonbre;
+	public int getEstado() {
+		return estado;
 	}
 
-	public void setNonbre(String nonbre) {
-		this.nonbre = nonbre;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
-	public void finalize() throws Throwable {
-
+	public static Categoria ConvertToBCategoria(
+			com.marketour.domain.Categoria domain) {
+		Categoria business = new Categoria();
+		business.setId(domain.getId());
+		business.setEstado(domain.getEstado());
+		business.setDescripcion(domain.getDescripcion());
+		return business;
 	}
-
 }

@@ -1,8 +1,6 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
-
 
 /**
  * @author Andres
@@ -11,37 +9,50 @@ import java.io.Serializable;
  */
 public class Departamento implements Serializable {
 
-	private String nombre;
+	private Integer id;
+	private String descripcion;
+	private String codigo;
+	private int estado;
 
-	public Departamento(){
-
+	public Integer getId() {
+		return id;
 	}
 
-	public void finalize() throws Throwable {
-
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public static Departamento ConvertToBDepartamento(com.marketour.domain.Departamento departamento)
-    {
-		Departamento dep=new Departamento();
-		dep.setNombre(departamento.getDescripcion());
-		return dep;
-    	
-    }
-	public static com.marketour.domain.Departamento ConvertToDBDepartamento(Departamento departamento)
-    {
-		com.marketour.domain.Departamento dep=new com.marketour.domain.Departamento();
-		dep.setDescripcion(departamento.getNombre());
-		
-		return dep;
-    	
-    }
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public static Departamento ConvertToBDepartamento(
+			com.marketour.domain.Departamento domain) {
+		Departamento business = new Departamento();
+		business.setId(domain.getId());
+		business.setDescripcion(domain.getDescripcion());
+		business.setCodigo(domain.getCodigo());
+		business.setEstado(domain.getEstado());
+		return business;
+	}
 }
