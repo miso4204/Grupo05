@@ -37,7 +37,7 @@ public class UserService {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticate(com.marketour.business.Usuario entity) {
+	public Response authenticate(Usuario entity) {
 		return Response
 				.status(200)
 				.header("Access-Control-Allow-Origin", "*")

@@ -35,7 +35,7 @@ function cargarProductos() {
 	var baseHtml = '';
 	var primero=false;
     $.get("http://localhost:8080/ProductServices", function (res) {
-        
+        $("#loader").remove();
         $.each(res, function (index, value) {        	
             baseHtml += '<a href="product.html">';
             baseHtml += '<div class="col-md-4"><!-- second column -->';
