@@ -77,9 +77,24 @@ public class FacadeUsuarios {
 
 	}
 
-	public static Map<String, String> authenticate(String login, String pass) {
+	public static Usuario authenticate(String login, String pass) {
 		RepositoryUser repository = new com.marketour.persistence.RepositoryUser();
 		return repository.authenticate(login, pass);
+	}
+	public static com.marketour.business.Usuario ConvertToBUsuario(Usuario usuario)
+	{
+		
+		com.marketour.business.Usuario bUsuario=new com.marketour.business.Usuario();
+		bUsuario.setCelular(usuario.getCelular());
+		bUsuario.setCorreo(usuario.getCorreo());
+		bUsuario.setDireccion(usuario.getDireccion());
+		bUsuario.setEstado(usuario.getEstado());
+		bUsuario.setId(usuario.getId());
+		bUsuario.setLogin(usuario.getLogin());
+		bUsuario.setNombre(usuario.getNombre());
+		bUsuario.setPassword(usuario.getPassword());
+		bUsuario.setTelefono(usuario.getTelefono());
+		return bUsuario;
 	}
 
 	public static com.marketour.persistence.Repository<com.marketour.domain.Cliente> RegistrarCliente(
