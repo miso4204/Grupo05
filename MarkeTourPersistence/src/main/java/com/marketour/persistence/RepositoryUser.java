@@ -27,6 +27,7 @@ public class RepositoryUser extends Repository<Usuario> {
 			if(usuario.getPassword().equals(pass)){
 				map.put("response", "true");
 				map.put("id", String.valueOf(usuario.getId()));
+				map.put("username", usuario.getNombre());
 				return map;
 			}
 			map.put("response", "false");

@@ -39,25 +39,7 @@
         <div class="main-header" style="height: 40px; min-height: 40px;background-color: transparent">
             <div class="row">
                 <div class="col-md-12 col-sm-6 col-xs-2">
-                    <div class="main-menu">
-                        <ul class="visible-lg visible-md">
-                            <li style="border-left: 0px solid #eee;" class="pull-left">
-                                <a href="index.html" style="line-height: 40px; text-transform: none; color: #ffffff">
-                                    <i class="fa fa-user"></i>
-                                    &nbsp;Andrés Decastro
-                                </a>
-                            </li>
-                            <li style="border-left: 0px solid #eee;" class="pull-right">
-                                <a href="index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" >
-                                    <i class="fa fa-shopping-cart"></i>
-                                    &nbsp;Carrito: 0 item(s) $0.00
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="#" class="toggle-menu visible-sm visible-xs">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </div>
+
                     <!-- /.main-menu -->
                 </div>
                 <!-- /.col-md-8 -->
@@ -99,7 +81,7 @@
                         <li><a href="services.html">Services</a></li>
                         <li><a href="products.html">Events</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li class="active"><a href="contact.html">Contact</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div> <!-- /.menu-responsive -->
             </div> <!-- /.col-md-12 -->
@@ -118,12 +100,12 @@
                 <div class="contact-form form">
                     <form name="contactform" id="contactform" action="#" method="post">
                         <p>
-                            <input name="email" type="email" id="email" placeholder="Tu Email">
+                            <input name="login" type="login" id="login" placeholder="Tu Login">
                         </p>
                         <p>
                             <input name="password" type="password" id="password" placeholder="Contraseña">
                         </p>
-                        <input type="submit" class="mainBtn" id="submit" value="Ingresar">
+                        <input type="button" class="mainBtn" id="submit" value="Ingresar">
                     </form>
                 </div> <!-- /.contact-form -->
             </div>
@@ -220,6 +202,45 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var object = {
+                id:null,
+                nombre:"",
+                login:$("#login").val(),
+                password:$("#password").val(),
+                telefono:"",
+                celular:"",
+                correo:"",
+                direccion:"",
+                estado:1
+            };
+            $.ajax({
+                url:"http://localhost:8080/UserService",
+                type:"POST",
+                data:JSON.stringify(object),
+                contentType:"application/json; charset=utf-8",
+                dataType:"json",
+                success: function(res){
+                    console.log(res);
+                    if(res.response == "true"){
+                        sessionStorage.setItem("usuario", res.id);
+                        sessionStorage.setItem("username", res.username);
+                        location.href="index.html"
+                    }else{
+                        location.href="signin.html"
+                    }
+                }
+            })
+        });
+    });
+</script>
+<script>
+    if(sessionStorage.getItem("usuario")){
+        location.href = "index.html";
+    }
+</script>
 <!-- templatemo 409 travel -->
 </body>
 </html>
