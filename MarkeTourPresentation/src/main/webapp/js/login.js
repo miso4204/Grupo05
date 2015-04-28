@@ -14,7 +14,7 @@ var baseLoguedHtml =
         '</a> ' +
     '</li> ' +
     '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
-        '<a href="index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+        '<a href="/index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
             '<i class="fa fa-sign-out"></i> <span id="signout">&nbsp;Sign out</span> ' +
         '</a> ' +
     '</li> ' +
@@ -24,7 +24,7 @@ var baseLoguedHtml =
 var baseNoLoguedHtml =
     '<ul class="visible-lg visible-md"> ' +
         '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
-            '<a href="signin.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+            '<a href="/signin.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
                 '<i class="fa fa-user"></i> <span id="login">Login</span> ' +
             '</a> ' +
         '</li> ' +
