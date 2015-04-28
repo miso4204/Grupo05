@@ -48,6 +48,19 @@
         
 	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCart.html")>-1){		
 			articulos=JSON.parse(localStorage.getItem("articulos"));
+			for (var i=0;i<articulos.length;i++){
+				delete articulos[i].$$hashKey;	
+			}
+			
+			var editKey = "$edit";
+			var hasKey = "$$hashKey";
+
+			if (articulos[editKey])
+				delete articulos[editKey];
+
+			if (articulos[hasKey])
+				delete articulos[hasKey];
+			
 			 $scope.allItems=articulos;
 			 calcularTotal();
 			 
@@ -127,8 +140,8 @@
 				}
 			var pos=buscarArticulo(data.id);
 			if (pos>=0){
-				articulos[i].cantidad=articulos[i].cantidad+1;
-				articulos[i].valor=articulos[i].valor+data.valor;
+				articulos[pos].cantidad=articulos[pos].cantidad+1;
+				articulos[pos].valor=articulos[pos].valor+data.valor;
 			}else{
 				articulos.push(data);	
 			}
@@ -145,8 +158,8 @@
 				}
 			var pos=buscarPaquete(data.id);
 			if (pos>=0){
-				paquetes[i].cantidad=paquetes[i].cantidad+1;
-				paquetes[i].valor=paquetes[i].valor+data.valor;
+				paquetes[pos].cantidad=paquetes[pos].cantidad+1;
+				paquetes[pos].valor=paquetes[pos].valor+data.valor;
 			}else{
 				paquetes.push(data);	
 			}
