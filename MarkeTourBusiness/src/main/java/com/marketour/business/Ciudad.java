@@ -9,38 +9,59 @@ import java.io.Serializable;
  */
 public class Ciudad implements Serializable {
 
-	private String ciudad;
-	private Departamento Departamento;
+	private Integer id;
+	private Integer departamento;
+	private String descripcion;
+	private String codigo;
+	private int estado;
 
-	public Departamento getDepartamento() {
-		return Departamento;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setDepartamento(Departamento newVal) {
-		Departamento = newVal;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public static Ciudad ConvertToBCiudad(com.marketour.domain.Ciudad ciudad) {
-		Ciudad ciu = new Ciudad();
-		ciu.setDepartamento(new Departamento()); // com.marketour.business.Departamento.ConvertToBDepartamento(
-		// ciudad.getDepartamento()));
-		ciu.setCiudad("ciudad");
-		return ciu;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public static com.marketour.domain.Ciudad ConvertToDBCiudad(Ciudad ciudad) {
-		com.marketour.domain.Ciudad ciu = new com.marketour.domain.Ciudad();
-		ciu.setDepartamento(com.marketour.business.Departamento
-				.ConvertToDBDepartamento(ciudad.getDepartamento()));
-		ciu.setDescripcion(ciudad.getCiudad());
-		return ciu;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	public Integer getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Integer departamento) {
+		this.departamento = departamento;
+	}
+
+	public static Ciudad ConvertToBCiudad(com.marketour.domain.Ciudad domain) {
+		Ciudad business = new Ciudad();
+		business.setId(domain.getId());
+		business.setDepartamento(domain.getDepartamento().getId());
+		business.setDescripcion(domain.getDescripcion());
+		business.setCodigo(domain.getCodigo());
+		business.setEstado(domain.getEstado());
+		return business;
 	}
 }

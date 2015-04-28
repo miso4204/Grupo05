@@ -14,49 +14,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.facade.FacadeProductos;
 import com.marketour.persistence.*;
 
 @Path("/DepartmentServices")
 @Produces(MediaType.APPLICATION_JSON)
 public class DepartmentServices {
 
-	@SuppressWarnings("rawtypes")
-	private Repository repository;
-
-	public DepartmentServices() {
-		repository = new com.marketour.persistence.Repository<Departamento>(
-				Departamento.class);
-	}
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindAll()).build();
-	}
-
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindById(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindById(id)).build();
-	}
-
-	@DELETE
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Delete(@PathParam("id") int id) {
-		repository.Delete(id);
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(true).build();
-	}
-
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Departamento entity) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeProductos.ConsultarDepartamentosTodos()).build();
 	}
 
 	@OPTIONS

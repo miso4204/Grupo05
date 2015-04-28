@@ -29,7 +29,7 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarPaquetesTodos()).build();
+				.entity(FacadeProductos.ConsultarProductoTodos()).build();
 	}
 
 	@GET
@@ -45,7 +45,8 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByPackage(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarProductosXPaquetes(id)).build();
+				.entity(FacadeProductos.ConsultarProductosXPaquetes(id))
+				.build();
 	}
 
 	@GET
@@ -53,18 +54,16 @@ public class ProductServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByProvider(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarProductosXProveedor(id)).build();
+				.entity(FacadeProductos.ConsultarProductosXProveedor(id))
+				.build();
 	}
 
 	@GET
 	@Path("name/{data}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByName(@PathParam("data") String data) {
-		return Response
-				.status(200)
-				.header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeProductos.ConsultarProductoXNombre(data))
-				.build();
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeProductos.ConsultarProductoXNombre(data)).build();
 	}
 
 	@GET

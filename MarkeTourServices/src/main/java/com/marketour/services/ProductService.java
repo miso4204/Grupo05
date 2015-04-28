@@ -1,5 +1,6 @@
 package com.marketour.services;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -53,9 +54,10 @@ public class ProductService {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Producto entity) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response Persist(com.marketour.business.Producto business) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeProductos.Persist(business)).build();
 	}
 
 	@OPTIONS

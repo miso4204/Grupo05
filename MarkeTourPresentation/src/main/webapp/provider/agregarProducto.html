@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="provider" ng-controller="appProductCtrl">
 <head>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketour | Admin</title>
+    <!--Angular-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-route.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/appProductCtrl.js"></script>
+    <!--Legacy-->
     <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link type="text/css" href="css/theme.css" rel="stylesheet">
     <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
           rel='stylesheet'>
-</head>
+    <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/common.js" type="text/javascript"></script>
+    <title>{{appName}} - {{moduleName}}</title></head>
 <body>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">Marketour </a>
+        <div class="container"><a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">{{appName}}</a>
 
             <div class="nav-collapse collapse navbar-inverse-collapse">
-                <form class="navbar-search pull-left input-append" action="#">
-                    <input type="text" class="span3">
-                    <button class="btn" type="button">
-                        <i class="icon-search"></i>
-                    </button>
+                <form class="navbar-search pull-left input-append" action="#"><input type="text" class="span3">
+                    <button class="btn" type="button"><i class="icon-search"></i></button>
                 </form>
                 <ul class="nav pull-right">
-                    <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/user.png" class="nav-avatar"/>
-                        <b class="caret"></b></a>
+                    <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img
+                            src="images/user.png" class="nav-avatar"/> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Your Profile</a></li>
                             <li><a href="#">Edit Profile</a></li>
@@ -40,11 +47,9 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.nav-collapse -->
-        </div>
+            <!-- /.nav-collapse --> </div>
     </div>
-    <!-- /navbar-inner -->
-</div>
+    <!-- /navbar-inner --></div>
 <!-- /navbar -->
 <div class="wrapper">
     <div class="container">
@@ -52,137 +57,184 @@
             <div class="span3">
                 <div class="sidebar">
                     <ul class="widget widget-menu unstyled">
-                        <li class="active">
-                            <a href="index.html"><i class="menu-icon icon-dashboard"></i>Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="agregarProducto.html"><i class="menu-icon icon-user"></i>Agregar Producto </a>
-                        </li>
-                        <li>
-                            <a href="agregarPaquete.html"><i class="menu-icon icon-bullhorn"></i>Agregar Paquete </a>
-                        </li>
-                        <li>
-                            <a href="estadisticas.html"><i class="menu-icon icon-inbox"></i>Estadísticas
-                            </a>
-                        </li>
+                        <li ng-repeat="item in menuItems"><a href="{{item.href}}"><i class="menu-icon icon-inbox"></i>{{item.name}}
+                        </a></li>
                     </ul>
-                    <!--/.widget-nav-->
-
-                </div>
-                <!--/.sidebar-->
-            </div>
+                    <!--/.widget-nav--> </div>
+                <!--/.sidebar--> </div>
             <!--/.span3-->
             <div class="span9">
                 <div class="content">
-
-
-
-
-
-
-
-
                     <div class="module">
-                        <div class="module-head">
-                            <h3>Agregar Producto</h3>
+                        <div class="module-head"><h3>{{moduleName}}</h3>
+
+                            <h3 class="control-label" ng-hide="(data.id >= 0)" ng-disabled="true">(Cargando...)</h3>
                         </div>
                         <div class="module-body">
-                            <form class="form-horizontal row-fluid">
-                                <div class="control-group">
-                                    <label class="control-label" for="nombre">Nombre</label>
-                                    <div class="controls">
-                                        <input type="text" id="nombre" placeholder="Nombre" class="span8">
+                            <div class="form-horizontal row-fluid">
+                                <div class="control-group"><label class="control-label" for="data.id">Id</label>
+
+                                    <div class="controls"><input type="text" id="data.id" class="span8"
+                                                                 ng-model="data.id" ng-disabled="true"></div>
+                                </div>
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.nombre">Nombre</label>
+
+                                    <div class="controls"><input type="text" id="data.nombre" class="span8"
+                                                                 ng-model="data.nombre"></div>
+                                </div>
+                                <div class="control-group"><label class="control-label" for="data.descripcion">Descripción</label>
+
+                                    <div class="controls"><textarea rows="5" id="data.descripcion" class="span8"
+                                                                    ng-model="data.descripcion"></textarea></div>
+                                </div>
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.valor">Valor</label>
+
+                                    <div class="controls"><input type="number" id="data.valor" class="span8"
+                                                                 ng-model="data.valor"></div>
+                                </div>
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.categoria">Categoria</label>
+
+                                    <div class="controls"><select id="data.idCategoria" class="span8"
+                                                                  ng-model="data.idCategoria">
+                                        <option ng-hide="categories.length > 0" ng-disabled="true">(Cargando...)
+                                        </option>
+                                        <option ng-repeat="category in categories" value="{{category.id}}">
+                                            {{category.descripcion}}
+                                        </option>
+                                    </select>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="descripcion">Descripción</label>
-                                    <div class="controls">
-                                        <textarea id="descripcion" class="span8" rows="5"></textarea>
-                                    </div>
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.valor">Capacidad</label>
+
+                                    <div class="controls"><input type="number" id="data.capacidad" class="span8"
+                                                                 ng-model="data.capacidad"></div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="valor">Valor</label>
+
+
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.depatamento">Ubicación</label>
+
                                     <div class="controls">
-                                        <div class="input-append">
-                                            <input id="valor" type="number" placeholder="Valor" class="span8"><span class="add-on">$</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="capacidad">Capacidad</label>
-                                    <div class="controls">
-                                        <input type="number" id="capacidad" placeholder="Capacidad" class="span8">
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="categoria">Categoría</label>
-                                    <div class="controls">
-                                        <select id="categoria" tabindex="1" data-placeholder="Seleccione una categoría" class="span8">
-                                            <option value="">Seleccione Categoría</option>
+                                        <select id="data.depatamento" class="span4" ng-model="data.idDepartamento">
+                                            <option ng-hide="departments.length > 0" ng-disabled="true">(Cargando...)
+                                            </option>
+                                            <option ng-repeat="department in departments" value="{{department.id}}">
+                                                {{department.codigo}}. {{department.descripcion}}
+                                            </option>
+                                        </select>
+                                        <select id="data.idCiudad" class="span4"
+                                                ng-model="data.idCiudad">
+                                            <option ng-hide="cities.length > 0" ng-disabled="true">(Cargando...)
+                                            </option>
+                                            <option ng-repeat="city in cities | filter:{departamento : data.idDepartamento}"
+                                                    value="{{city.id}}">
+                                                {{city.codigo}}. {{city.descripcion}}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="departamento">Departamento</label>
+
+                                <div class="control-group"><label class="control-label"
+                                                                  for="data.estado">¿Habilitado?</label>
+
                                     <div class="controls">
-                                        <select id="departamento" tabindex="1" data-placeholder="Seccione Departamento" class="span8">
-                                            <option value="">Seleccione Departamento</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="categoria">Ciudad</label>
-                                    <div class="controls">
-                                        <select id="ciudad" tabindex="1" data-placeholder="Seleccione Ciudad" class="span8">
-                                            <option value="">Seleccione Ciudad</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="estado">¿Habilitado?</label>
-                                    <div class="controls">
-                                        <label class="checkbox inline">
-                                            <input type="checkbox" value="" id="estado">
+                                        <label class="radio inline">Si <input type="radio"
+                                                                              id="data.estado"
+                                                                              ng-model="data.estado"
+                                                                              value="1">
+                                        </label>
+                                        <label class="radio inline">No <input type="radio"
+                                                                              id="data.estado"
+                                                                              ng-model="data.estado"
+                                                                              value="0">
                                         </label>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <a href="javascript:void(0);" class="btn btn-primary" onclick="agregarProducto()">Agregar</a>
+                            </div>
+                        </div>
+                        <!--div class="module-head"><h3><a data-toggle="collapse"
+                                                        data-target="#collapse{{moduleDetailsName}}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapse{{moduleDetailsName}}">{{moduleDetailsName}}</a>
+                        </h3></div>
+                        <div class="collapse" id="collapse{{moduleDetailsName}}">
+                            <div class="module-body">
+                                <div class="form-horizontal row-fluid">
+                                    <div class="control-group"><label class="control-label"
+                                                                      for="details">Adicionar </label>
+                                        <label class="control-label" ng-hide="details.length > 0" ng-disabled="true">(Cargando...)</label>
+
+                                        <div class="controls"><select id="details" class="span8" ng-model="detail"
+                                                                      ng-options="detail.nombre group by detail.categoria for detail in details">
+                                        </select>
+                                            <a href="#" class="btn btn-success btn-xs"
+                                               ng-click="PersistProduct(detail);"
+                                               role="button" data-toggle="tooltip" title="Adicionar Producto">+</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+                                        <th>Visitas</th>
+                                        <th>Capacidad</th>
+                                        <th>Ubicacion</th>
+                                        <th>Coordenadas</th>
+                                        <th>¿Habilitado?</th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="data in data.productos | orderBy:'+id'">
+                                        <td><span>{{data.id}}</span></td>
+                                        <td><span>{{data.nombre}}</span></td>
+                                        <td><span>{{data.descripcion | limitTo:30}}</span></td>
+                                        <td><span>{{data.categoria}}</span></td>
+                                        <td><span>{{data.valor}}</span></td>
+                                        <td><span>{{data.visitas}}</span></td>
+                                        <td><span>{{data.capacidad}}</span></td>
+                                        <td><span>{{data.ubicacion}}</span></td>
+                                        <td><span>{{data.coordenadas}}</span></td>
+                                        <td><span>{{data.estado}}</span></td>
+                                        <td>
+                                            <div class="control-group">
+                                                <div class="controls">
+                                                    <a href="agregarProducto.html#?id={{data.id}}"
+                                                       class="btn btn-primary btn-xs"
+                                                       role="button" data-toggle="tooltip"
+                                                       title="Modificar Producto">..</a>
+                                                    <a href="#" class="btn btn-danger btn-xs" role="button"
+                                                       ng-click="Remove(data.id);" data-toggle="tooltip"
+                                                       title="Remover Producto">-</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div-->
+                        <div class="module-head align-center"><a href="#" class="btn btn-success" role="button"
+                                                                 ng-click="PersistProduct(data);" data-toggle="tooltip"
+                                                                 title="Registrar Paquete">Registrar Paquete</a></div>
                     </div>
-
-
-
-
-
-
-
-
                 </div>
-                <!--/.content-->
-            </div>
-            <!--/.span9-->
-        </div>
+                <!--/.content--> </div>
+            <!--/.span9--> </div>
     </div>
-    <!--/.container-->
-</div>
+    <!--/.container--></div>
 <!--/.wrapper-->
 <div class="footer">
-    <div class="container">
-        <b class="copyright">&copy; 2015 Marketour - Marketour.com </b>All rights reserved.
-    </div>
+    <div class="container"><b class="copyright">&copy; 2015 Marketour - Marketour.com </b>All rights reserved.</div>
 </div>
-<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-<script src="scripts/services.js" type="text/javascript"></script>
-<script src="scripts/agregarProducto.js" type="text/javascript"></script>
-<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-<script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
-
 </body>
