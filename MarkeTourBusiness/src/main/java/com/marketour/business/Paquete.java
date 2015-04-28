@@ -20,13 +20,13 @@ import com.marketour.persistence.Repository;
  */
 public class Paquete implements Serializable {
 
-	private Integer id;
-	private Proveedor proveedor;
-	private String nombre;
-	private String descripcion;
-	private BigDecimal valor;
-	private Integer visitas;
-	private int estado;
+	private Integer id = 0;
+	private String nombre = "";
+	private String descripcion = "";
+	private BigDecimal valor = BigDecimal.ZERO;
+	private Integer visitas = 0;
+	private int estado = 0;
+	private com.marketour.business.Proveedor proveedor = new com.marketour.business.Proveedor();
 	private List<com.marketour.business.Producto> productos = new ArrayList();
 	private com.marketour.business.Promocion promocion = new com.marketour.business.Promocion();
 
@@ -38,7 +38,12 @@ public class Paquete implements Serializable {
 		business.setValor(domain.getValor());
 		business.setVisitas(domain.getVisitas());
 		business.setEstado(domain.getEstado());
-
+		// Provider
+		if (domain.getProveedor() != null) {
+			com.marketour.business.Proveedor proveedorB = com.marketour.business.Proveedor
+					.ConvertToBProveedor(domain.getProveedor());
+			business.setProveedor(proveedorB);
+		}
 		// Product
 		if (domain.getProductos() != null) {
 			List<com.marketour.business.Producto> productB = new ArrayList();
@@ -48,14 +53,12 @@ public class Paquete implements Serializable {
 			}
 			business.setProductos(productB);
 		}
-
 		// Offer
 		if (domain.getPromocion() != null) {
 			com.marketour.business.Promocion promocionB = com.marketour.business.Promocion
 					.ConvertToBPromocion(domain.getPromocion());
 			business.setPromocion(promocionB);
 		}
-
 		return business;
 	}
 
@@ -66,6 +69,12 @@ public class Paquete implements Serializable {
 		domain.setValor(business.getValor());
 		domain.setVisitas(business.getVisitas());
 		domain.setEstado(business.getEstado());
+		// Offer
+		if (business.getPromocion() != null) {
+			com.marketour.domain.Promocion promocionD = com.marketour.business.Promocion
+					.ConvertToDBPromocion(business.getPromocion());
+			domain.setPromocion(promocionD);
+		}
 		return domain;
 	}
 
@@ -77,11 +86,11 @@ public class Paquete implements Serializable {
 		this.id = id;
 	}
 
-	public Proveedor getProveedor() {
+	public com.marketour.business.Proveedor getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
+	public void setProveedor(com.marketour.business.Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
 

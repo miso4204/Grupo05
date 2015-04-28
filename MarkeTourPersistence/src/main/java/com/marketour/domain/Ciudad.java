@@ -65,7 +65,7 @@ public class Ciudad  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+@ManyToOne( fetch=FetchType.LAZY)
     @JoinColumn(name="departamento", nullable=false)
     public Departamento getDepartamento() {
         return this.departamento;
@@ -125,7 +125,7 @@ public class Ciudad  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="ciudad")
+@OneToMany( fetch=FetchType.LAZY, mappedBy="ciudad")
     public Set<Producto> getProductos() {
         return this.productos;
     }

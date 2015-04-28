@@ -72,7 +72,7 @@ public class Paquete implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "proveedor", nullable = false)
 	public Proveedor getProveedor() {
 		return this.proveedor;
@@ -82,7 +82,7 @@ public class Paquete implements java.io.Serializable {
 		this.proveedor = proveedor;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "promocion")
 	public Promocion getPromocion() {
 		return this.promocion;
@@ -137,7 +137,7 @@ public class Paquete implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "paquete")
+	@OneToMany( fetch = FetchType.LAZY, mappedBy = "paquete")
 	public Set<ItemCompra> getItemCompras() {
 		return this.itemCompras;
 	}
@@ -146,7 +146,7 @@ public class Paquete implements java.io.Serializable {
 		this.itemCompras = itemCompras;
 	}
 
-	@ManyToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToMany( fetch = FetchType.LAZY)
 	@JoinTable(name = "Paquete_Producto", catalog = "devfloor_marketour", joinColumns = { @JoinColumn(name = "paquete", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "producto", nullable = false, updatable = false) })
 	public Set<Producto> getProductos() {
 		return this.productos;

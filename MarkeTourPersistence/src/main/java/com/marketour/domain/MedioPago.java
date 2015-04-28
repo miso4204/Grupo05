@@ -60,7 +60,7 @@ public class MedioPago  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+@ManyToOne( fetch=FetchType.LAZY)
     @JoinColumn(name="forma")
     public FormaPago getFormaPago() {
         return this.formaPago;
@@ -70,7 +70,7 @@ public class MedioPago  implements java.io.Serializable {
         this.formaPago = formaPago;
     }
 
-@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+@ManyToOne( fetch=FetchType.LAZY)
     @JoinColumn(name="cliente")
     public Cliente getCliente() {
         return this.cliente;
@@ -90,7 +90,7 @@ public class MedioPago  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
     public Pse getPse() {
         return this.pse;
     }
@@ -99,7 +99,7 @@ public class MedioPago  implements java.io.Serializable {
         this.pse = pse;
     }
 
-@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToMany( fetch=FetchType.LAZY, mappedBy="medioPago")
     public Set<Compra> getCompras() {
         return this.compras;
     }
@@ -108,7 +108,7 @@ public class MedioPago  implements java.io.Serializable {
         this.compras = compras;
     }
 
-@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
     public TarjetaCredito getTarjetaCredito() {
         return this.tarjetaCredito;
     }
@@ -117,7 +117,7 @@ public class MedioPago  implements java.io.Serializable {
         this.tarjetaCredito = tarjetaCredito;
     }
 
-@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
     public ContraEntrega getContraEntrega() {
         return this.contraEntrega;
     }

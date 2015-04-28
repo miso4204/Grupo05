@@ -1,4 +1,3 @@
-
 package com.marketour.business;
 
 import java.io.Serializable;
@@ -8,15 +7,32 @@ import java.io.Serializable;
  * @version 1.0
  * @created 13-abr.-2015 9:52:40 a. m.
  */
-public class Proveedor extends Usuario implements Serializable{
+public class Proveedor extends Usuario implements Serializable {
 
-	  
-	public Integer getId() {
-		return id;
+	private int id = 0;
+	private String usuario = "";
+	private String descripcion = "";
+	private String nit = "";
+	private String cuenta = "";
+
+	public static Proveedor ConvertToBProveedor(
+			com.marketour.domain.Proveedor domain) {
+		com.marketour.business.Proveedor business = new com.marketour.business.Proveedor();
+		business.setId(domain.getId());
+		business.setDescripcion(domain.getDescripcion());
+		business.setNit(domain.getNit());
+		business.setCuenta(domain.getCuenta());
+		// User
+		business.setUsuario(domain.getUsuario().getNombre());
+		return business;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getDescripcion() {
@@ -43,27 +59,4 @@ public class Proveedor extends Usuario implements Serializable{
 		this.cuenta = cuenta;
 	}
 
-	public String getPagina() {
-		return pagina;
-	}
-
-	public void setPagina(String pagina) {
-		this.pagina = pagina;
-	}
-
-	public String getTipoProveedor() {
-		return tipoProveedor;
-	}
-
-	public void setTipoProveedor(String tipoProveedor) {
-		this.tipoProveedor = tipoProveedor;
-	}
-
-	private int id;
-	 private String descripcion;
-	 private String nit;
-	 private String cuenta;
-	private String pagina;
-	private String tipoProveedor;
-	     
 }

@@ -73,7 +73,7 @@ public class TipoContenido  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="tipoContenido")
+@OneToMany( fetch=FetchType.LAZY, mappedBy="tipoContenido")
     public Set<Contenido> getContenidos() {
         return this.contenidos;
     }

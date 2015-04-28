@@ -66,7 +66,10 @@
             <div class="span9">
                 <div class="content">
                     <div class="module">
-                        <div class="module-head"><h3>{{moduleName}}</h3></div>
+                        <div class="module-head"><h3>{{moduleName}}</h3>
+
+                            <h3 class="control-label" ng-hide="(data.id >= 0)" ng-disabled="true">(Cargando...)</h3>
+                        </div>
                         <div class="module-body">
                             <div class="form-horizontal row-fluid">
                                 <div class="control-group"><label class="control-label" for="data.id">Id</label>
@@ -94,10 +97,18 @@
                                 <div class="control-group"><label class="control-label"
                                                                   for="data.estado">¿Habilitado?</label>
 
-                                    <div class="controls"><label class="checkbox inline"> <input type="checkbox"
-                                                                                                 id="data.estado"
-                                                                                                 ng-model="data.estado">
-                                    </label></div>
+                                    <div class="controls">
+                                        <label class="radio inline">Si <input type="radio"
+                                                                              id="data.estado"
+                                                                              ng-model="data.estado"
+                                                                              value="1">
+                                        </label>
+                                        <label class="radio inline">No <input type="radio"
+                                                                              id="data.estado"
+                                                                              ng-model="data.estado"
+                                                                              value="0">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,10 +174,20 @@
                                     <div class="control-group"><label class="control-label"
                                                                       for="data.promocion.estado">¿Habilitado?</label>
 
-                                        <div class="controls"><label class="checkbox inline"> <input type="checkbox"
-                                                                                                     id="data.promocion.estado"
-                                                                                                     ng-model="data.promocion.estado">
-                                        </label></div>
+                                        <div class="controls">
+                                            <div class="controls">
+                                                <label class="radio inline">Si <input type="radio"
+                                                                                      id="data.promocion.estado"
+                                                                                      ng-model="data.promocion.estado"
+                                                                                      value="1">
+                                                </label>
+                                                <label class="radio inline">No <input type="radio"
+                                                                                      id="data.promocion.estado"
+                                                                                      ng-model="data.promocion.estado"
+                                                                                      value="0">
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +199,20 @@
                         </h3></div>
                         <div class="collapse" id="collapse{{moduleDetailsName}}">
                             <div class="module-body">
+                                <div class="form-horizontal row-fluid">
+                                    <div class="control-group"><label class="control-label"
+                                                                      for="details">Adicionar </label>
+                                        <label class="control-label" ng-hide="details.length > 0" ng-disabled="true">(Cargando...)</label>
+
+                                        <div class="controls"><select id="details" class="span8" ng-model="detail"
+                                                                      ng-options="detail.nombre group by detail.categoria for detail in details">
+                                        </select>
+                                            <a href="#" class="btn btn-success btn-xs"
+                                               ng-click="PersistProduct(detail);"
+                                               role="button" data-toggle="tooltip" title="Adicionar Producto">+</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -191,8 +226,7 @@
                                         <th>Ubicacion</th>
                                         <th>Coordenadas</th>
                                         <th>¿Habilitado?</th>
-                                        <th><a href="agregarProducto.html#?id=0" class="btn btn-success btn-xs"
-                                               role="button" data-toggle="tooltip" title="Adicionar Producto">+</a>
+                                        <th>
                                         </th>
                                     </tr>
                                     </thead>
@@ -200,7 +234,7 @@
                                     <tr ng-repeat="data in data.productos | orderBy:'+id'">
                                         <td><span>{{data.id}}</span></td>
                                         <td><span>{{data.nombre}}</span></td>
-                                        <td><span>{{data.descripcion}}</span></td>
+                                        <td><span>{{data.descripcion | limitTo:30}}</span></td>
                                         <td><span>{{data.categoria}}</span></td>
                                         <td><span>{{data.valor}}</span></td>
                                         <td><span>{{data.visitas}}</span></td>
@@ -215,9 +249,9 @@
                                                        class="btn btn-primary btn-xs"
                                                        role="button" data-toggle="tooltip"
                                                        title="Modificar Producto">..</a>
-                                                    <a href="#" class="btn btn-danger btn-xs" role="button"
+                                                    <!--a href="#" class="btn btn-danger btn-xs" role="button"
                                                        ng-click="Remove(data.id);" data-toggle="tooltip"
-                                                       title="Remover Producto">-</a>
+                                                       title="Remover Producto">-</a-->
                                                 </div>
                                             </div>
                                         </td>
@@ -227,7 +261,7 @@
                             </div>
                         </div>
                         <div class="module-head align-center"><a href="#" class="btn btn-success" role="button"
-                                                                 ng-click="Persist(data);" data-toggle="tooltip"
+                                                                 ng-click="PersistPackage(data);" data-toggle="tooltip"
                                                                  title="Registrar Paquete">Registrar Paquete</a></div>
                     </div>
                 </div>

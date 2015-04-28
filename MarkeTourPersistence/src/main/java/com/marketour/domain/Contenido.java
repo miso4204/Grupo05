@@ -53,7 +53,7 @@ public class Contenido implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch=FetchType.LAZY)
 	@JoinColumn(name = "producto", nullable = false)
 	public Producto getProducto() {
 		return this.producto;
@@ -63,7 +63,7 @@ public class Contenido implements java.io.Serializable {
 		this.producto = producto;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch=FetchType.LAZY)
 	@JoinColumn(name = "tipo")
 	public TipoContenido getTipoContenido() {
 		return this.tipoContenido;

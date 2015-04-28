@@ -9,13 +9,20 @@ import javax.persistence.Table;
  * @created 13-abr.-2015 9:52:43 a. m.
  */
 @Entity
-@Table(name="Usuario"
-    ,catalog="grupocre_marketour"
-)
+@Table(name = "Usuario", catalog = "grupocre_marketour")
 public class Usuario implements java.io.Serializable {
 
-		
-    public Integer getId() {
+	private Integer id = 0;
+	private String login = "";
+	private String password = "";
+	private String nombre = "";
+	private String telefono = "";
+	private String celular = "";
+	private String correo = "";
+	private String direccion = "";
+	private int estado = 0;
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -87,14 +94,4 @@ public class Usuario implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	private Integer id;
-    private String login;
-    private String password;
-    private String nombre;
-    private String telefono;
-    private String celular;
-    private String correo;
-    private String direccion;
-    private int estado;
-    
 }

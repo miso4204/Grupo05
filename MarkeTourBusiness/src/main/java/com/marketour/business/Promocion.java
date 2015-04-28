@@ -11,14 +11,14 @@ import com.marketour.domain.Producto;
 
 public class Promocion implements Serializable {
 
-	private Integer id;
-	private String descripcion;
+	private Integer id = 0;
+	private String descripcion = "";
 	private Date fechaInicio;
 	private Date fechaFin;
-	private String condiciones;
-	private long descuento;
-	private String codigo;
-	private int estado;
+	private String condiciones = "";
+	private long descuento = 0;
+	private String codigo = "";
+	private int estado = 0;
 
 	public Integer getId() {
 		return this.id;
@@ -95,28 +95,20 @@ public class Promocion implements Serializable {
 		business.setFechaFin(domain.getFechaFin());
 		business.setFechaInicio(domain.getFechaInicio());
 		business.setId(domain.getId());
-
 		return business;
 	}
 
 	public static com.marketour.domain.Promocion ConvertToDBPromocion(
-			Promocion promocion) {
-		com.marketour.domain.Promocion pro = new com.marketour.domain.Promocion();
-		pro.setCodigo(promocion.getCodigo());
-		pro.setCondiciones(promocion.getCondiciones());
-		pro.setDescripcion(promocion.getDescripcion());
-		pro.setDescuento(promocion.getDescuento());
-		pro.setEstado(promocion.getEstado());
-		pro.setFechaFin(promocion.getFechaFin());
-		pro.setFechaInicio(promocion.getFechaInicio());
-		pro.setId(promocion.getId());
-
-		/*
-		 * if (promocion.getPaquetes() != null) {
-		 * pro.setPaquetes(promocion.getPaquetes()); }
-		 */
-
-		return pro;
+			Promocion business) {
+		com.marketour.domain.Promocion domain = new com.marketour.domain.Promocion();
+		domain.setCodigo(business.getCodigo());
+		domain.setCondiciones(business.getCondiciones());
+		domain.setDescripcion(business.getDescripcion());
+		domain.setDescuento(business.getDescuento());
+		domain.setEstado(business.getEstado());
+		domain.setFechaFin(business.getFechaFin());
+		domain.setFechaInicio(business.getFechaInicio());
+		domain.setId(business.getId());
+		return domain;
 	}
-
 }

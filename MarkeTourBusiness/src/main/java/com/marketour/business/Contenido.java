@@ -9,10 +9,10 @@ import java.io.Serializable;
  */
 public class Contenido implements Serializable {
 
-	private Integer id;
-	private String tipoContenido;
-	private String contenido;
-	private int estado;
+	private Integer id = 0;
+	private String tipoContenido = "";
+	private String contenido = "";
+	private int estado = 0;
 
 	public com.marketour.business.Contenido ConvertToBContent(
 			com.marketour.domain.Contenido domain) {

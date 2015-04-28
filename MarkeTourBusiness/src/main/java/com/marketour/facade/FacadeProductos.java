@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.marketour.business.Producto;
 import com.marketour.business.Paquete;
+import com.marketour.domain.Promocion;
 import com.marketour.domain.Proveedor;
 import com.marketour.persistence.Repository;
 
@@ -63,8 +64,6 @@ public class FacadeProductos {
 		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
 			Paquete pac = new Paquete();
 			pac = Paquete.ConvertToBPaquete(paquete);
-			Repository<com.marketour.domain.Producto> repository1 = new Repository<com.marketour.domain.Producto>(
-					com.marketour.domain.Producto.class);
 			lstPaquete.add(pac);
 		}
 		return lstPaquete;
@@ -142,22 +141,45 @@ public class FacadeProductos {
 	}
 
 	public static com.marketour.business.Paquete Persist(Paquete business) {
-		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
+		Repository<com.marketour.domain.Paquete> repositoryPackage = new Repository<com.marketour.domain.Paquete>(
 				com.marketour.domain.Paquete.class);
-
-		com.marketour.domain.Paquete domain = repository.FindById(business
-				.getId());
-
-		if (domain != null) {
+		com.marketour.domain.Paquete domain = null;
+		if (business.getId() > 0) {
+			domain = repositoryPackage.FindById(business.getId());
 			domain = business.ConvertToDBPaquete(business, domain);
-			repository.Update(domain);
+			// Offer
+			Repository<com.marketour.domain.Promocion> repositoryOffer = new Repository<com.marketour.domain.Promocion>(
+					com.marketour.domain.Promocion.class);
+			repositoryOffer.Update(domain.getPromocion());
+			// Products
+			Repository<com.marketour.domain.Producto> repositoryProduct = new Repository<com.marketour.domain.Producto>(
+					com.marketour.domain.Producto.class);
+			for (Producto productB : business.getProductos()) {
+				domain.getProductos().add(
+						repositoryProduct.FindById(productB.getId()));
+			}
+			repositoryPackage.Update(domain);
 		} else {
 			domain = business.ConvertToDBPaquete(business,
 					new com.marketour.domain.Paquete());
-			repository.Save(domain);
-
+			// Provider
+			Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
+					com.marketour.domain.Proveedor.class);
+			domain.setProveedor(repositoryProvider.FindById(1));
+			// Offer
+			Repository<com.marketour.domain.Promocion> repositoryOffer = new Repository<com.marketour.domain.Promocion>(
+					com.marketour.domain.Promocion.class);
+			repositoryOffer.Save(domain.getPromocion());
+			// Products
+			Repository<com.marketour.domain.Producto> repositoryProduct = new Repository<com.marketour.domain.Producto>(
+					com.marketour.domain.Producto.class);
+			for (Producto productB : business.getProductos()) {
+				domain.getProductos().add(
+						repositoryProduct.FindById(productB.getId()));
+			}
+			repositoryPackage.Save(domain);
 		}
 
-		return null /* ConsultarPaquete(domain.getId()) */;
+		return ConsultarPaquete(domain.getId());
 	}
 }

@@ -57,7 +57,7 @@ public class TarjetaCredito  implements java.io.Serializable {
         this.id = id;
     }
 
-@OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
+@OneToOne( fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
     public MedioPago getMedioPago() {
         return this.medioPago;
     }

@@ -85,7 +85,7 @@ public class Producto implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch=FetchType.LAZY)
 	@JoinColumn(name = "proveedor", nullable = false)
 	public Proveedor getProveedor() {
 		return this.proveedor;
@@ -95,7 +95,7 @@ public class Producto implements java.io.Serializable {
 		this.proveedor = proveedor;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch=FetchType.LAZY)
 	@JoinColumn(name = "ubicacion")
 	public Ciudad getCiudad() {
 		return this.ciudad;
@@ -105,7 +105,7 @@ public class Producto implements java.io.Serializable {
 		this.ciudad = ciudad;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne( fetch=FetchType.LAZY)
 	@JoinColumn(name = "categoria", nullable = false)
 	public Categoria getCategoria() {
 		return this.categoria;
@@ -178,7 +178,7 @@ public class Producto implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "producto")
+	@OneToMany( fetch=FetchType.LAZY, mappedBy = "producto")
 	public Set<Disponibilidad> getDisponibilidads() {
 		return this.disponibilidads;
 	}
@@ -187,7 +187,7 @@ public class Producto implements java.io.Serializable {
 		this.disponibilidads = disponibilidads;
 	}
 
-	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "producto")
+	@OneToMany( fetch=FetchType.LAZY, mappedBy = "producto")
 	public Set<ItemCompra> getItemCompras() {
 		return this.itemCompras;
 	}
@@ -196,7 +196,7 @@ public class Producto implements java.io.Serializable {
 		this.itemCompras = itemCompras;
 	}
 
-	@ManyToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToMany( fetch=FetchType.LAZY)
 	@JoinTable(name = "Paquete_Producto", catalog = "devfloor_marketour", joinColumns = { @JoinColumn(name = "producto", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "paquete", nullable = false, updatable = false) })
 	public Set<Paquete> getPaquetes() {
 		return this.paquetes;
@@ -206,7 +206,7 @@ public class Producto implements java.io.Serializable {
 		this.paquetes = paquetes;
 	}
 
-	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "producto")
+	@OneToMany( fetch=FetchType.LAZY, mappedBy = "producto")
 	public Set<Contenido> getContenidos() {
 		return this.contenidos;
 	}

@@ -14,18 +14,17 @@ import com.marketour.domain.Proveedor;
  */
 public class Producto implements Serializable {
 
-	private Integer id;
-	private Proveedor proveedor;
-	private String ciudad;
-	private String categoria;
-	private String nombre;
-	private String descripcion;
-	private BigDecimal valor;
-	private Integer visitas;
-	private Integer capacidad;
-	private String coordenadas;
-	private int estado;
-
+	private Integer id = 0;
+	private String ciudad = "";
+	private String categoria = "";
+	private String nombre = "";
+	private String descripcion = "";
+	private BigDecimal valor = BigDecimal.ZERO;
+	private Integer visitas = 0;
+	private Integer capacidad = 0;
+	private String coordenadas = "";
+	private int estado = 0;
+	private com.marketour.business.Proveedor proveedor = new com.marketour.business.Proveedor();
 	private List<com.marketour.business.Contenido> contenidos = new ArrayList<com.marketour.business.Contenido>();
 
 	public static Producto ConvertToBProduct(
@@ -79,11 +78,11 @@ public class Producto implements Serializable {
 		this.id = id;
 	}
 
-	public Proveedor getProveedor() {
+	public com.marketour.business.Proveedor getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
+	public void setProveedor(com.marketour.business.Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
 
