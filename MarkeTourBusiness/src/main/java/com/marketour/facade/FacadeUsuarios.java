@@ -77,7 +77,7 @@ public class FacadeUsuarios {
 
 	}
 
-	public static Map<String, String> authenticate(String login, String pass) {
+	public static Usuario authenticate(String login, String pass) {
 		RepositoryUser repository = new com.marketour.persistence.RepositoryUser();
 		return repository.authenticate(login, pass);
 	}

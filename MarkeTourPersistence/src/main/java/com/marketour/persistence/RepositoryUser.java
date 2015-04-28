@@ -15,22 +15,21 @@ public class RepositoryUser extends Repository<Usuario> {
 		super(Usuario.class);
 	}
 	
-	public Map<String, String> authenticate(String login, String pass){
+	public Usuario authenticate(String login, String pass){
 		List<Usuario> usuarios = this.FindByColumn("login='"+login+"'");
-		HashMap<String, String> map = new HashMap<String, String>();
+		
 		//El usuario no existe
 		if(usuarios.size()==0){
-			map.put("response", "false");
-			return map;
+			
+			return null;
 		}else{
 			Usuario usuario = usuarios.get(0);
 			if(usuario.getPassword().equals(pass)){
-				map.put("response", "true");
-				map.put("id", String.valueOf(usuario.getId()));
-				return map;
+				
+				return usuario;
 			}
-			map.put("response", "false");
-			return map;
+			
+			return null;
 		}
 	}
 }
