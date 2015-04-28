@@ -4,12 +4,12 @@
 var baseLoguedHtml =
 '<ul class="visible-lg visible-md"> ' +
     '<li style="border-left: 0px solid #eee;" class="pull-left"> ' +
-        '<a href="index.html" style="line-height: 40px; text-transform: none; color: #ffffff"> ' +
+        '<a href="/index.html" style="line-height: 40px; text-transform: none; color: #ffffff"> ' +
             '<i class="fa fa-user"></i> <span id="username">&nbsp;Andrés Decastro</span> ' +
         '</a>' +
     '</li> ' +
     '<li style="border-left: 0px solid #eee;"> ' +
-        '<a href="index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+        '<a href="/payment/ShoppingCart.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
             '<i class="fa fa-shopping-cart"></i> <span id="shoppingcart">&nbsp;Carrito: 0 item(s) $0.00</span> ' +
         '</a> ' +
     '</li> ' +
@@ -40,5 +40,5 @@ var baseNoLoguedHtml =
 
 $("#signout").click(function () {
     sessionStorage.clear();
-    location.href = "index.html"
+    location.href = "/index.html"
 });
