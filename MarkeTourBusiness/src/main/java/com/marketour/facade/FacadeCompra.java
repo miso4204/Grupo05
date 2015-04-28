@@ -17,9 +17,10 @@ import com.marketour.domain.Producto;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
 
-public class FacadeCompra {
-
-	public static com.marketour.domain.Compra RegistrarCompra(Compra compra) {
+public class FacadeCompra 
+{
+	public static com.marketour.domain.Compra RegistrarCompra(Compra compra) 
+	{
 
 		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(
 				com.marketour.domain.Compra.class);
@@ -67,6 +68,27 @@ public class FacadeCompra {
 		}
 		return dbCompra;
 
+	}
+	
+	public static List<com.marketour.business.Compra> ConsultarCompra(int mes, int ano) 
+	{
+		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(com.marketour.domain.Compra.class);
+
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByColumn("fecha>'"+ano+"-"+mes+"-1'");
+																				//"fecha>'"+ano+"-"+mes+"-1'"+ ", fecha<'"+ano+"-"+mes+"-30'"
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			Compra tmpCompra=new Compra();
+			tmpCompra.setCalificacion(compra.getCalificacion());
+			//tmpCompra.setCliente(new Cliente(compra..getCliente());
+			tmpCompra.setEstado(compra.getEstado());			
+			tmpCompra.setFechaCompra(compra.getFecha());
+			//tmpCompra.setItemCompras(compra.getItemCompras());
+			//tmpCompra.setMedioPago(compra.getMedioPago());
+			lstCompras.add(tmpCompra);
+		}
+		return lstCompras;
 	}
 	
 	public static List<com.marketour.business.FormaPago> ConsultarFormasdePago()
