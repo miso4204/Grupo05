@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import com.marketour.domain.Paquete;
 import com.marketour.domain.Producto;
 import com.marketour.domain.Promocion;
+import com.marketour.facade.FacadePackage;
 import com.marketour.facade.FacadeProductos;
 import com.marketour.facade.FacadePromo;
 import com.marketour.persistence.Repository;
@@ -46,6 +47,16 @@ public class PromoService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadePromo.ConsultarPromocion(id)).build();
 	}
+	
+	/*
+	@GET
+	@Path("fecha/{fecha}/paquete/{idPaquete}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByFechaAndPaquete(@PathParam("fecha") int fecha, @PathParam("idPaquete") int idPaquete) {
+		Paquete paquete = com.marketour.business.Paquete.ConvertToDBPaquete(FacadePackage.ConsultarPaquete(idPaquete));
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadePromo.ConsultarPromocion(id)).build();
+	} /*
 	
 	/*
 	@GET
