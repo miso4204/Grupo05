@@ -1,5 +1,7 @@
 package com.marketour.services;
 
+import java.sql.Date;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -12,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.facade.FacadeCompra;
+import com.marketour.facade.FacadeProductos;
 import com.marketour.persistence.*;
 
 @Path("/ReporteServices")
@@ -36,6 +40,15 @@ public class ReporteServices {
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repositoryFactura.FindAll()).build();
+	}
+
+	@GET
+	@Path("sales/{fecha}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByPackage(@PathParam("fecha") Date fecha) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompra(fecha.getMonth(), fecha.getYear()))
+				.build();
 	}
 
 	@OPTIONS
