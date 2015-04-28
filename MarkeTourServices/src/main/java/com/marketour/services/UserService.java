@@ -41,8 +41,8 @@ public class UserService {
 		return Response
 				.status(200)
 				.header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConvertToBUsuario(repository.authenticate(entity.getLogin(),
-						entity.getPassword()))).build();
+				.entity(repository.authenticate(entity.getLogin(),
+						entity.getPassword())).build();
 	}
 
 	@GET
