@@ -150,7 +150,7 @@ public class DerivationMain extends JFrame{
 			/*
 			
 			ProcessBuilder builder = new ProcessBuilder(
-		            "cmd.exe", "/c", "cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05 && mvn clean && mvn install && mvn eclipse:eclipse"
+		            "cmd.exe", "/c", "cd C:\\Users\\JuanDa\\git\\Grupo05\\MarkeTour && mvn clean && mvn install && mvn eclipse:eclipse"
 		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPresentation && mvn eclipse:eclipse"
 		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPersistence && mvn eclipse:eclipse"
 		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourBusiness && mvn eclipse:eclipse"
@@ -322,11 +322,11 @@ public static boolean variabilidadReportes(){
 	public static boolean updateProject() {
 		
 		ProcessBuilder builder = new ProcessBuilder(
-	            "cmd.exe", "/c", "cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05 && mvn clean && mvn install && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPresentation && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPersistence && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourBusiness && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices && mvn eclipse:eclipse");
+	            "cmd.exe", "/c", "cd C:\\Users\\JuanDa\\git\\Grupo05 && mvn clean && mvn install && mvn eclipse:eclipse"
+	            		+ " && cd C:\\Users\\JuanDa\\git\\Grupo05\\MarkeTourPresentation && mvn eclipse:eclipse"
+	            		+ " && cd C:\\Users\\JuanDa\\git\\Grupo05\\MarkeTourPersistence && mvn eclipse:eclipse"
+	            		+ " && cd C:\\Users\\JuanDa\\git\\Grupo05\\MarkeTourBusiness && mvn eclipse:eclipse"
+	            		+ " && cd C:\\Users\\JuanDa\\git\\Grupo05\\MarkeTourServices && mvn eclipse:eclipse");
 	        builder.redirectErrorStream(true);
 	        Process p;
 			try {
