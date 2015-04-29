@@ -23,7 +23,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class DerivationMain {
+public class DerivationMain extends JFrame{
 	
 	 private JFrame mainFrame;
 	   private JLabel headerLabel;
@@ -35,7 +35,9 @@ public class DerivationMain {
        
        JCheckBox promoCheckBox = new JCheckBox();
        JLabel promolbl = new JLabel("Promociones");
-
+      
+       private JTextField pathPomServices = new JTextField(15);
+       
 	   public DerivationMain(){
 	      prepareGUI();
 	   }
@@ -43,6 +45,8 @@ public class DerivationMain {
 	
 	public static boolean incluirPromos = false; //Indica si se desean incluir las promos en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirReportes = false; //Indica si se desean incluir los reportes en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	
+	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
 	private void prepareGUI(){
 	      mainFrame = new JFrame("MarkeTour Product Derivation");
@@ -61,17 +65,27 @@ public class DerivationMain {
 	      controlPanel = new JPanel();
 	      controlPanel.setLayout(new GridLayout(6,3));
 	     // controlPanel.setLayout(new FlowLayout());
-
+	     
 	      mainFrame.add(headerLabel);
 	      mainFrame.add(controlPanel);
 	      mainFrame.add(statusLabel);
 	      mainFrame.setVisible(true);  
 	   }
+	
+	// The listener for the textfield.
+	   private class TextFieldListener implements ActionListener
+	   {  public void actionPerformed(ActionEvent evt)
+	      {  String inputString = pathPomServices.getText();
+	         
+	      	filepath = inputString;
+	         System.out.println(filepath);
+	      }
+	   }
 	   
 
 	   private void showButtonDemo(){
 
-	      headerLabel.setText("Control in action: Button"); 
+	      headerLabel.setText("Seleccione las Características"); 
 
 
 		      JButton okButton = new JButton("Generar Producto");  
@@ -110,6 +124,11 @@ public class DerivationMain {
 	            }
 	          });
 		      
+	      
+	       TextFieldListener tfListener = new TextFieldListener();
+		   pathPomServices.addActionListener(tfListener);
+
+	      controlPanel.add(pathPomServices); 
 	      controlPanel.add(reporteslbl);
 	      controlPanel.add(reportesCheckBox);
 	      controlPanel.add(promolbl);
@@ -159,7 +178,6 @@ public class DerivationMain {
 		boolean promosExcluded = false; //Variable que indicará si las promociones se encuentran excluidas o no en el pom.xml actual (NO MODIFICAR)
 
 		   try {
-			String filepath = "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);
