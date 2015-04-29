@@ -14,6 +14,11 @@ var baseLoguedHtml =
         '</a> ' +
     '</li> ' +
     '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
+    	'<a href="/provider/index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+        	'<i class="fa fa-sign-out"></i> <span id="signout">&nbsp;Proveedor</span> ' +
+        '</a> ' +
+    '</li> ' +
+    '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
         '<a href="/index.html" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
             '<i class="fa fa-sign-out"></i> <span id="signout">&nbsp;Sign out</span> ' +
         '</a> ' +
