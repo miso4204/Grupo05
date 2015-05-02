@@ -36,6 +36,14 @@ public class PackageServices {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadePackage.ConsultarPaquetesTodos()).build();
 	}
+	
+	@GET
+	@Path("FiltrarPaquetes/{fechaInicio}/{fechaFin}/{precio1}/{precio2}/{idCiudad}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FiltrarPaquetes(@PathParam("fechaInicio") String fechaInicio,@PathParam("fechaFin") String fechaFin,@PathParam("precio1") double precio1,@PathParam("precio2") double precio2,@PathParam("idCiudad") int idCiudad) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadePackage.FiltrarPaquetes(fechaInicio, fechaFin, precio1, precio2, idCiudad)).build();
+	}
 
 	@GET
 	@Path("{id}")

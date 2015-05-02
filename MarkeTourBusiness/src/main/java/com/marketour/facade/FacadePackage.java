@@ -6,6 +6,7 @@ import java.util.List;
 import com.marketour.business.Paquete;
 import com.marketour.business.Producto;
 import com.marketour.persistence.Repository;
+import com.marketour.persistence.RepositoryProduct;
 
 public class FacadePackage {
 
@@ -20,7 +21,22 @@ public class FacadePackage {
 		}
 		return lstPaquete;
 	}
-
+	public static List<Paquete> FiltrarPaquetes(String fechaInicio,String fechaFin,double precio1,double precio2,int idCiudad) {
+		List<Paquete> lstPaquete = new ArrayList<Paquete>();
+		List<com.marketour.domain.Paquete> lstdPaquete = new ArrayList<com.marketour.domain.Paquete>();
+		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
+				com.marketour.domain.Paquete.class);
+		
+		RepositoryProduct repositoryProductos = new RepositoryProduct();
+		lstdPaquete = repository.FindByColumn("valor>="+precio1+" and valor<="+precio2);
+		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
+			if(repositoryProductos.FindProductsPorPaquete(fechaInicio, fechaFin, precio1, precio2, idCiudad, paquete.getId()).size()>0){
+				lstPaquete.add(Paquete.ConvertToBPaquete(paquete));	
+			}
+			
+		}
+		return lstPaquete;
+	}
 	public static Paquete ConsultarPaquete(int id) {
 		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
 				com.marketour.domain.Paquete.class);

@@ -28,7 +28,7 @@
     <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
     <script src="js/productos.js"></script>
 </head>
-<body onload="cargarProductos();">
+<body onload="load();">
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
     today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
@@ -124,16 +124,17 @@
                         <div class="service-content">
                             <div class="col-xs-12">
                                 <label for="cardNumber">Por Fecha:</label>
-
-                                <div class="form-group">
-                                    <div class="col-xs-6" style=" padding-right: 0">
-                                        <input type="text" class="form-control" name="cardNumber"
+									<div class="col-xs-12" style=" padding-right: 0">
+                                        <input type="date" class="form-control" name="cardNumber"
                                                placeholder="Fecha Inicial" required autofocus data-stripe="number"/>
                                     </div>
-                                    <div class="col-xs-6" style="padding-right: 0">
-                                        <input type="text" class="form-control" name="cardNumber"
+                                    <div class="col-xs-12" style="padding-right: 0">
+                                        <input type="date" class="form-control" name="cardNumber"
                                                placeholder="Fecha Final" required autofocus data-stripe="number"/>
                                     </div>
+                                <div class="form-group">
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -152,11 +153,11 @@
 
                                 <div class="form-group">
                                     <div class="col-xs-6" style=" padding-right: 0">
-                                        <input type="text" class="form-control" name="cardNumber" placeholder="Mínimo"
+                                        <input type="number" class="form-control" name="cardNumber" placeholder="Mínimo"
                                                required autofocus data-stripe="number"/>
                                     </div>
                                     <div class="col-xs-6" style="padding-right: 0">
-                                        <input type="text" class="form-control" name="cardNumber" placeholder="Máximo"
+                                        <input type="number" class="form-control" name="cardNumber" placeholder="Máximo"
                                                required autofocus data-stripe="number"/>
                                     </div>
                                 </div>
@@ -169,8 +170,19 @@
                     <div class="service-item">
                         <!-- /.service-icon -->
                         <div class="service-content form">
-                            <div class="col-xs-12">
-                                <input type="submit" class="mainBtn pull-right" id="submit" value="Buscar">
+                            <div class="col-xs-12">                            
+                            <div class="col-xs-2"  >
+                            <Label>Lugar:</Label>
+                            </div>
+                            <div class="col-xs-4"  >
+                            <select id="comboCiudad" >
+							<option  value="">Seleccione >></option>
+							</select>
+							</div>
+							<div class="col-xs-6" >
+							<input type="submit" class="mainBtn pull-right" id="submit" value="Buscar">
+                            </div>
+                                
                             </div>
                         </div>
                         <!-- /.service-content -->

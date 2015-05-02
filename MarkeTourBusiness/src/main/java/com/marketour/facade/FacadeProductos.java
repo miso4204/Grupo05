@@ -9,6 +9,7 @@ import com.marketour.business.Departamento;
 import com.marketour.business.Producto;
 import com.marketour.business.Paquete;
 import com.marketour.persistence.Repository;
+import com.marketour.persistence.RepositoryProduct;
 
 public class FacadeProductos {
 
@@ -158,5 +159,20 @@ public class FacadeProductos {
 			repositoryProduct.Save(domain);
 		}
 		return ConsultarProducto(domain.getId());
+	}
+	
+	
+	
+	public static List<Producto> FiltrarProducto(String fechaInicio,String fechaFin,double precio1,double precio2,int idCiudad) {
+		List<Producto> lstProducto = new ArrayList<Producto>();
+		List<com.marketour.domain.Producto> lstdProducto = new ArrayList<com.marketour.domain.Producto>();
+		RepositoryProduct repository = new RepositoryProduct();
+		lstdProducto = repository.FindProducts(fechaInicio, fechaFin, precio1, precio2, idCiudad);
+		for (com.marketour.domain.Producto producto : lstdProducto) {
+			Producto pac = new Producto();
+			pac = Producto.ConvertToBProduct(producto);
+			lstProducto.add(pac);
+		}
+		return lstProducto;
 	}
 }

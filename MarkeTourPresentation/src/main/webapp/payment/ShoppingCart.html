@@ -134,13 +134,12 @@
 					<label style="font-size: 20px; font-family: sans-serif">Paquetes</label>
 					<div ng-repeat="package in allPackages " class="row" style="margin: 3%; box-shadow: 2px 2px 5px gray; border-radius: 5px">
 						<div class="col-md-3">
-						<IMG ng-src="{{package.productos[0].imagen}}" height="100px" width="120px">
+						<IMG ng-src="{{package.imagen}}" height="100px" width="120px">
 						</div>
 						<div class="col-md-7" align="left">			
-							<label style="font-size: 20px; font-family: sans-serif">{{package.nombre}}</label> <br> 
+							<label style="font-size: 20px; font-family: sans-serif">{{package.nombre}}  <label style="color:red">{{package.descuento>0? package.descuento+"%":""}}</label></label> <br> 
 							<label style="font-size: 10px; font-family: sans-serif">{{package.descripcion}}</label> <br> 
-							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{package.valor | currency}}</label>
-							
+							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{package.valor | currency}}  <label style="color:red">{{package.descuento>0? (package.valor-((package.descuento/100)*package.valor) | currency):""}}</label></label>							
 						</div>
 						<div class="col-md-1" align="left">
 						<img Style="cursor: pointer;" alt="Agregar" src="imagenes/mas.png" ng-click="sumarPaquete(package.id);">
@@ -178,7 +177,7 @@
 							<option ng-value="{{forma.id}}" ng-repeat="forma in listaFormaPago ">{{forma.descripcion}}</option>
 						</select>
 						<br>
-						<label	style="color: red; font-size: 15px;">{{error}}</label>
+						<label	style="color: red; font-size: 15px; ">{{error}}</label>
 						<button ng-click="comprar();"
 							style="color: white; font-size: 30px; font-family: sans-serif; background-color: #62CB59; text-align: center; width: 100%; border-radius: 10px;">Comprar
 							ahora</button>
