@@ -7,7 +7,7 @@
         $scope.service = "http://localhost:8080/ProductService/";
         $scope.packageService = "http://localhost:8080/PackageServices/";
         $scope.formaPago = "http://localhost:8080/PuschaseService/FormasPago";
-        $scope.servicioMedioPago = "http://localhost:8080/PuschaseService/MedioPagoCliente/1/"; //Recordar poner el clinete logeado
+        $scope.servicioMedioPago = "http://localhost:8080/PuschaseService/MedioPagoCliente/"+sessionStorage.getItem('usuario')+"/"; //Recordar poner el clinete logeado
 		$scope.allItems = [];
 		$scope.allProducts = [];
 		$scope.allPackages = [];
@@ -243,30 +243,36 @@
 		};
 		
 		$scope.comprar = function() {
-			if($scope.total>0){
-				var select_id = document.getElementById("forma");
+			if (sessionStorage.getItem('usuario')!=null && sessionStorage.getItem('usuario')!=""){
+				if($scope.total>0){
+					var select_id = document.getElementById("forma");
 
-				var fp=select_id.options[select_id.selectedIndex].value;
-				if (fp=="Seleccione >>" ||fp==""){
-					$scope.error="Debe selecionar una forma de pago.";
-				}else{
-					$scope.error="";
-					localStorage.setItem("medioPago",fp);
-					$scope.buscarMedioPago(fp);
-					var json=armarJson($scope.medioPago[0].id);
-					localStorage.setItem("jsonCompleto",JSON.stringify(json));
-					if (fp==1){						
-						window.location="creditCardConfirm.html";
-					}else if(fp==2){
-						window.open("https://www.pse.com.co/inicio");
-						$scope.confirmarComprar();						
-					}else if(fp==3){
-						window.location="cashOnDeliveryConfirm.html";					
+					var fp=select_id.options[select_id.selectedIndex].value;
+					if (fp=="Seleccione >>" ||fp==""){
+						$scope.error="Debe selecionar una forma de pago.";
+					}else{
+						$scope.error="";
+						localStorage.setItem("medioPago",fp);
+						$scope.buscarMedioPago(fp);
+						var json=armarJson($scope.medioPago[0].id);
+						localStorage.setItem("jsonCompleto",JSON.stringify(json));
+						if (fp==1){						
+							window.location="creditCardConfirm.html";
+						}else if(fp==2){
+							window.open("https://www.pse.com.co/inicio");
+							$scope.confirmarComprar();						
+						}else if(fp==3){
+							window.location="cashOnDeliveryConfirm.html";					
+						}
 					}
+				}else{
+					$scope.error="El carrito esta vacio.";
 				}
 			}else{
-				$scope.error="El carrito esta vacio.";
+				$scope.error="Debe iniciar sesión para realizar una compra.";
 			}
+				
+			
 			
 			
 		};

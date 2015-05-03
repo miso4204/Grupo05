@@ -4,8 +4,8 @@ var paquetes=[];
 var ciudades=[];
 
 function load(){
-cargarPaquetes();
-cargarProductos();
+cargarPaquetes("");
+cargarProductos("");
 
 }
 function cargarComboCiudades(){
@@ -32,15 +32,20 @@ function compare(a,b) {
 	  return 0;
 	}
 
-function cargarProductos() {	
+function cargarProductos(urlFiltro) {	
 	var contador=1;
 	var contaLabel=0;
 	var baseHtml = '';
-	var primero=false; 
+	var primero=false;
+	var div='id="divb"';
+	$("#divb").remove();
+	$("#divb").remove();
+	$("#tituloProductos").remove();
+	$("#productos").empty();
         	
-    $.get("http://localhost:8080/ProductService", function (res) {
-        $("#loader").remove();
-        $("#row1").append('<h3 style="color: green;" class="widget-title" align="right">Productos</h3>');
+    $.get("http://localhost:8080/ProductService"+urlFiltro, function (res) {
+        //$("#loader").remove();
+        $("#row1").append('<h3 id="tituloProductos" style="color: green;" class="widget-title" align="right">Productos</h3>');
         $.each(res, function (index, value) {       
         	var imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
         	var contenido=value.contenidos;
@@ -58,7 +63,7 @@ function cargarProductos() {
         	
         
         	contaLabel=contaLabel+1;
-            baseHtml += '<div class="col-md-4"><!-- second column -->';
+            baseHtml += '<div ' + div + ' class="col-md-4"><!-- second column -->';
             baseHtml += '<a href="product.html">';
             baseHtml += '<div class="widget-item">';
             baseHtml += '<h3 class="widget-title">' + value.nombre + '</h3>';
@@ -77,31 +82,39 @@ function cargarProductos() {
             		primero=true;
             		$("#row1").append(baseHtml);
             		baseHtml='<div  class="row">';
+            		div="";
             	}else{
             		baseHtml+="</div>";
-            		$("#divProductos").append(baseHtml);
+            		$("#productos").append(baseHtml);
                 	baseHtml='<div  class="row">';	
             	}
             	
             }
             
         });
-        if (baseHtml!=""){
-        	//$("#container").append(baseHtml);	
+        if(primero==false){
+        	if (baseHtml!=""){
+        		$("#row1").append(baseHtml);	
+            }	
+        }else{
+        	if (baseHtml!=""){
+        		$("#productos").append(baseHtml);	
+            }
         }
+        
          
     });
 }
 
-function cargarPaquetes() {	
+function cargarPaquetes(urlFiltro) {	
 	var contador=0;
 	var contaLabel=0;
 	var baseHtml = '';
 	var primero=false; 
-        	
-    $.get("http://localhost:8080/PackageServices", function (res) {
-        $("#loader").remove();
-        $("#divProductos").append('<h3 style="color: green;" class="widget-title" align="right">Paquetes</h3>');
+	$("#paquetes").empty();    	
+    $.get("http://localhost:8080/PackageServices"+urlFiltro, function (res) {
+        $("#loader").hide();
+        $("#productos").append('<h3 style="color: green;" class="widget-title" align="right">Paquetes</h3>');
         baseHtml='<div  class="row">';
         $.each(res, function (index, value) {       
         	var imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
@@ -132,7 +145,7 @@ function cargarPaquetes() {
         		descuento=value.promocion.descuento;
         		if(descuento>0){
         			var valor=value.valor-((descuento/100)*value.valor);
-        			valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">$' + value.valor + '    <label style="color:red">$'+valor+'</label></h4>';
+        			valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">$' + value.valor + '    <label style="color:red">    $'+valor+'</label></h4>';
             		labelDescuento='<label style="color:red">'+descuento+'%</label>';	
         		}
         		
@@ -156,7 +169,7 @@ function cargarPaquetes() {
             if (contador==3){
             	contador=0;
             		baseHtml+="</div>";
-            		$("#divProductos").append(baseHtml);
+            		$("#paquetes").append(baseHtml);
                 	baseHtml='<div  class="row">';	
             	
             	
@@ -166,7 +179,7 @@ function cargarPaquetes() {
         });
         cargarComboCiudades();
         if (baseHtml!=""){
-        	$("#container").append(baseHtml);	
+        	$("#paquetes").append(baseHtml);	
         }
         
     });
@@ -242,6 +255,64 @@ function buscarPaquete(idPaquete){
     }	
     return -1;
     }
-function agregarCiudad(id,nombre){
+
+function filtrar(){
+	$("#loader").show();
+	var fecha1=$("#fecha1").val();
+	var fecha2=$("#fecha2").val();
+	var precio1=$("#precio1").val();
+	var precio2=$("#precio2").val();
+	var select_id = document.getElementById("comboCiudad");
+	var idCiudad=select_id.options[select_id.selectedIndex].value;
+	var div=$("#filtros");
+	div.empty();
+	div.append("<label>Filtrado por:</label><br>");
+	var url="";
+	var label="";
+	if (fecha1!="" && fecha2!=""){
+		url="/"+fecha1+"/"+fecha2;		
+		div.append("<label style='background-color: gray;width: 35%;border-radius:3px;color:white'>Fecha <i  onclick=\"borrarFiltro('fecha');\" Style='cursor: pointer; margin-left:50%' class='fa fa-times'></i></label>");
+	}else{
+		url="/0/0";		
+	}
+	if (precio1!="" && precio2!=""){
+		url=url+"/"+precio1+"/"+precio2;
+		div.append("<label style='background-color: gray;width: 35%;border-radius:3px;color:white'>Precio <i  onclick=\"borrarFiltro('precio');\" Style='cursor: pointer; margin-left:50%' class='fa fa-times'></i></label>");
+	}else{
+		url=url+"/0/0";
+	}
+	if(idCiudad>0){
+		url=url+"/"+idCiudad;
+		div.append("<label style='background-color: gray;width: 35%;border-radius:3px;color:white'>Ciudad <i  onclick=\"borrarFiltro('ciudad');\" Style='cursor: pointer; margin-left:50%' class='fa fa-times'></i></label>");
+	}else{
+		url=url+"/0";
+	}	
+	
+	if(url=="/0/0/0/0/0"){
+		div.empty();
+	}
+	
+	cargarPaquetes("/FiltrarPaquetes"+url);
+	cargarProductos("/FiltrarProductos"+url);
+}
+
+function borrarFiltro(tipo){
+	switch (tipo) {
+	case "fecha":
+		$("#fecha1").val("");
+		$("#fecha2").val("");			
+		break;
+    case "precio":
+    	$("#precio1").val("");
+		$("#precio2").val("");
+		break;
+    case "ciudad":
+    	cargarComboCiudades();
+	break;	
+
+	default:
+		break;
+	}
+	filtrar();
 	
 }

@@ -27,7 +27,7 @@ public class RepositoryProduct extends Repository<Producto> {
 	public List<Producto> FindProducts(String fechaInicio,String fechaFin,double precio1,double precio2,int idCiudad) {
 		String rangoFechas="";
 		String innerDisponibilidad="";
-		if (fechaInicio!="" && fechaFin!=""){
+		if (!fechaInicio.equals("0") && !fechaFin.equals("0")){
 			innerDisponibilidad=" INNER JOIN Disponibilidad dp ON dp.producto=prod.id ";
 			rangoFechas=" AND dp.fechaInicio>='"+fechaInicio+"' AND dp.fechaFin<='"+fechaFin+"' ";
 		}
@@ -53,7 +53,7 @@ public class RepositoryProduct extends Repository<Producto> {
 	public List<Producto> FindProductsPorPaquete(String fechaInicio,String fechaFin,double precio1,double precio2,int idCiudad,int idPaquete) {
 		String rangoFechas="";
 		String innerDisponibilidad="";
-		if (fechaInicio!="" && fechaFin!=""){
+		if (!fechaInicio.equals("0") && !fechaFin.equals("0")){
 			innerDisponibilidad=" INNER JOIN Disponibilidad dp ON dp.producto=prod.id ";
 			rangoFechas=" AND dp.fechaInicio>='"+fechaInicio+"' AND dp.fechaFin<='"+fechaFin+"' ";
 		}
