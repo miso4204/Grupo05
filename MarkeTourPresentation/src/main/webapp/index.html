@@ -26,8 +26,9 @@
     <link rel="stylesheet" href="css/templatemo_style.css">
 
     <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <script src="js/productos.js"></script>
 </head>
-<body>
+<body onload="cargarTop10Paquetes();">
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
     today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
@@ -123,63 +124,19 @@
             <div class="overlay"></div>
             <img src="images/templatemo_slide_1.jpg" alt="Special 1">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-lg-4">
-                        <div class="flex-caption visible-lg">
-                            <span class="price">$8,450</span>
-
-                            <h3 class="title">Venice, Italy</h3>
-
-                            <p>Travel is free template by <span class="blue">template</span><span
-                                    class="green">mo</span>. <br>
-                                All images used in this template are from
-                                <a rel="nofollow" href="http://unsplash.com">Unsplash</a>.</p>
-                            <a href="#" class="slider-btn">Pre-booking</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </li>
         <li>
             <div class="overlay"></div>
             <img src="images/templatemo_slide_2.jpg" alt="Special 2">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-lg-4">
-                        <div class="flex-caption visible-lg">
-                            <span class="price">$12,380</span>
-
-                            <h3 class="title">Bercelona, Spain</h3>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fermentum nibh sit amet
-                                felis mattis, eu convallis risus egestas.</p>
-                            <a href="#" class="slider-btn">Reserve Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </li>
         <li>
             <div class="overlay"></div>
             <img src="images/templatemo_slide_3.jpg" alt="Special 3">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-lg-4">
-                        <div class="flex-caption visible-lg">
-                            <span class="price">$21,640</span>
-
-                            <h3 class="title">Basel, Switzerland</h3>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fermentum nibh sit amet
-                                felis mattis, eu convallis risus egestas.</p>
-                            <a href="#" class="slider-btn">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </li>
     </ul>
 </div>
@@ -188,7 +145,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="our-listing owl-carousel">
+        <div id="top10Paquetes" class="our-listing owl-carousel">
             <div class="list-item">
                 <div class="list-thumb">
                     <div class="title">

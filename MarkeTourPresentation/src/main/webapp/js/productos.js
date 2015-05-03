@@ -316,3 +316,69 @@ function borrarFiltro(tipo){
 	filtrar();
 	
 }
+
+
+function cargarTop10Paquetes() {	
+	var contador=0;
+	var contaLabel=0;
+	var baseHtml = '';
+	var primero=false; 
+	$("#top10Paquetes").empty();    	
+    $.get("http://localhost:8080/PackageServices", function (res) {
+        $.each(res, function (index, value) {       
+        	var imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
+        	
+        	if (value.productos.length>0){
+        		var contenido=value.productos[0].contenidos;
+        		for(var i=0;i<contenido.length;i++){
+            		if (contenido[i].tipoContenido=="Imagen"){
+            			imagen=contenido[i].contenido;
+            		}
+            	}
+        	}
+        
+        /*	
+        	
+        	var descuento=0;
+        	var labelDescuento="";
+        	var valorDescuento='<h4 class="consult-title">$' + value.valor + '</h4>';
+        	if (value.promocion!=null){
+        		descuento=value.promocion.descuento;
+        		if(descuento>0){
+        			var valor=value.valor-((descuento/100)*value.valor);
+        			valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">$' + value.valor + '    <label style="color:red">    $'+valor+'</label></h4>';
+            		labelDescuento='<label style="color:red">'+descuento+'%</label>';	
+        		}
+        		
+        	}*/
+        	
+        
+        	contaLabel=contaLabel+1;
+        	if(contaLabel<=10){
+        		baseHtml += '<div class="list-item">';
+                baseHtml += '<div class="list-thumb">';
+                baseHtml += '<div class="title">';
+                baseHtml += '<h4>' + value.nombre+'</h4></div>';
+                baseHtml += '<img src="' + imagen + '" height="200px" width="270px" ></div>';
+                baseHtml += '<div class="list-content">';            
+                baseHtml += '<h5>' + value.valor + '</h5>';
+                baseHtml += '<span>' + value.descripcion + '</span>';
+                baseHtml += '<a href="#" class="price-btn">Ver paquete</a>';
+                baseHtml += '</div></div>';
+                
+        		$("#top10Paquetes").append(baseHtml);
+        		baseHtml="";
+        	}
+            
+            	
+            	
+            
+            
+            
+        });
+        cargarCarrusel();
+        
+    });
+}
+
+

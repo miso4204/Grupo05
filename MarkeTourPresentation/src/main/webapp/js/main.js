@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+function cargarCarrusel() {
 
 	'use strict';
 
@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
 	    });
 
 
-});
+}
 
 
 
