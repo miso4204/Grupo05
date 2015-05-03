@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import java.math.BigDecimal;
@@ -53,7 +53,7 @@ public class ItemCompra  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="producto")
     public Producto getProducto() {
         return this.producto;
@@ -63,7 +63,7 @@ public class ItemCompra  implements java.io.Serializable {
         this.producto = producto;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="paquete")
     public Paquete getPaquete() {
         return this.paquete;
@@ -72,8 +72,9 @@ public class ItemCompra  implements java.io.Serializable {
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
     }
-    @ManyToOne( fetch=FetchType.LAZY)
-    @JoinColumn(name="compra", referencedColumnName="id" )    
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="compra")
     public Compra getCompra() {
         return this.compra;
     }

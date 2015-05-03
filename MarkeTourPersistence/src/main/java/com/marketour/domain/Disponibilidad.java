@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import java.util.Date;
@@ -57,7 +57,7 @@ public class Disponibilidad  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="producto", nullable=false)
     public Producto getProducto() {
         return this.producto;

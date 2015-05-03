@@ -1,20 +1,15 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
 import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.CascadeType;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,7 +27,7 @@ import javax.persistence.TemporalType;
 )
 public class Compra  implements java.io.Serializable {
 
-	
+
      private Integer id;
      private MedioPago medioPago;
      private Cliente cliente;
@@ -53,7 +48,9 @@ public class Compra  implements java.io.Serializable {
        this.itemCompras = itemCompras;
     }
    
-    @Id @GeneratedValue(strategy=IDENTITY)    
+     @Id @GeneratedValue(strategy=IDENTITY)
+
+    
     @Column(name="id", unique=true, nullable=false)
     public Integer getId() {
         return this.id;
@@ -63,7 +60,7 @@ public class Compra  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="medioPago")
     public MedioPago getMedioPago() {
         return this.medioPago;
@@ -73,7 +70,7 @@ public class Compra  implements java.io.Serializable {
         this.medioPago = medioPago;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cliente")
     public Cliente getCliente() {
         return this.cliente;
@@ -113,8 +110,7 @@ public class Compra  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(cascade= { CascadeType.ALL })
-@JoinColumn(name="compra", referencedColumnName = "id")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="compra")
     public Set<ItemCompra> getItemCompras() {
         return this.itemCompras;
     }
