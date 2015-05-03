@@ -28,7 +28,12 @@ public class FacadePackage {
 				com.marketour.domain.Paquete.class);
 		
 		RepositoryProduct repositoryProductos = new RepositoryProduct();
-		lstdPaquete = repository.FindByColumn("valor>="+precio1+" and valor<="+precio2);
+		if (precio1>0 && precio2>0){
+			lstdPaquete = repository.FindByColumn("valor>="+precio1+" and valor<="+precio2);	
+		}else{
+			lstdPaquete = repository.FindAll();
+		}
+		
 		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
 			if(repositoryProductos.FindProductsPorPaquete(fechaInicio, fechaFin, precio1, precio2, idCiudad, paquete.getId()).size()>0){
 				lstPaquete.add(Paquete.ConvertToBPaquete(paquete));	
