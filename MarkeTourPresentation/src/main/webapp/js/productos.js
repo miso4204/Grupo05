@@ -8,6 +8,107 @@ cargarPaquetes("");
 cargarProductos("");
 
 }
+
+function verDetalleProducto(tipo,id){
+	localStorage.setItem("tipoPP",tipo);
+	localStorage.setItem("idPP",id);
+	window.location="product.html";
+}
+function mostrarDetalleProductoPaquete(){
+	var tipo=localStorage.getItem("tipoPP");
+	var id=localStorage.getItem("idPP");
+	if (tipo=="producto"){
+		$.get("http://localhost:8080/ProductService/"+id, function (res) {
+			var contenido=res.contenidos;
+			var video="";
+			var descripcion="";
+			var imagen="";
+			$("#ulFotos").empty();
+        	for(var i=0;i<contenido.length;i++){
+        		if (contenido[i].tipoContenido=="Imagen"){
+        			imagen=contenido[i].contenido;
+        			$("#ulFotos").append('<li><img src="'+contenido[i].contenido+'" height="500px" ></li>');
+        		}else if (contenido[i].tipoContenido=="Texto"){
+        			descripcion=contenido[i].contenido;
+        		}else if (contenido[i].tipoContenido=="Video"){
+        			video=contenido[i].contenido;        			
+        		}
+        	}
+        	if (imagen==""){
+        		$("#ulFotos").append('<li><img src="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372" height="500px" ></li>');
+        	}
+        	if(video==""){
+        		$("#video").remove();
+        	}
+        	$("#incluye").remove();
+        	$("#titulo").text(res.nombre);
+        	$("#descripcion").html(res.descripcion+"</br></br>"+descripcion);
+        	$("#precio").text("$"+res.valor);
+        	$("#video").attr('src',video);
+        	$("#boton1").append("<button onclick=\"addProduct('label1','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
+        	$("#boton2").append("<button onclick=\"addProduct('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
+        	cargarCarrusel();
+        	$("#loader").hide(); 
+	    });
+	}else if (tipo=="paquete"){
+		$.get("http://localhost:8080/PackageServices/"+id, function (res) {
+			var productos=res.productos;
+			var imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
+			$("#ulFotos").empty();
+			for(var j=0;j<productos.length;j++){
+				imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
+				var contenido=productos[j].contenidos;
+				var baseHtml="";
+				for(var i=0;i<contenido.length;i++){
+	        		if (contenido[i].tipoContenido=="Imagen"){
+	        			imagen=contenido[i].contenido;
+	        			$("#ulFotos").append('<li><img src="'+imagen+'" height="500px" ></li>');
+	        			break;	        			
+	        		}	
+	        	}
+				
+        		baseHtml += '<div class="list-item">';
+                baseHtml += '<div class="list-thumb">';
+                baseHtml += '<div class="title">';
+                baseHtml += '<h4>' + productos[j].nombre+'</h4></div>';
+                baseHtml += '<img src="' + imagen + '" height="200px" width="270px" ></div>';
+                baseHtml += '<div class="list-content">';            
+                baseHtml += '<h5>$' + productos[j].valor + '</h5>';
+                baseHtml += '<span>' + productos[j].descripcion + '</span>';
+                baseHtml += "<a class='price-btn' onclick=\"verDetalleProducto('producto','" + productos[j].id + "');\" href='#'>Ver producto</a>";
+                baseHtml += '</div></div>';
+                $("#top10Paquetes").append(baseHtml);
+			}
+        	
+        	var descuento=0;
+        	//var labelDescuento="";
+        	//var valorDescuento='<h4 class="consult-title">$' + value.valor + '</h4>';
+        	if (res.promocion!=null){
+        		descuento=res.promocion.descuento;
+        		if(descuento>0){
+        			var valor=res.valor-((descuento/100)*res.valor);
+        			//valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">$' + value.valor + '    <label style="color:red">    $'+valor+'</label></h4>';
+            		//labelDescuento='<label style="color:red">'+descuento+'%</label>';	
+            		
+            		$("#pDescuento").text(descuento+"%");
+            		$("#descuento").text("$"+valor);
+        		}
+        		
+        	}
+        	
+        	
+        	$("#titulo").text(res.nombre);
+        	$("#descripcion").html(res.descripcion);
+        	$("#precio").text("$"+res.valor);
+        	$("#video").remove();
+        	$("#boton1").append("<button onclick=\"addPaquete('label1','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "','" + descuento + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
+        	$("#boton2").append("<button onclick=\"addPaquete('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "','" + descuento + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
+        	cargarCarrusel();
+        	$("#loader").hide(); 
+	    });
+	}
+	
+}
 function cargarComboCiudades(){
 	ciudades.sort(compare);
 	$("#comboCiudad").empty();
@@ -61,10 +162,10 @@ function cargarProductos(urlFiltro) {
             	ciudades.push(ciudad);
         	}
         	
-        
+         
         	contaLabel=contaLabel+1;
             baseHtml += '<div ' + div + ' class="col-md-4"><!-- second column -->';
-            baseHtml += '<a href="product.html">';
+            baseHtml += "<a onclick=\"verDetalleProducto('producto','" + value.id + "');\" href='#'>";
             baseHtml += '<div class="widget-item">';
             baseHtml += '<h3 class="widget-title">' + value.nombre + '</h3>';
             baseHtml += '<div class="sample-thumb">';
@@ -154,7 +255,7 @@ function cargarPaquetes(urlFiltro) {
         
         	contaLabel=contaLabel+1;
             baseHtml += '<div class="col-md-4"><!-- second column -->';
-            baseHtml += '<a href="product.html">';
+            baseHtml += "<a onclick=\"verDetalleProducto('paquete','" + value.id + "');\" href='#'>";
             baseHtml += '<div class="widget-item">';
             baseHtml += '<h3 class="widget-title">' + value.nombre+'  '+labelDescuento+ '</h3>';
             baseHtml += '<div class="sample-thumb">';
@@ -329,12 +430,16 @@ function cargarTop10Paquetes() {
         	var imagen="http://assets2.bigthink.com/system/idea_thumbnails/48791/headline/beach.?1356289372";
         	
         	if (value.productos.length>0){
-        		var contenido=value.productos[0].contenidos;
-        		for(var i=0;i<contenido.length;i++){
-            		if (contenido[i].tipoContenido=="Imagen"){
-            			imagen=contenido[i].contenido;
-            		}
-            	}
+        		var productos=value.productos;
+        		for(var j=0;j<productos.length;j++){
+        			var contenido=productos[j].contenidos;
+            		for(var i=0;i<contenido.length;i++){
+                		if (contenido[i].tipoContenido=="Imagen"){
+                			imagen=contenido[i].contenido;
+                		}
+                	}
+        		}
+        		
         	}
         
         /*	
@@ -361,9 +466,9 @@ function cargarTop10Paquetes() {
                 baseHtml += '<h4>' + value.nombre+'</h4></div>';
                 baseHtml += '<img src="' + imagen + '" height="200px" width="270px" ></div>';
                 baseHtml += '<div class="list-content">';            
-                baseHtml += '<h5>' + value.valor + '</h5>';
+                baseHtml += '<h5>$' + value.valor + '</h5>';
                 baseHtml += '<span>' + value.descripcion + '</span>';
-                baseHtml += '<a href="#" class="price-btn">Ver paquete</a>';
+                baseHtml += "<a onclick=\"verDetalleProducto('paquete','" + value.id + "');\" href='#' class='price-btn'>Ver paquete</a>";
                 baseHtml += '</div></div>';
                 
         		$("#top10Paquetes").append(baseHtml);

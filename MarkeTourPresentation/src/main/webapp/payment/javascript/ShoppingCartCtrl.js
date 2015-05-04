@@ -78,11 +78,7 @@
 	    
 		
 
-		$scope.FindAll = function() {
-			$http.get($scope.service).success(function(response) {
-				$scope.allProducts = response;
-			});
-		};
+		
 		
 		$scope.FindAllPackages = function() {
 			$http.get($scope.packageService).success(function(response) {
@@ -120,7 +116,10 @@
 					'Content-Type' : 'application/json'
 				}
 			}).success(function(response) {
-				Alert("Success?? "+response);
+				$scope.limpiarCarrito();
+				localStorage.removeItem('jsonCompleto');
+				localStorage.removeItem('medioPago');
+				window.location="Success.html";
 			});
 		};
 
@@ -280,10 +279,7 @@
 		$scope.confirmarComprar = function() {
 			var compra=JSON.parse(localStorage.getItem("jsonCompleto"));
 			$scope.Persist(compra);
-			$scope.limpiarCarrito();
-			localStorage.removeItem('jsonCompleto');
-			localStorage.removeItem('medioPago');
-			window.location="Success.html";
+			
 		};
 		$scope.cambioMedioPago = function() {
 			if ($scope.f!=""){
@@ -301,7 +297,7 @@
 		    var fecha=yyyy+"-"+mm+"-"+dd;
 		    
 		    var json =new Object();
-		    json.cliente=1;
+		    json.cliente=sessionStorage.getItem('usuario');
 		    json.calificacion=-1;
 		    json.fechaCompra=fecha;
 		    json.medioPago=parseInt(medioPago);
@@ -324,8 +320,8 @@
 		    }
 		    return json;
 		}
-		$scope.FindAll();
-		$scope.FindAllPackages();
+		//$scope.FindAll();
+		//$scope.FindAllPackages();
 		$scope.FindAllFormaPago();
 		 if (localStorage.getItem("medioPago")!=null){
 				$scope.buscarMedioPago(localStorage.getItem("medioPago"));			 

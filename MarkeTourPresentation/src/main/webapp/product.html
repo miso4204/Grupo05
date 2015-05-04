@@ -22,8 +22,9 @@ http://www.templatemo.com/preview/templatemo_409_travel
         <link rel="stylesheet" href="css/templatemo_style.css">
 
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+        <script src="js/productos.js"></script>
     </head>
-    <body>
+    <body onload="mostrarDetalleProductoPaquete();">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -98,25 +99,37 @@ http://www.templatemo.com/preview/templatemo_409_travel
                 <div class="row"><!-- first row -->
                 	<div class="col-md-12"><!-- first column -->
                         <div class="widget-item form">
-                            <button type="button" class="btn btn-default btn-lg pull-right">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar al Carrito
-                            </button>
-                            <h3 class="widget-title">SPECIAL EVE</h3>
-                            <div class="sample-thumb">
-                                <img src="images/about_1.jpg" alt="about us" title="about us">
-                            </div> <!-- /.sample-thumb -->
-                            <h4 class="consult-title">Vestibulum sodales tempus lacus</h4>
-                            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacinia nulla sit amet ligula porta, vitae mattis nunc posuere. Curabitur eu aliquam erat. Etiam sollicitudin est eu turpis dapibus aliquet. Ut vitae lacus vel nulla iaculis interdum.<br><br>
-							Suspendisse convallis congue tellus, nec ultricies sem molestie ac. Nunc lobortis elit orci, vitae suscipit urna dictum id. Nullam at elementum magna. Vivamus sit amet ipsum tortor. Nullam molestie eros quis risus pellentesque, eget pellentesque mauris placerat.</p>
+                        
+                            <div id="boton1">
+                            <label id="label1"	style="color: green; font-size: 15px;"></label>
+                            </div>
+                            <div class="col-md-8 text-center" id="loader">
+		                <div class="col-md-1 pull-right col-lg-pull-6" style="margin: 0 auto">
+		                    <img src="images/AjaxLoader.gif" style="margin-top: 150px">
+		                </div>
+		            	</div>
+                            <h3 id="titulo" class="widget-title"></h3>&nbsp;&nbsp;<label id="pDescuento" style="font-size: 20pt;color:red"></label>
+                            <div class="flexslider">
+							    <ul id="ulFotos" class="slides">
+							      
+							    </ul>
+							</div>
+                            <h4 id="precio"  class="consult-title"></h4><label id="descuento" style=" font-size: 14pt; color:red"></label>
+                            <p id="descripcion" ></p>
                             <br>
-                            <iframe width="100%" height="500" src="https://www.youtube.com/embed/zwElIwnAF3U" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="video" width="100%" height="500" src="" frameborder="0" allowfullscreen></iframe>
                             <br>
                             <br>
-                            <button type="button" class="btn btn-default btn-lg pull-right">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar al Carrito
-                            </button>
+                            <h4 id="incluye" style="font-size: 20pt;" class="consult-title">Incluye:</h4><br><br>
+                            <div id="top10Paquetes" class="our-listing owl-carousel">                            
+                            </div>
+                            <div id="boton2">
+                            <label id="label2"	style="color: green; font-size: 15px;"></label>
+                            </div>
+                            
                         </div> <!-- /.widget-item -->
                     </div> <!-- /.col-md-4 -->
+                    
                     
                 </div> <!-- /.row first -->
                 
