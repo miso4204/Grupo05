@@ -94,7 +94,7 @@ public class Cliente  extends Usuario implements java.io.Serializable {
 		return bCliente;
     	
     }
-	public static com.marketour.domain.Cliente ConvertToDBProduct(Cliente cliente)
+	public static com.marketour.domain.Cliente ConvertToDBCliente(Cliente cliente)
     {
 		com.marketour.domain.Cliente dbcliente=new com.marketour.domain.Cliente();
 		

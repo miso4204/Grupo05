@@ -22,6 +22,10 @@ public class FactoryUsers
 		{
 			functionEntidad=new FunctionsAdministrador();
 		}
+		else
+		{
+			functionEntidad=new FunctionsClientes();
+		}
 	}
 	public Object Consultar(int id) 
 	{
@@ -32,6 +36,27 @@ public class FactoryUsers
 	{
 		return functionEntidad.ConsultarLista();
 	}
-
+	public Boolean CambiarContrasena(String usuario, String contrasena) 
+	{
+		if(true)
+		{
+			return functionEntidad.CambiarContrasena(usuario, contrasena);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public Boolean Autenticar(String usuario, String contrasena) 
+	{
+		if(true)
+		{
+			return (Boolean)functionEntidad.Autenticar(usuario, contrasena);
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 }

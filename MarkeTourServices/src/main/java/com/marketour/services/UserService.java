@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.business.Cliente;
+import com.marketour.business.Credenciales;
 import com.marketour.domain.*;
 import com.marketour.facade.FacadeUsuarios;
 import com.marketour.persistence.*;
@@ -79,11 +80,26 @@ public class UserService {
 	 * Response.status(200).header("Access-Control-Allow-Origin", "*")
 	 * .entity(repository.Persist(entity)).build(); }
 	 */
-	@PUT
+	@POST
+	@Path("registrarcliente")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Persist(Cliente entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
+	}
+	@PUT
+	@Path("cambiarpassword")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Cambiar(Credenciales credenciales) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.CambiarContrasena(credenciales)).build();
+	}
+	@PUT
+	@Path("autenticar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Autenticar(Credenciales credenciales) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.Autenticar(credenciales)).build();
 	}
 
 	@OPTIONS

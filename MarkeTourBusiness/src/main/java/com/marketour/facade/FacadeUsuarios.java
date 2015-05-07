@@ -2,6 +2,7 @@ package com.marketour.facade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +11,11 @@ import org.hibernate.Session;
 import com.marketour.persistence.*;
 import com.marketour.business.Administrador;
 import com.marketour.business.Cliente;
+import com.marketour.business.Credenciales;
 import com.marketour.business.Proveedor;
 import com.marketour.business.functions.FactoryUsers;
 import com.marketour.domain.Compra;
+import com.marketour.domain.MedioPago;
 import com.marketour.domain.Usuario;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
@@ -53,7 +56,7 @@ public class FacadeUsuarios {
 	
 	
 
-	public static com.marketour.persistence.Repository<com.marketour.domain.Cliente> RegistrarCliente(
+	public static boolean RegistrarCliente(
 			Cliente cliente) {
 
 		RepositoryUser repositoryUser = new com.marketour.persistence.RepositoryUser();
@@ -67,6 +70,9 @@ public class FacadeUsuarios {
 
 		dbCliente.setDescripcion(cliente.getDescripcion());
 		dbCliente.setId(cliente.getId());
+		dbCliente.setMedioPagos( new HashSet<MedioPago>(0));
+		dbCliente.setCompras(new HashSet<Compra>(0));
+		
 
 		dbUsuario.setCelular(cliente.getCelular());
 		dbUsuario.setCorreo(cliente.getCorreo());
@@ -76,16 +82,19 @@ public class FacadeUsuarios {
 		dbUsuario.setNombre(cliente.getNombre());
 		dbUsuario.setPassword(cliente.getPassword());
 		dbUsuario.setTelefono(cliente.getTelefono());
+		
 		try {
 			session.beginTransaction();
-			dbCliente.setId(repositoryUser.Persist(dbUsuario).getId());
+			dbCliente.setUsuario(repositoryUser.Persist(dbUsuario));
+			
 			repositoryClient.Persist(dbCliente);
 			session.getTransaction().commit();
+			return true;
 
 		} catch (Exception ex) {
-
+			return false;
 		}
-		return (Repository<com.marketour.domain.Cliente>) repositoryClient;
+		
 
 	}
 
@@ -125,4 +134,14 @@ public class FacadeUsuarios {
 
 	}
 
+	public static Boolean CambiarContrasena(Credenciales credenciales) 
+	{
+		FactoryUsers users=new FactoryUsers("Usuario");
+		return users.CambiarContrasena(credenciales.getUsuario(), credenciales.getContrasena());
+	}
+	public static Boolean Autenticar(Credenciales credenciales) 
+	{
+		FactoryUsers users=new FactoryUsers("Usuario");
+		return users.Autenticar(credenciales.getUsuario(), credenciales.getContrasena());
+	}
 }

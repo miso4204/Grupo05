@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.marketour.business.Cliente;
+import com.marketour.domain.Usuario;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
 import com.marketour.persistence.RepositoryUser;
@@ -73,6 +74,9 @@ import com.marketour.persistence.RepositoryUser;
 		return (Repository<com.marketour.domain.Cliente>) repositoryClient;
 
 	}
+
+	
+	
 
 	
 }
