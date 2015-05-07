@@ -6,7 +6,7 @@ import java.util.List;
 import com.marketour.business.Categoria;
 import com.marketour.business.Ciudad;
 import com.marketour.business.Departamento;
-import com.marketour.business.PlanAlimentacion;
+//import com.marketour.business.PlanAlimentacion;
 import com.marketour.business.Producto;
 import com.marketour.domain.Alimentacion;
 import com.marketour.domain.Alojamiento;
@@ -56,7 +56,7 @@ public class FacadeProductos {
 	}
 
 	public static Object ConsultarPlanAlimenticioTodos() {
-		List<PlanAlimentacion> business = new ArrayList<PlanAlimentacion>();
+/*		List<PlanAlimentacion> business = new ArrayList<PlanAlimentacion>();
 		List<com.marketour.domain.PlanAlimentacion> domain = new ArrayList<com.marketour.domain.PlanAlimentacion>();
 		Repository<com.marketour.domain.PlanAlimentacion> repository = new Repository<com.marketour.domain.PlanAlimentacion>(
 				com.marketour.domain.PlanAlimentacion.class);
@@ -65,6 +65,8 @@ public class FacadeProductos {
 			business.add(PlanAlimentacion.ConvertToBPlanAlimentacion(item));
 		}
 		return business;
+		*/
+		return null;
 	}
 
 	public static Producto ConsultarProducto(int id) {
