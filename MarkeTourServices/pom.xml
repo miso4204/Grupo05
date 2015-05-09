@@ -86,7 +86,7 @@
       			<configuration>
       				<excludes>
                   	  
-                	</excludes>
+                	<exclude>com/marketour/services/ReporteServices.java</exclude></excludes>
       			</configuration>
     		</plugin>
   		</plugins>

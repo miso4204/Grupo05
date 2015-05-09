@@ -3,34 +3,36 @@ package com.marketour.business;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import com.marketour.domain.Categoria;
-import com.marketour.domain.Proveedor;
-
-/**
- * @author Andres
- * @version 1.0
- * @created 13-abr.-2015 9:52:39 a. m.
- */
 public class Producto implements Serializable {
 
-	private Integer id = 0;
-	private String ciudad = "";
-	private Integer idCiudad = 0;
-	private String departamento = "";
-	private Integer idDepartamento = 0;
+	private Integer capacidad = 0;
 	private String categoria = "";
-	private Integer idCategoria = 0;
-	private String nombre = "";
+	private String ciudad = "";
+	private String ciudadDestino = "";
+	private String ciudadOrigen = "";
+	private List<com.marketour.business.Contenido> contenidos = new ArrayList<com.marketour.business.Contenido>();
+	private String coordenadas = "";
 	private String descripcion = "";
+	private Integer estado = 0;
+	private Date fechaEntrada = new Date();
+	private Date fechaSalida = new Date();
+	private Integer id = 0;
+	private Integer idCategoria = 0;
+	private Integer idCiudad = 0;
+	private Integer idCiudadDestino = 0;
+	private Integer idCiudadOrigen = 0;
+	private Integer idDepartamento = 0;
+	private Integer idDepartamentoDestino = 0;
+	private Integer idDepartamentoOrigen = 0;
+	private Integer idPlanAlimentacion = 0;
+	private String nombre = "";
+	private String planAlimentacion = "";
+	private com.marketour.business.Proveedor proveedor = new com.marketour.business.Proveedor();
 	private BigDecimal valor = BigDecimal.ZERO;
 	private Integer visitas = 0;
-	private Integer capacidad = 0;
-	private String coordenadas = "";
-	private int estado = 0;
-	private com.marketour.business.Proveedor proveedor = new com.marketour.business.Proveedor();
-	private List<com.marketour.business.Contenido> contenidos = new ArrayList<com.marketour.business.Contenido>();
 
 	public static Producto ConvertToBProduct(
 			com.marketour.domain.Producto domain) {
@@ -44,16 +46,15 @@ public class Producto implements Serializable {
 		business.setCoordenadas(domain.getCoordenadas());
 		business.setEstado(domain.getEstado());
 		// Category
-		if (domain.getCategoria() != null) {
-			business.setCategoria(domain.getCategoria().getDescripcion());
-			business.setIdCategoria(domain.getCategoria().getId());
+		com.marketour.domain.Categoria category = domain.getCategoria();
+		if (category != null) {
+			business.setCategoria(category.getDescripcion());
+			business.setIdCategoria(category.getId());
 		}
 		// Ciudad
 		if (domain.getCiudad() != null) {
 			business.setCiudad(domain.getCiudad().getDescripcion());
 			business.setIdCiudad(domain.getCiudad().getId());
-			business.setDepartamento(domain.getCiudad().getDepartamento()
-					.getDescripcion());
 			business.setIdDepartamento(domain.getCiudad().getDepartamento()
 					.getId());
 		}
@@ -80,135 +81,205 @@ public class Producto implements Serializable {
 		domain.setCoordenadas(business.getCoordenadas());
 		domain.setEstado(business.getEstado());
 		return domain;
-
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public com.marketour.business.Proveedor getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(com.marketour.business.Proveedor proveedor) {
-		this.proveedor = proveedor;
-	}
-
-	public String getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	public Integer getVisitas() {
-		return visitas;
-	}
-
-	public void setVisitas(Integer visitas) {
-		this.visitas = visitas;
 	}
 
 	public Integer getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(Integer capacidad) {
-		this.capacidad = capacidad;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public String getCoordenadas() {
-		return coordenadas;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setCoordenadas(String coordenadas) {
-		this.coordenadas = coordenadas;
+	public String getCiudadDestino() {
+		return ciudadDestino;
 	}
 
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
+	public String getCiudadOrigen() {
+		return ciudadOrigen;
 	}
 
 	public List<com.marketour.business.Contenido> getContenidos() {
 		return contenidos;
 	}
 
-	public void setContenidos(List<com.marketour.business.Contenido> contenidos) {
-		this.contenidos = contenidos;
+	public String getCoordenadas() {
+		return coordenadas;
 	}
 
-	public Integer getIdCiudad() {
-		return idCiudad;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setIdCiudad(Integer idCiudad) {
-		this.idCiudad = idCiudad;
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public Date getFechaEntrada() {
+		return fechaEntrada;
+	}
+
+	public Date getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	public Integer getIdCategoria() {
 		return idCategoria;
 	}
 
-	public void setIdCategoria(Integer idCategoria) {
-		this.idCategoria = idCategoria;
+	public Integer getIdCiudad() {
+		return idCiudad;
 	}
 
-	public String getDepartamento() {
-		return departamento;
+	public Integer getIdCiudadDestino() {
+		return idCiudadDestino;
 	}
 
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
+	public Integer getIdCiudadOrigen() {
+		return idCiudadOrigen;
 	}
 
 	public Integer getIdDepartamento() {
 		return idDepartamento;
 	}
 
+	public Integer getIdDepartamentoDestino() {
+		return idDepartamentoDestino;
+	}
+
+	public Integer getIdDepartamentoOrigen() {
+		return idDepartamentoOrigen;
+	}
+
+	public Integer getIdPlanAlimentacion() {
+		return idPlanAlimentacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getPlanAlimentacion() {
+		return planAlimentacion;
+	}
+
+	public com.marketour.business.Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public Integer getVisitas() {
+		return visitas;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public void setCiudadDestino(String ciudadDestino) {
+		this.ciudadDestino = ciudadDestino;
+	}
+
+	public void setCiudadOrigen(String ciudadOrigen) {
+		this.ciudadOrigen = ciudadOrigen;
+	}
+
+	public void setContenidos(List<com.marketour.business.Contenido> contenidos) {
+		this.contenidos = contenidos;
+	}
+
+	public void setCoordenadas(String coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+
+	public void setFechaEntrada(Date fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
+	}
+
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setIdCategoria(Integer idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public void setIdCiudad(Integer idCiudad) {
+		this.idCiudad = idCiudad;
+	}
+
+	public void setIdCiudadDestino(Integer idCiudadDestino) {
+		this.idCiudadDestino = idCiudadDestino;
+	}
+
+	public void setIdCiudadOrigen(Integer idCiudadOrigen) {
+		this.idCiudadOrigen = idCiudadOrigen;
+	}
+
 	public void setIdDepartamento(Integer idDepartamento) {
 		this.idDepartamento = idDepartamento;
 	}
 
+	public void setIdDepartamentoDestino(Integer idDepartamentoDestino) {
+		this.idDepartamentoDestino = idDepartamentoDestino;
+	}
+
+	public void setIdDepartamentoOrigen(Integer idDepartamentoOrigen) {
+		this.idDepartamentoOrigen = idDepartamentoOrigen;
+	}
+
+	public void setIdPlanAlimentacion(Integer idPlanAlimentacion) {
+		this.idPlanAlimentacion = idPlanAlimentacion;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setPlanAlimentacion(String planAlimentacion) {
+		this.planAlimentacion = planAlimentacion;
+	}
+
+	public void setProveedor(com.marketour.business.Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public void setVisitas(Integer visitas) {
+		this.visitas = visitas;
+	}
 }

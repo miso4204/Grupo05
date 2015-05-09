@@ -1,13 +1,13 @@
 (function() {
 
-	var ctrl = function($scope, $http) {
+	var ctrl = function($scope, $http,$filter) {
         var articulos=[];
         var paquetes=[];
         $scope.purchaseService = "http://localhost:8080/PuschaseService/";
         $scope.service = "http://localhost:8080/ProductService/";
         $scope.packageService = "http://localhost:8080/PackageServices/";
         $scope.formaPago = "http://localhost:8080/PuschaseService/FormasPago";
-        $scope.servicioMedioPago = "http://localhost:8080/PuschaseService/MedioPagoCliente/1/"; //Recordar poner el clinete logeado
+        $scope.servicioMedioPago = "http://localhost:8080/PuschaseService/MedioPagoCliente/"+sessionStorage.getItem('usuario')+"/"; //Recordar poner el clinete logeado
 		$scope.allItems = [];
 		$scope.allProducts = [];
 		$scope.allPackages = [];
@@ -39,49 +39,46 @@
 			 for (var i=0;i<articulos.length;i++){
 				 suma=suma+parseInt(articulos[i].valor);
 			 }
+			 var descuento=0;
 			 for (var i=0;i<paquetes.length;i++){
 				 suma=suma+parseInt(paquetes[i].valor);
+				 if (paquetes[i].descuento>0){
+					 descuento=descuento+((paquetes[i].descuento/100)*paquetes[i].valor);
+				 }
 			 }
-			 $scope.total=suma;	 
-			 $scope.totalPlanes="Descuento: " + articulos.length;
+			 $scope.total=(suma-descuento);	 
+			 $scope.totalPlanes="Descuento: " + $filter('currency')(descuento,"$");
        }
         
 	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCart.html")>-1){		
 			articulos=JSON.parse(localStorage.getItem("articulos"));
 			for (var i=0;i<articulos.length;i++){
 				delete articulos[i].$$hashKey;	
-			}
-			
-			var editKey = "$edit";
-			var hasKey = "$$hashKey";
-
-			if (articulos[editKey])
-				delete articulos[editKey];
-
-			if (articulos[hasKey])
-				delete articulos[hasKey];
-			
+			}			
 			 $scope.allItems=articulos;
 			 calcularTotal();
 			 
 		}
 	    if (localStorage.getItem("paquetes")!=null && html.indexOf("ShoppingCart.html")>-1){		
 	    	paquetes=JSON.parse(localStorage.getItem("paquetes"));
+	    	for (var i=0;i<paquetes.length;i++){
+				delete paquetes[i].$$hashKey;	
+			}
 			 $scope.allPackages=paquetes;
 			 calcularTotal();
 			 
 		}
 	    
 	   
-	    
-	    
-		
-
-		$scope.FindAll = function() {
+	    $scope.FindAll = function() {
 			$http.get($scope.service).success(function(response) {
 				$scope.allProducts = response;
 			});
 		};
+	    
+		
+
+		
 		
 		$scope.FindAllPackages = function() {
 			$http.get($scope.packageService).success(function(response) {
@@ -119,7 +116,10 @@
 					'Content-Type' : 'application/json'
 				}
 			}).success(function(response) {
-				Alert("Success?? "+response);
+				$scope.limpiarCarrito();
+				localStorage.removeItem('jsonCompleto');
+				localStorage.removeItem('medioPago');
+				window.location="Success.html";
 			});
 		};
 
@@ -242,30 +242,36 @@
 		};
 		
 		$scope.comprar = function() {
-			if($scope.total>0){
-				var select_id = document.getElementById("forma");
+			if (sessionStorage.getItem('usuario')!=null && sessionStorage.getItem('usuario')!=""){
+				if($scope.total>0){
+					var select_id = document.getElementById("forma");
 
-				var fp=select_id.options[select_id.selectedIndex].value;
-				if (fp=="Seleccione >>" ||fp==""){
-					$scope.error="Debe selecionar una forma de pago.";
-				}else{
-					$scope.error="";
-					localStorage.setItem("medioPago",fp);
-					$scope.buscarMedioPago(fp);
-					var json=armarJson($scope.medioPago[0].id);
-					localStorage.setItem("jsonCompleto",JSON.stringify(json));
-					if (fp==1){						
-						window.location="creditCardConfirm.html";
-					}else if(fp==2){
-						window.open("https://www.pse.com.co/inicio");
-						$scope.confirmarComprar();						
-					}else if(fp==3){
-						window.location="cashOnDeliveryConfirm.html";					
+					var fp=select_id.options[select_id.selectedIndex].value;
+					if (fp=="Seleccione >>" ||fp==""){
+						$scope.error="Debe selecionar una forma de pago.";
+					}else{
+						$scope.error="";
+						localStorage.setItem("medioPago",fp);
+						$scope.buscarMedioPago(fp);
+						var json=armarJson($scope.medioPago[0].id);
+						localStorage.setItem("jsonCompleto",JSON.stringify(json));
+						if (fp==1){						
+							window.location="creditCardConfirm.html";
+						}else if(fp==2){
+							window.open("https://www.pse.com.co/inicio");
+							$scope.confirmarComprar();						
+						}else if(fp==3){
+							window.location="cashOnDeliveryConfirm.html";					
+						}
 					}
+				}else{
+					$scope.error="El carrito esta vacio.";
 				}
 			}else{
-				$scope.error="El carrito esta vacio.";
+				$scope.error="Debe iniciar sesión para realizar una compra.";
 			}
+				
+			
 			
 			
 		};
@@ -273,10 +279,7 @@
 		$scope.confirmarComprar = function() {
 			var compra=JSON.parse(localStorage.getItem("jsonCompleto"));
 			$scope.Persist(compra);
-			$scope.limpiarCarrito();
-			localStorage.removeItem('jsonCompleto');
-			localStorage.removeItem('medioPago');
-			window.location="Success.html";
+			
 		};
 		$scope.cambioMedioPago = function() {
 			if ($scope.f!=""){
@@ -294,7 +297,7 @@
 		    var fecha=yyyy+"-"+mm+"-"+dd;
 		    
 		    var json =new Object();
-		    json.cliente=1;
+		    json.cliente=sessionStorage.getItem('usuario');
 		    json.calificacion=-1;
 		    json.fechaCompra=fecha;
 		    json.medioPago=parseInt(medioPago);
@@ -304,7 +307,7 @@
 		    for(i=0;i<paquetes.length;i++){
 		    	var jsonPaquetes=new Object();
 		    	jsonPaquetes.paquete=paquetes[i].id;
-		    	jsonPaquetes.valor=paquetes[i].valor;
+		    	jsonPaquetes.valor=paquetes[i].valor-((paquetes[i].descuento/100)*paquetes[i].valor);
 		    	jsonPaquetes.cantidad=paquetes[i].cantidad;
 		    	json.itemCompras.push(jsonPaquetes);
 		    }
@@ -317,8 +320,8 @@
 		    }
 		    return json;
 		}
-		$scope.FindAll();
-		$scope.FindAllPackages();
+		//$scope.FindAll();
+		//$scope.FindAllPackages();
 		$scope.FindAllFormaPago();
 		 if (localStorage.getItem("medioPago")!=null){
 				$scope.buscarMedioPago(localStorage.getItem("medioPago"));			 

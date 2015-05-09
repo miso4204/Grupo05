@@ -3,6 +3,8 @@ package com.marketour.business;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+
+
 /**
  * @author Andres
  * @version 1.0
@@ -92,6 +94,21 @@ public class Usuario implements java.io.Serializable {
 
 	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+	public static com.marketour.business.Usuario ConvertToBUsuario(Usuario usuario)
+	{
+		
+		com.marketour.business.Usuario bUsuario=new com.marketour.business.Usuario();
+		bUsuario.setCelular(usuario.getCelular());
+		bUsuario.setCorreo(usuario.getCorreo());
+		bUsuario.setDireccion(usuario.getDireccion());
+		bUsuario.setEstado(usuario.getEstado());
+		bUsuario.setId(usuario.getId());
+		bUsuario.setLogin(usuario.getLogin());
+		bUsuario.setNombre(usuario.getNombre());
+		bUsuario.setPassword(usuario.getPassword());
+		bUsuario.setTelefono(usuario.getTelefono());
+		return bUsuario;
 	}
 
 }

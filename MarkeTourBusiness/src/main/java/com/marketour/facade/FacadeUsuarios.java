@@ -2,6 +2,7 @@ package com.marketour.facade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,11 @@ import org.hibernate.Session;
 import com.marketour.persistence.*;
 import com.marketour.business.Administrador;
 import com.marketour.business.Cliente;
+import com.marketour.business.Credenciales;
 import com.marketour.business.Proveedor;
+import com.marketour.business.functions.FactoryUsers;
 import com.marketour.domain.Compra;
+import com.marketour.domain.MedioPago;
 import com.marketour.domain.Usuario;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
@@ -23,78 +27,36 @@ public class FacadeUsuarios {
 
 	}
 
-	public static Cliente ConsultarCliente(int id) {
-		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repository;
-		repository = new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(
-				com.marketour.domain.Cliente.class);
-		com.marketour.domain.Cliente cliente = repository.FindById(id);
-		Cliente bCliente = new Cliente();
-		bCliente.setDescripcion(cliente.getDescripcion());
-		bCliente.setId(cliente.getId());
-
-		return Cliente.ConvertToBCliente(cliente);
+	public static Cliente ConsultarCliente(int id) 
+	{
+		FactoryUsers users=new FactoryUsers("Cliente");
+		return (Cliente)users.Consultar(id);
 
 	}
 
-	public static List<Cliente> ConsultarClientes() {
-		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repository;
-		repository = new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(
-				com.marketour.domain.Cliente.class);
-		List<com.marketour.domain.Cliente> lstCliente = repository.FindAll();
-		List<com.marketour.business.Cliente> ListaCliente = new ArrayList<Cliente>();
-		for (com.marketour.domain.Cliente cliente2 : lstCliente) {
-			ListaCliente.add(Cliente.ConvertToBCliente(cliente2));
-		}
-		return ListaCliente;
+	public static List<Cliente> ConsultarClientes()
+	{
+		FactoryUsers users=new FactoryUsers("Cliente");
+		return (List<Cliente>)(List<?>)users.ConsultarLista();
 
 	}
 
 	public static Proveedor ConsultarProveedor(int id) {
-		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repository;
-		repository = new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(
-				com.marketour.domain.Proveedor.class);
-		com.marketour.domain.Proveedor proveedor = repository.FindById(id);
-		Proveedor bProveedor = new Proveedor();
-		bProveedor.setDescripcion(proveedor.getDescripcion());
-		bProveedor.setId(proveedor.getId());
-		bProveedor.setCuenta(proveedor.getCuenta());
-		bProveedor.setNit(proveedor.getNit());
-		return bProveedor;
+		FactoryUsers users=new FactoryUsers("Proveedor");
+		return (Proveedor)users.Consultar(id);
 
 	}
 
 	public static Administrador ConsultarAdministrador(int id) {
-		com.marketour.persistence.Repository<com.marketour.domain.Administrador> repository;
-		repository = new com.marketour.persistence.Repository<com.marketour.domain.Administrador>(
-				com.marketour.domain.Administrador.class);
-		com.marketour.domain.Administrador administrador = repository
-				.FindById(id);
-		Administrador bAdministrador = new Administrador();
-		bAdministrador.setDescripcion(administrador.getDescripcion());
-		bAdministrador.setId(administrador.getId());
-
-		return bAdministrador;
+		FactoryUsers users=new FactoryUsers("Administrador");
+		return (Administrador)users.Consultar(id);
 
 	}
 
 	
-	public static com.marketour.business.Usuario ConvertToBUsuario(Usuario usuario)
-	{
-		
-		com.marketour.business.Usuario bUsuario=new com.marketour.business.Usuario();
-		bUsuario.setCelular(usuario.getCelular());
-		bUsuario.setCorreo(usuario.getCorreo());
-		bUsuario.setDireccion(usuario.getDireccion());
-		bUsuario.setEstado(usuario.getEstado());
-		bUsuario.setId(usuario.getId());
-		bUsuario.setLogin(usuario.getLogin());
-		bUsuario.setNombre(usuario.getNombre());
-		bUsuario.setPassword(usuario.getPassword());
-		bUsuario.setTelefono(usuario.getTelefono());
-		return bUsuario;
-	}
+	
 
-	public static com.marketour.persistence.Repository<com.marketour.domain.Cliente> RegistrarCliente(
+	public static boolean RegistrarCliente(
 			Cliente cliente) {
 
 		RepositoryUser repositoryUser = new com.marketour.persistence.RepositoryUser();
@@ -108,6 +70,9 @@ public class FacadeUsuarios {
 
 		dbCliente.setDescripcion(cliente.getDescripcion());
 		dbCliente.setId(cliente.getId());
+		dbCliente.setMedioPagos( new HashSet<MedioPago>(0));
+		dbCliente.setCompras(new HashSet<Compra>(0));
+		
 
 		dbUsuario.setCelular(cliente.getCelular());
 		dbUsuario.setCorreo(cliente.getCorreo());
@@ -117,16 +82,19 @@ public class FacadeUsuarios {
 		dbUsuario.setNombre(cliente.getNombre());
 		dbUsuario.setPassword(cliente.getPassword());
 		dbUsuario.setTelefono(cliente.getTelefono());
+		
 		try {
 			session.beginTransaction();
-			dbCliente.setId(repositoryUser.Persist(dbUsuario).getId());
+			dbCliente.setUsuario(repositoryUser.Persist(dbUsuario));
+			
 			repositoryClient.Persist(dbCliente);
 			session.getTransaction().commit();
+			return true;
 
 		} catch (Exception ex) {
-
+			return false;
 		}
-		return (Repository<com.marketour.domain.Cliente>) repositoryClient;
+		
 
 	}
 
@@ -166,4 +134,14 @@ public class FacadeUsuarios {
 
 	}
 
+	public static Boolean CambiarContrasena(Credenciales credenciales) 
+	{
+		FactoryUsers users=new FactoryUsers("Usuario");
+		return users.CambiarContrasena(credenciales.getUsuario(), credenciales.getContrasena());
+	}
+	public static Boolean Autenticar(Credenciales credenciales) 
+	{
+		FactoryUsers users=new FactoryUsers("Usuario");
+		return users.Autenticar(credenciales.getUsuario(), credenciales.getContrasena());
+	}
 }

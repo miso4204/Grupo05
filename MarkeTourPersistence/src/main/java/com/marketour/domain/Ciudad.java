@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import java.util.HashSet;
@@ -32,6 +32,10 @@ public class Ciudad  implements java.io.Serializable {
      private String latitud;
      private String longitud;
      private int estado;
+     private Set<Tour> toursForDestino = new HashSet<Tour>(0);
+     private Set<Trasporte> trasportesForOrigen = new HashSet<Trasporte>(0);
+     private Set<Tour> toursForOrigen = new HashSet<Tour>(0);
+     private Set<Trasporte> trasportesForDestino = new HashSet<Trasporte>(0);
      private Set<Producto> productos = new HashSet<Producto>(0);
 
     public Ciudad() {
@@ -43,13 +47,17 @@ public class Ciudad  implements java.io.Serializable {
         this.codigo = codigo;
         this.estado = estado;
     }
-    public Ciudad(Departamento departamento, String descripcion, String codigo, String latitud, String longitud, int estado, Set<Producto> productos) {
+    public Ciudad(Departamento departamento, String descripcion, String codigo, String latitud, String longitud, int estado, Set<Tour> toursForDestino, Set<Trasporte> trasportesForOrigen, Set<Tour> toursForOrigen, Set<Trasporte> trasportesForDestino, Set<Producto> productos) {
        this.departamento = departamento;
        this.descripcion = descripcion;
        this.codigo = codigo;
        this.latitud = latitud;
        this.longitud = longitud;
        this.estado = estado;
+       this.toursForDestino = toursForDestino;
+       this.trasportesForOrigen = trasportesForOrigen;
+       this.toursForOrigen = toursForOrigen;
+       this.trasportesForDestino = trasportesForDestino;
        this.productos = productos;
     }
    
@@ -65,7 +73,7 @@ public class Ciudad  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="departamento", nullable=false)
     public Departamento getDepartamento() {
         return this.departamento;
@@ -125,7 +133,43 @@ public class Ciudad  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany( fetch=FetchType.LAZY, mappedBy="ciudad")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudadByDestino")
+    public Set<Tour> getToursForDestino() {
+        return this.toursForDestino;
+    }
+    
+    public void setToursForDestino(Set<Tour> toursForDestino) {
+        this.toursForDestino = toursForDestino;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudadByOrigen")
+    public Set<Trasporte> getTrasportesForOrigen() {
+        return this.trasportesForOrigen;
+    }
+    
+    public void setTrasportesForOrigen(Set<Trasporte> trasportesForOrigen) {
+        this.trasportesForOrigen = trasportesForOrigen;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudadByOrigen")
+    public Set<Tour> getToursForOrigen() {
+        return this.toursForOrigen;
+    }
+    
+    public void setToursForOrigen(Set<Tour> toursForOrigen) {
+        this.toursForOrigen = toursForOrigen;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudadByDestino")
+    public Set<Trasporte> getTrasportesForDestino() {
+        return this.trasportesForDestino;
+    }
+    
+    public void setTrasportesForDestino(Set<Trasporte> trasportesForDestino) {
+        this.trasportesForDestino = trasportesForDestino;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ciudad")
     public Set<Producto> getProductos() {
         return this.productos;
     }

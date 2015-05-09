@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import java.util.HashSet;
@@ -60,7 +60,7 @@ public class MedioPago  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="forma")
     public FormaPago getFormaPago() {
         return this.formaPago;
@@ -70,7 +70,7 @@ public class MedioPago  implements java.io.Serializable {
         this.formaPago = formaPago;
     }
 
-@ManyToOne( fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cliente")
     public Cliente getCliente() {
         return this.cliente;
@@ -90,7 +90,7 @@ public class MedioPago  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="medioPago")
     public Pse getPse() {
         return this.pse;
     }
@@ -99,7 +99,7 @@ public class MedioPago  implements java.io.Serializable {
         this.pse = pse;
     }
 
-@OneToMany( fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="medioPago")
     public Set<Compra> getCompras() {
         return this.compras;
     }
@@ -108,7 +108,7 @@ public class MedioPago  implements java.io.Serializable {
         this.compras = compras;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="medioPago")
     public TarjetaCredito getTarjetaCredito() {
         return this.tarjetaCredito;
     }
@@ -117,7 +117,7 @@ public class MedioPago  implements java.io.Serializable {
         this.tarjetaCredito = tarjetaCredito;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="medioPago")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="medioPago")
     public ContraEntrega getContraEntrega() {
         return this.contraEntrega;
     }

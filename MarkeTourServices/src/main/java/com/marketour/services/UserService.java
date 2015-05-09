@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.business.Cliente;
+import com.marketour.business.Credenciales;
 import com.marketour.domain.*;
 import com.marketour.facade.FacadeUsuarios;
 import com.marketour.persistence.*;
@@ -29,12 +30,13 @@ public class UserService {
 	}
 
 	@GET
+	@Path("cliente/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindAll() {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.ConsultarClientes()).build();
 	}
-
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(Usuario entity) {
@@ -46,12 +48,20 @@ public class UserService {
 	}
 
 	@GET
-	@Path("{id}")
+	@Path("cliente/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindById(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.FindById(id)).build();
+				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
 	}
+	@GET
+	@Path("proveedor/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByProveedorId(@PathParam("id") int id) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarProveedor(id)).build();
+	}
+	
 
 	@GET
 	@Path("delete/{id}")
@@ -70,11 +80,26 @@ public class UserService {
 	 * Response.status(200).header("Access-Control-Allow-Origin", "*")
 	 * .entity(repository.Persist(entity)).build(); }
 	 */
-	@PUT
+	@POST
+	@Path("registrarcliente")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Persist(Cliente entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
+	}
+	@PUT
+	@Path("cambiarpassword")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Cambiar(Credenciales credenciales) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.CambiarContrasena(credenciales)).build();
+	}
+	@PUT
+	@Path("autenticar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Autenticar(Credenciales credenciales) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.Autenticar(credenciales)).build();
 	}
 
 	@OPTIONS

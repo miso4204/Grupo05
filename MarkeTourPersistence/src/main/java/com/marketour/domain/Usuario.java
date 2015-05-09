@@ -1,5 +1,5 @@
 package com.marketour.domain;
-// Generated 21/04/2015 08:03:17 PM by Hibernate Tools 4.0.0
+// Generated 2/05/2015 08:24:36 PM by Hibernate Tools 4.0.0
 
 
 import javax.persistence.Column;
@@ -149,7 +149,7 @@ public class Usuario  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
     public Administrador getAdministrador() {
         return this.administrador;
     }
@@ -158,7 +158,7 @@ public class Usuario  implements java.io.Serializable {
         this.administrador = administrador;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
     public Proveedor getProveedor() {
         return this.proveedor;
     }
@@ -167,7 +167,7 @@ public class Usuario  implements java.io.Serializable {
         this.proveedor = proveedor;
     }
 
-@OneToOne( fetch=FetchType.LAZY, mappedBy="usuario")
+@OneToOne(fetch=FetchType.LAZY, mappedBy="usuario")
     public Cliente getCliente() {
         return this.cliente;
     }
