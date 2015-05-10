@@ -1,7 +1,12 @@
 package com.marketour.facade;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.marketour.business.Paquete;
 import com.marketour.business.Producto;
 import com.marketour.persistence.Repository;
@@ -9,6 +14,45 @@ import com.marketour.persistence.RepositoryProduct;
 
 public class FacadePackage {
 
+	public static boolean isPromo(){
+
+		boolean promo = false;
+		
+		try {
+			
+			String pathConfigFile = System.getProperty("user.dir").replace("MarkeTourServices", "MarkeTourFeatures");
+			System.out.println("Path config desde facade: " + System.getProperty("user.dir").replace("MarkeTourServices", "MarkeTourFeatures"));
+			pathConfigFile = pathConfigFile + File.separator + "configs" + File.separator + "default.config";
+			BufferedReader in = new BufferedReader(new FileReader(pathConfigFile));
+		
+			String line;
+			
+			while((line = in.readLine()) != null)
+			{
+				System.out.println(line);
+				
+				if(line.trim().equalsIgnoreCase("SpecialOffers")){
+					System.out.println("TIENE PROMO!!!!!!!!!!!");
+					promo = true;
+				}
+			}
+		
+			in.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(promo){
+			System.out.println("RETORNA PROMO!!!!!!!!!!!");
+			return true;
+		} else {
+			System.out.println("RETORNA NULL!!!!!!!!!!!");
+			return false;
+		}
+	}
+	
 	public static Paquete ConsultarPaquete(int id) {
 		Repository<com.marketour.domain.Paquete> repository = new Repository<com.marketour.domain.Paquete>(
 				com.marketour.domain.Paquete.class);
@@ -16,7 +60,12 @@ public class FacadePackage {
 		com.marketour.domain.Paquete domain = repository.FindById(id);
 		if (domain != null)
 			business = Paquete.ConvertToBPaquete(domain);
-		return business;
+		if(isPromo()){
+			return business;
+		} else {
+			business.setPromocion(null);
+			return business;
+		}
 	}
 
 	public static List<Paquete> ConsultarPaquetesTodos() {
@@ -28,7 +77,14 @@ public class FacadePackage {
 		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
 			lstPaquete.add(Paquete.ConvertToBPaquete(paquete));
 		}
-		return lstPaquete;
+		if(isPromo()){
+			return lstPaquete;
+		} else {
+			for(Paquete paq : lstPaquete){
+				paq.setPromocion(null);
+			}
+			return lstPaquete;
+		}
 	}
 
 	public static List<Paquete> ConsultarPaquetesXNombre(String nombre) {
@@ -42,7 +98,14 @@ public class FacadePackage {
 			pac = Paquete.ConvertToBPaquete(paquete);
 			lstPaquete.add(pac);
 		}
-		return lstPaquete;
+		if(isPromo()){
+			return lstPaquete;
+		} else {
+			for(Paquete paq : lstPaquete){
+				paq.setPromocion(null);
+			}
+			return lstPaquete;
+		}
 	}
 
 	public static List<Paquete> ConsultarPaquetesXProveedor(int idProveedor) {
@@ -54,7 +117,14 @@ public class FacadePackage {
 		for (com.marketour.domain.Paquete paquete : lstdPaquete) {
 			lstPaquete.add(Paquete.ConvertToBPaquete(paquete));
 		}
-		return lstPaquete;
+		if(isPromo()){
+			return lstPaquete;
+		} else {
+			for(Paquete paq : lstPaquete){
+				paq.setPromocion(null);
+			}
+			return lstPaquete;
+		}
 	}
 
 	public static List<Paquete> FiltrarPaquetes(String fechaInicio,
@@ -80,7 +150,14 @@ public class FacadePackage {
 			}
 
 		}
-		return lstPaquete;
+		if(isPromo()){
+			return lstPaquete;
+		} else {
+			for(Paquete paq : lstPaquete){
+				paq.setPromocion(null);
+			}
+			return lstPaquete;
+		}
 	}
 
 	public static com.marketour.business.Paquete Persist(Paquete business) {
