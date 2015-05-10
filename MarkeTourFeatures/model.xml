@@ -2,7 +2,7 @@
 	<featureModel chosenLayoutAlgorithm="4">
 		<struct>
 			<and abstract="true" mandatory="true" name="MarkeTourFeatures">
-				<alt name="FrontEnd">
+				<alt mandatory="true" name="FrontEnd">
 					<feature mandatory="true" name="Basic"/>
 					<feature mandatory="true" name="Intermediate"/>
 					<feature mandatory="true" name="Advanced"/>
