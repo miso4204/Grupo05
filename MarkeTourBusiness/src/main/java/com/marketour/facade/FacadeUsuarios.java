@@ -139,6 +139,11 @@ public class FacadeUsuarios {
 		FactoryUsers users=new FactoryUsers("Usuario");
 		return users.CambiarContrasena(credenciales.getUsuario(), credenciales.getContrasena());
 	}
+	public static Boolean CambiarDireccion(com.marketour.business.Usuario usuario) 
+	{
+		FactoryUsers users=new FactoryUsers("Usuario");
+		return users.CambiarDireccion(usuario);
+	}
 	public static Boolean Autenticar(Credenciales credenciales) 
 	{
 		FactoryUsers users=new FactoryUsers("Usuario");

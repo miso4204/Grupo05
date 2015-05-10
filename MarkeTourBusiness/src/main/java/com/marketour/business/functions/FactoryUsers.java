@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.marketour.business.Cliente;
+import com.marketour.business.Usuario;
 
 public class FactoryUsers 
 {
@@ -41,6 +42,17 @@ public class FactoryUsers
 		if(true)
 		{
 			return functionEntidad.CambiarContrasena(usuario, contrasena);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public Boolean CambiarDireccion(Usuario usuario) 
+	{
+		if(true)
+		{
+			return functionEntidad.CambiarDireccion(usuario);
 		}
 		else
 		{

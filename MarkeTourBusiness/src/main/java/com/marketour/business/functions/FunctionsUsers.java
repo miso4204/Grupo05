@@ -20,6 +20,15 @@ abstract class  FunctionsUsers
 		repositorio.Update(dUsuario);
 		return true;
 	}
+	Boolean CambiarDireccion(com.marketour.business.Usuario usuario)
+	{
+		Repository repositorio= new com.marketour.persistence.RepositoryUser();
+		com.marketour.domain.Usuario dUsuario= (com.marketour.domain.Usuario) repositorio.FindByColumn("login = '" + usuario.getLogin()+"'").get(0);
+		dUsuario.setPassword(usuario.getDireccion());
+		
+		repositorio.Update(dUsuario);
+		return true;
+	}
 	Object Autenticar(String usuario, String contrasena)
 	{
 		Repository repositorio= new com.marketour.persistence.RepositoryUser();
