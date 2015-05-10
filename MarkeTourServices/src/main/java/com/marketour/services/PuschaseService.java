@@ -53,6 +53,13 @@ public class PuschaseService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.FindById(id)).build();
 	}
+	@GET
+	@Path("compraubicacion/{idubicacion}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByUbicacion(@PathParam("idubicacion") int idubicacion) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idubicacion)).build();
+	}
 
 	@DELETE
 	@Path("{id}")

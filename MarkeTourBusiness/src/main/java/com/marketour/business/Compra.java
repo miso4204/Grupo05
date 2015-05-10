@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.marketour.domain.ItemCompra;
+import com.marketour.facade.FacadeUsuarios;
 
 /**
  * @author Andres
@@ -20,11 +21,12 @@ import com.marketour.domain.ItemCompra;
     ,catalog="grupocre_marketour"
 )
 public class Compra implements Serializable{
-	private int cliente;
+	//private int cliente;
 	private int calificacion;
 	private Date fechaCompra;
-	private int medioPago;
+	private MedioPago medioPago;
 	private int estado;
+	private Cliente cliente;
 	private Set<com.marketour.business.ItemCompra> itemCompras = new HashSet<com.marketour.business.ItemCompra>(0);
 	public Compra(){
 	}
@@ -35,10 +37,10 @@ public class Compra implements Serializable{
     public void setItemCompras(Set<com.marketour.business.ItemCompra> itemCompras) {
         this.itemCompras = itemCompras;
     }
-	public int getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
-	public void setCliente(int cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	public int getCalificacion() {
@@ -53,10 +55,10 @@ public class Compra implements Serializable{
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
-	public int getMedioPago() {
+	public MedioPago getMedioPago() {
 		return medioPago;
 	}
-	public void setMedioPago(int medioPago) {
+	public void setMedioPago(MedioPago medioPago) {
 		this.medioPago = medioPago;
 	}
 	public int getEstado() {
@@ -65,6 +67,16 @@ public class Compra implements Serializable{
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
+	public static Compra ConvertToBCompra(com.marketour.domain.Compra compra)
+	{
+		Compra bCompra= new Compra();
+		bCompra.setCalificacion(compra.getCalificacion());
+		bCompra.setCliente(Cliente.ConvertToBCliente(compra.getCliente()));
+		bCompra.setEstado(compra.getEstado());
+		bCompra.setFechaCompra(compra.getFecha());
+		//bCompra.setItemCompras(compra.getItemCompras());
+		//bCompra.setMedioPago(MedioPago.);
+		return bCompra;
+	}
 }
 
