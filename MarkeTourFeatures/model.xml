@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="4">
+		<struct>
+			<and abstract="true" mandatory="true" name="MarkeTourFeatures">
+				<alt name="FrontEnd">
+					<feature mandatory="true" name="Basic"/>
+					<feature mandatory="true" name="Intermediate"/>
+					<feature mandatory="true" name="Advanced"/>
+				</alt>
+				<and mandatory="true" name="User">
+					<and mandatory="true" name="Session">
+						<feature mandatory="true" name="Login"/>
+						<feature mandatory="true" name="Logout"/>
+					</and>
+					<and mandatory="true" name="UpdateProfile">
+						<feature name="ChangePassword"/>
+						<feature name="ChangeAdress"/>
+					</and>
+					<feature mandatory="true" name="CreateAccount"/>
+				</and>
+				<feature mandatory="true" name="ShoppingCart"/>
+				<and mandatory="true" name="Pay">
+					<feature mandatory="true" name="CreditCard"/>
+					<feature mandatory="true" name="PSE"/>
+					<feature name="CashOnDelivery"/>
+				</and>
+				<and mandatory="true" name="Reports">
+					<and name="Rating">
+						<feature mandatory="true" name="Location"/>
+						<feature name="Package"/>
+					</and>
+					<and name="Sales">
+						<feature name="ReportByLocation"/>
+						<feature name="ReportByPeriod"/>
+					</and>
+				</and>
+				<and name="SpecialOffers">
+					<feature name="CreatePromo"/>
+					<feature name="UpdatePromo"/>
+				</and>
+				<alt name="SocialNetwork">
+					<feature mandatory="true" name="Facebook"/>
+					<feature mandatory="true" name="Twitter"/>
+				</alt>
+				<and name="AdminMoneda">
+					<feature mandatory="true" name="Dolar"/>
+					<feature name="Euro"/>
+					<feature name="Colombian"/>
+				</and>
+				<and mandatory="true" name="Product">
+					<and mandatory="true" name="Search">
+						<feature name="ByLocation"/>
+						<feature mandatory="true" name="ByPrice"/>
+						<feature mandatory="true" name="ByDate"/>
+					</and>
+				</and>
+				<and mandatory="true" name="QualityAttributes">
+					<feature mandatory="true" name="Configurability"/>
+					<feature name="Scalability"/>
+					<feature mandatory="true" name="Functionality"/>
+					<feature name="Performance"/>
+				</and>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<imp>
+					<var>Basic</var>
+					<conj>
+						<var>ChangePassword</var>
+						<var>Rating</var>
+					</conj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Basic</var>
+					<conj>
+						<not>
+							<var>ChangeAdress</var>
+						</not>
+						<conj>
+							<not>
+								<var>CashOnDelivery</var>
+							</not>
+							<conj>
+								<not>
+									<var>Sales</var>
+								</not>
+								<conj>
+									<not>
+										<var>Package</var>
+									</not>
+									<conj>
+										<not>
+											<var>SpecialOffers</var>
+										</not>
+										<conj>
+											<not>
+												<var>SocialNetwork</var>
+											</not>
+											<conj>
+												<not>
+													<var>AdminMoneda</var>
+												</not>
+												<conj>
+													<not>
+														<var>ByLocation</var>
+													</not>
+													<conj>
+														<not>
+															<var>Scalability</var>
+														</not>
+														<not>
+															<var>Performance</var>
+														</not>
+													</conj>
+												</conj>
+											</conj>
+										</conj>
+									</conj>
+								</conj>
+							</conj>
+						</conj>
+					</conj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Intermediate</var>
+					<conj>
+						<var>ChangePassword</var>
+						<conj>
+							<var>ChangeAdress</var>
+							<conj>
+								<var>Rating</var>
+								<conj>
+									<var>CashOnDelivery</var>
+									<conj>
+										<var>Sales</var>
+										<conj>
+											<var>ReportByLocation</var>
+											<conj>
+												<var>ReportByPeriod</var>
+												<conj>
+													<var>SocialNetwork</var>
+													<conj>
+														<var>Facebook</var>
+														<conj>
+															<var>AdminMoneda</var>
+															<conj>
+																<var>Euro</var>
+																<var>Scalability</var>
+															</conj>
+														</conj>
+													</conj>
+												</conj>
+											</conj>
+										</conj>
+									</conj>
+								</conj>
+							</conj>
+						</conj>
+					</conj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Intermediate</var>
+					<conj>
+						<not>
+							<var>Package</var>
+						</not>
+						<conj>
+							<not>
+								<var>SpecialOffers</var>
+							</not>
+							<conj>
+								<not>
+									<var>Colombian</var>
+								</not>
+								<conj>
+									<not>
+										<var>ByLocation</var>
+									</not>
+									<not>
+										<var>Performance</var>
+									</not>
+								</conj>
+							</conj>
+						</conj>
+					</conj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Advanced</var>
+					<conj>
+						<var>ChangePassword</var>
+						<conj>
+							<var>ChangeAdress</var>
+							<conj>
+								<var>CashOnDelivery</var>
+								<conj>
+									<var>Rating</var>
+									<conj>
+										<var>Package</var>
+										<conj>
+											<var>Sales</var>
+											<conj>
+												<var>ReportByLocation</var>
+												<conj>
+													<var>ReportByPeriod</var>
+													<conj>
+														<var>SpecialOffers</var>
+														<conj>
+															<var>CreatePromo</var>
+															<conj>
+																<var>UpdatePromo</var>
+																<conj>
+																	<var>SocialNetwork</var>
+																	<conj>
+																		<var>Twitter</var>
+																		<conj>
+																			<var>AdminMoneda</var>
+																			<conj>
+																				<var>Euro</var>
+																				<conj>
+																					<var>Colombian</var>
+																					<conj>
+																						<var>ByLocation</var>
+																						<conj>
+																							<var>Scalability</var>
+																							<var>Performance</var>
+																						</conj>
+																					</conj>
+																				</conj>
+																			</conj>
+																		</conj>
+																	</conj>
+																</conj>
+															</conj>
+														</conj>
+													</conj>
+												</conj>
+											</conj>
+										</conj>
+									</conj>
+								</conj>
+							</conj>
+						</conj>
+					</conj>
+				</imp>
+			</rule>
+		</constraints>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

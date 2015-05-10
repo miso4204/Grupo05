@@ -1,9 +1,11 @@
 package com.marketour.derivation;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -29,12 +31,13 @@ public class DerivationMain extends JFrame{
 	   private JLabel headerLabel;
 	   private JLabel statusLabel;
 	   private JPanel controlPanel;
-	   
-	   JCheckBox reportesCheckBox = new JCheckBox();
-       JLabel reporteslbl = new JLabel("Reportes");
+	   private static String productConfig;
+      
+	   //JCheckBox reportesCheckBox = new JCheckBox();
+       //JLabel reporteslbl = new JLabel("Reportes");
        
-       JCheckBox promoCheckBox = new JCheckBox();
-       JLabel promolbl = new JLabel("Promociones");
+       //JCheckBox promoCheckBox = new JCheckBox();
+       //JLabel promolbl = new JLabel("Promociones");
       
        private JTextField pathPomServices = new JTextField(15);
        
@@ -50,8 +53,8 @@ public class DerivationMain extends JFrame{
 	
 	private void prepareGUI(){
 	      mainFrame = new JFrame("MarkeTour Product Derivation");
-	      mainFrame.setSize(400,400);
-	      mainFrame.setLayout(new GridLayout(3, 1));
+	      mainFrame.setSize(400,800);
+	      mainFrame.setLayout(new GridLayout(1, 1));
 	      mainFrame.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent windowEvent){
 	            System.exit(0);
@@ -60,11 +63,12 @@ public class DerivationMain extends JFrame{
 	      headerLabel = new JLabel("", JLabel.CENTER);        
 	      statusLabel = new JLabel("",JLabel.CENTER);    
 
+	      headerLabel.setSize(400,800);
 	      statusLabel.setSize(350,100);
 
 	      controlPanel = new JPanel();
-	      controlPanel.setLayout(new GridLayout(6,3));
-	     // controlPanel.setLayout(new FlowLayout());
+	      //controlPanel.setLayout(new GridLayout(6,2));
+	      controlPanel.setLayout(new FlowLayout());
 	     
 	      mainFrame.add(headerLabel);
 	      mainFrame.add(controlPanel);
@@ -85,8 +89,7 @@ public class DerivationMain extends JFrame{
 
 	   private void showButtonDemo(){
 
-	      headerLabel.setText("Seleccione las Características"); 
-
+	    headerLabel.setText(productConfig);
 
 		      JButton okButton = new JButton("Generar Producto");  
 
@@ -102,6 +105,7 @@ public class DerivationMain extends JFrame{
 		         }          
 		      });
 
+		  /*
 	      promoCheckBox.addItemListener(new ItemListener() {
 	          public void itemStateChanged(ItemEvent e) {
 	              System.out.println("promoCheckBox? " + promoCheckBox.isSelected());
@@ -123,16 +127,16 @@ public class DerivationMain extends JFrame{
 	              }
 	            }
 	          });
-		      
+		      */
 	      
 	       TextFieldListener tfListener = new TextFieldListener();
 		   pathPomServices.addActionListener(tfListener);
 
-	      controlPanel.add(pathPomServices); 
-	      controlPanel.add(reporteslbl);
-	      controlPanel.add(reportesCheckBox);
-	      controlPanel.add(promolbl);
-	      controlPanel.add(promoCheckBox);
+	      //controlPanel.add(pathPomServices); 
+	      //controlPanel.add(reporteslbl);
+	      //controlPanel.add(reportesCheckBox);
+	      //controlPanel.add(promolbl);
+	      //controlPanel.add(promoCheckBox);
 	      controlPanel.add(okButton);
 	     
 	      mainFrame.setVisible(true);  
@@ -143,34 +147,47 @@ public class DerivationMain extends JFrame{
 	public static void main(String argv[]) {
 			//variabilidadPromos();
 			//variabilidadReportes();
+		filepath = System.getProperty("user.dir").replace("MarkeTourProductDerivation", "");
+		System.out.println("Filepath: " + filepath);
+		
+		try {
+			
+			String pathConfigFile = System.getProperty("user.dir").replace("MarkeTourProductDerivation", "MarkeTourFeatures");
+			pathConfigFile = pathConfigFile + File.separator + "configs" + File.separator + "default.config";
+			BufferedReader in = new BufferedReader(new FileReader(pathConfigFile));
+		
+			String line;
+			productConfig = "<html>Configuración: <br><br>";
+			
+			while((line = in.readLine()) != null)
+			{
+				System.out.println(line);
+				productConfig = productConfig + line + "<br>";
+				
+				if(line.equalsIgnoreCase("SpecialOffers")){
+					incluirPromos = true;
+				} else {
+					incluirPromos = false;
+				}
+				if(line.equalsIgnoreCase("Reports")){
+					incluirReportes = true;
+				} else {
+					incluirReportes = false;
+				}
+				
+			}
+			
+			productConfig = productConfig + "</html>";
+		
+			in.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		DerivationMain  swingDerivationMain = new DerivationMain();      
 		swingDerivationMain.showButtonDemo();
-			
-			/*
-			
-			ProcessBuilder builder = new ProcessBuilder(
-		            "cmd.exe", "/c", "cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05 && mvn clean && mvn install && mvn eclipse:eclipse"
-		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPresentation && mvn eclipse:eclipse"
-		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPersistence && mvn eclipse:eclipse"
-		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourBusiness && mvn eclipse:eclipse"
-		            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices && mvn eclipse:eclipse");
-		        builder.redirectErrorStream(true);
-		        Process p;
-				try {
-					p = builder.start();
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				        String line;
-				        while (true) {
-				            line = r.readLine();
-			
-				            .3.3+if (line == null) { break; }
-				            System.out.println(line);
-				        }
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} */
 		       
 		}
 	
@@ -181,7 +198,7 @@ public class DerivationMain extends JFrame{
 		   try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(filepath);
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
 	 
 			// Elemento Principal en el xml
 			Node project = doc.getFirstChild();
@@ -227,7 +244,7 @@ public class DerivationMain extends JFrame{
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(filepath));
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
 			System.out.println("Se actualizó el pom!!");
@@ -255,7 +272,7 @@ public static boolean variabilidadReportes(){
 			//String filepath = "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(filepath);
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
 	 
 			// Elemento Principal en el xml
 			Node project = doc.getFirstChild();
@@ -301,7 +318,7 @@ public static boolean variabilidadReportes(){
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(filepath));
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
 			System.out.println("Se actualizó el pom para variabilidad de reportes!!");
@@ -323,11 +340,11 @@ public static boolean variabilidadReportes(){
 	public static boolean updateProject() {
 		
 		ProcessBuilder builder = new ProcessBuilder(
-	            "cmd.exe", "/c", "cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05 && mvn clean && mvn install && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPresentation && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourPersistence && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourBusiness && mvn eclipse:eclipse"
-	            		+ " && cd C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices && mvn eclipse:eclipse");
+	            "cmd.exe", "/c", "cd " + filepath + " && mvn clean && mvn install && mvn eclipse:eclipse"
+	            		+ " && cd " + filepath + "MarkeTourPresentation" + " && mvn eclipse:eclipse"
+	            		+ " && cd " + filepath + "MarkeTourPersistence" + " && mvn eclipse:eclipse"
+	            		+ " && cd " + filepath + "MarkeTourBusiness" + " && mvn eclipse:eclipse"
+	            		+ " && cd " + filepath + "MarkeTourServices" + " && mvn eclipse:eclipse");
 	        builder.redirectErrorStream(true);
 	        Process p;
 			try {
