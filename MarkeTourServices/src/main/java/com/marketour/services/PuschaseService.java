@@ -1,5 +1,7 @@
 package com.marketour.services;
 
+import java.util.Date;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -59,6 +61,13 @@ public class PuschaseService {
 	public Response FindByUbicacion(@PathParam("idubicacion") int idubicacion) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idubicacion)).build();
+	}
+	@GET
+	@Path("compraperiodo/{fecha}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByUbicacion(@PathParam("fecha") Date fecha) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompra(fecha.getMonth(), fecha.getYear())).build();
 	}
 
 	@DELETE
