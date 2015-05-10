@@ -25,6 +25,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.marketour.derivation.spoonannotations.Invoker;
+
 public class DerivationMain extends JFrame{
 	
 	 private JFrame mainFrame;
@@ -48,12 +50,13 @@ public class DerivationMain extends JFrame{
 	
 	public static boolean incluirPromos = false; //Indica si se desean incluir las promos en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirReportes = false; //Indica si se desean incluir los reportes en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirBusquedaPorCiudad = false; //Indica si se desean incluir la busqueda de productos y paquete por ciudad (spoon) (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	
 	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
 	private void prepareGUI(){
 	      mainFrame = new JFrame("MarkeTour Product Derivation");
-	      mainFrame.setSize(400,800);
+	      mainFrame.setSize(500,730);
 	      mainFrame.setLayout(new GridLayout(1, 1));
 	      mainFrame.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent windowEvent){
@@ -63,7 +66,7 @@ public class DerivationMain extends JFrame{
 	      headerLabel = new JLabel("", JLabel.CENTER);        
 	      statusLabel = new JLabel("",JLabel.CENTER);    
 
-	      headerLabel.setSize(400,800);
+	      headerLabel.setSize(500,730);
 	      statusLabel.setSize(350,100);
 
 	      controlPanel = new JPanel();
@@ -98,6 +101,7 @@ public class DerivationMain extends JFrame{
 		            
 		        	 	variabilidadPromos();
 		 				variabilidadReportes();
+		        	    variabilidadBusquedaProductosPorCiudad();
 		 				updateProject();
 		        	 
 		        	 statusLabel.setText("Producto Generado!");
@@ -174,6 +178,9 @@ public class DerivationMain extends JFrame{
 				} else {
 					incluirReportes = false;
 				}
+				if(line.equalsIgnoreCase("ByLocation")){
+					incluirBusquedaPorCiudad = true;
+				} 
 				
 			}
 			
@@ -336,6 +343,14 @@ public static boolean variabilidadReportes(){
 		
 		return true;
 	}
+@SuppressWarnings("unused")
+public void variabilidadBusquedaProductosPorCiudad(){
+	if (incluirBusquedaPorCiudad==true){
+		Invoker i = new Invoker("6");
+	}else{
+		Invoker i = new Invoker("7");
+	}
+}
 
 	public static boolean updateProject() {
 		
