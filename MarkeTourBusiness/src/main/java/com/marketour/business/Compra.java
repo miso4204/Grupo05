@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.marketour.domain.ItemCompra;
-import com.marketour.facade.FacadeUsuarios;
 
 /**
  * @author Andres
@@ -21,12 +20,11 @@ import com.marketour.facade.FacadeUsuarios;
     ,catalog="grupocre_marketour"
 )
 public class Compra implements Serializable{
-	//private int cliente;
+	private int cliente;
 	private int calificacion;
 	private Date fechaCompra;
-	private MedioPago medioPago;
+	private int medioPago;
 	private int estado;
-	private Cliente cliente;
 	private Set<com.marketour.business.ItemCompra> itemCompras = new HashSet<com.marketour.business.ItemCompra>(0);
 	public Compra(){
 	}
@@ -37,10 +35,10 @@ public class Compra implements Serializable{
     public void setItemCompras(Set<com.marketour.business.ItemCompra> itemCompras) {
         this.itemCompras = itemCompras;
     }
-	public Cliente getCliente() {
+	public int getCliente() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setCliente(int cliente) {
 		this.cliente = cliente;
 	}
 	public int getCalificacion() {
@@ -55,10 +53,10 @@ public class Compra implements Serializable{
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
-	public MedioPago getMedioPago() {
+	public int getMedioPago() {
 		return medioPago;
 	}
-	public void setMedioPago(MedioPago medioPago) {
+	public void setMedioPago(int medioPago) {
 		this.medioPago = medioPago;
 	}
 	public int getEstado() {
@@ -67,6 +65,7 @@ public class Compra implements Serializable{
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+	/*
 	public static Compra ConvertToBCompra(com.marketour.domain.Compra compra)
 	{
 		Compra bCompra= new Compra();
@@ -81,5 +80,7 @@ public class Compra implements Serializable{
 		//bCompra.setMedioPago(MedioPago.);
 		return bCompra;
 	}
+*/
+	
 }
 

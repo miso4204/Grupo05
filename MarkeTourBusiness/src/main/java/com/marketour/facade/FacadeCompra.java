@@ -31,9 +31,9 @@ public class FacadeCompra
 		com.marketour.domain.Cliente dbCliente = new com.marketour.domain.Cliente();
 		com.marketour.domain.MedioPago dbMedioPago = new com.marketour.domain.MedioPago();
 
-		dbCliente.setId(compra.getCliente().getId());
+		dbCliente.setId(compra.getCliente());
 		dbCompra.setCliente(dbCliente);
-		dbMedioPago.setId(compra.getMedioPago().getId());
+		dbMedioPago.setId(compra.getMedioPago());
 		dbCompra.setMedioPago(dbMedioPago);
 
 		dbCompra.setCalificacion(compra.getCalificacion());
@@ -81,19 +81,14 @@ public class FacadeCompra
 		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
 		for (com.marketour.domain.Compra compra : lstsCompras) 
 		{
-			lstCompras.add(Compra.ConvertToBCompra(compra));
-		}
-		return lstCompras;
-	}
-	public static List<com.marketour.business.Compra> ConsultarCompraXLocalizacion(int idciudad) 
-	{		
-		RepositoryCompra repository=new RepositoryCompra();
-		List<com.marketour.domain.Compra> lstsCompras =repository.FindByUbicacion(idciudad);
-
-		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
-		for (com.marketour.domain.Compra compra : lstsCompras) 
-		{
-			lstCompras.add(Compra.ConvertToBCompra(compra));
+			Compra tmpCompra=new Compra();
+			tmpCompra.setCalificacion(compra.getCalificacion());
+			//tmpCompra.setCliente(new Cliente(compra..getCliente());
+			tmpCompra.setEstado(compra.getEstado());			
+			tmpCompra.setFechaCompra(compra.getFecha());
+			//tmpCompra.setItemCompras(compra.getItemCompras());
+			//tmpCompra.setMedioPago(compra.getMedioPago());
+			lstCompras.add(tmpCompra);
 		}
 		return lstCompras;
 	}
@@ -152,4 +147,34 @@ public class FacadeCompra
 		}
 		return lstMedioPago;
 	}
+
+	/*
+	
+	public static List<com.marketour.business.Compra> ConsultarCompra(int mes, int ano) 
+	{
+		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(com.marketour.domain.Compra.class);
+
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByColumn("fecha>'"+ano+"-"+mes+"-1'");
+																				//"fecha>'"+ano+"-"+mes+"-1'"+ ", fecha<'"+ano+"-"+mes+"-30'"
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			lstCompras.add(Compra.ConvertToBCompra(compra));
+		}
+		return lstCompras;
+	}
+	public static List<com.marketour.business.Compra> ConsultarCompraXLocalizacion(int idciudad) 
+	{		
+		RepositoryCompra repository=new RepositoryCompra();
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByUbicacion(idciudad);
+
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			lstCompras.add(Compra.ConvertToBCompra(compra));
+		}
+		return lstCompras;
+	}*/
+	
+	
 }

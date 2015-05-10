@@ -46,8 +46,13 @@
 					 descuento=descuento+((paquetes[i].descuento/100)*paquetes[i].valor);
 				 }
 			 }
-			 $scope.total=(suma-descuento);	 
-			 $scope.totalPlanes="Descuento: " + $filter('currency')(descuento,"$");
+			 $scope.total=(suma-descuento);	  
+			 if (descuento>0){
+				 $scope.totalPlanes="Descuento: " + $filter('currency')(descuento,"$");
+			 }else{
+				 $scope.totalPlanes="";	 
+			 }
+			 
        }
         
 	    if (localStorage.getItem("articulos")!=null && html.indexOf("ShoppingCart.html")>-1){		
