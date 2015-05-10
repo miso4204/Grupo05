@@ -1,5 +1,9 @@
 package com.marketour.facade;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +25,46 @@ import com.marketour.persistence.RepositoryCompra;
 
 public class FacadeCompra 
 {
+	
+	public static boolean tieneContraEntrega(){
+
+		boolean contraEntrega = false;
+		
+		try {
+			
+			String pathConfigFile = System.getProperty("user.dir").replace("MarkeTourServices", "MarkeTourFeatures");
+			System.out.println("Path config desde facade: " + System.getProperty("user.dir").replace("MarkeTourServices", "MarkeTourFeatures"));
+			pathConfigFile = pathConfigFile + File.separator + "configs" + File.separator + "default.config";
+			BufferedReader in = new BufferedReader(new FileReader(pathConfigFile));
+		
+			String line;
+			
+			while((line = in.readLine()) != null)
+			{
+				System.out.println(line);
+				
+				if(line.trim().equalsIgnoreCase("CashOnDelivery")){
+					System.out.println("TIENE CONTRA ENTREGA!");
+					contraEntrega = true;
+				}
+			}
+		
+			in.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(contraEntrega){
+			System.out.println("RETORNA FORMAS DE PAGO CON CONTRA ENTREGA!");
+			return true;
+		} else {
+			System.out.println("RETORNA FORMAS DE PAGO SIN CONTRA ENTREGA!");
+			return false;
+		}
+	}
+	
 	public static com.marketour.domain.Compra RegistrarCompra(Compra compra) 
 	{
 
@@ -102,13 +146,20 @@ public class FacadeCompra
 		lstdbFormapago=repository.FindAll();
 		for (FormaPago formaPago : lstdbFormapago) 
 		{
-			com.marketour.business.FormaPago fp=new com.marketour.business.FormaPago();
-			fp.setId(formaPago.getId());
-			fp.setDescripcion(formaPago.getDescripcion());
-			fp.setEstado(formaPago.getEstado());
-			fp.setRecargo(formaPago.getRecargo());
-			fp.setId(formaPago.getId());
-			lstFormaPago.add(fp);
+			String contraEntrega="";
+			if (tieneContraEntrega()==false){
+				contraEntrega="Contra entrega";
+			}
+			if(!contraEntrega.equals(formaPago.getDescripcion())){
+				com.marketour.business.FormaPago fp=new com.marketour.business.FormaPago();
+				fp.setId(formaPago.getId());
+				fp.setDescripcion(formaPago.getDescripcion());
+				fp.setEstado(formaPago.getEstado());
+				fp.setRecargo(formaPago.getRecargo());
+				fp.setId(formaPago.getId());
+				lstFormaPago.add(fp);
+			}
+			
 		}
 		return lstFormaPago;
 	}
