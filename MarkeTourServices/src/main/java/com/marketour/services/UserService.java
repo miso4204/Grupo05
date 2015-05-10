@@ -95,6 +95,13 @@ public class UserService {
 				.entity(FacadeUsuarios.CambiarContrasena(credenciales)).build();
 	}
 	@PUT
+	@Path("cambiardireccion")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response CambiarDireccion(com.marketour.business.Usuario usuario) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.CambiarDireccion(usuario)).build();
+	}
+	@PUT
 	@Path("autenticar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response Autenticar(Credenciales credenciales) {
