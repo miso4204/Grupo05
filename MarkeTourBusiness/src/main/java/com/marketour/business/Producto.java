@@ -15,10 +15,13 @@ public class Producto implements Serializable {
 	private String ciudadOrigen = "";
 	private List<com.marketour.business.Contenido> contenidos = new ArrayList<com.marketour.business.Contenido>();
 	private String coordenadas = "";
+	private String departamento = "";
+	private String departamentoDestino = "";
+	private String departamentoOrigen = "";
 	private String descripcion = "";
 	private Integer estado = 0;
-	private Date fechaEntrada = new Date();
-	private Date fechaSalida = new Date();
+	private Date fechaEntrada = new Date(1900, 1, 1);
+	private Date fechaSalida = new Date(1900, 1, 1);
 	private Integer id = 0;
 	private Integer idCategoria = 0;
 	private Integer idCiudad = 0;
@@ -55,6 +58,8 @@ public class Producto implements Serializable {
 		if (domain.getCiudad() != null) {
 			business.setCiudad(domain.getCiudad().getDescripcion());
 			business.setIdCiudad(domain.getCiudad().getId());
+			business.setDepartamento(domain.getCiudad().getDepartamento()
+					.getDescripcion());
 			business.setIdDepartamento(domain.getCiudad().getDepartamento()
 					.getId());
 		}
@@ -109,6 +114,18 @@ public class Producto implements Serializable {
 
 	public String getCoordenadas() {
 		return coordenadas;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public String getDepartamentoDestino() {
+		return departamentoDestino;
+	}
+
+	public String getDepartamentoOrigen() {
+		return departamentoOrigen;
 	}
 
 	public String getDescripcion() {
@@ -209,6 +226,18 @@ public class Producto implements Serializable {
 
 	public void setCoordenadas(String coordenadas) {
 		this.coordenadas = coordenadas;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public void setDepartamentoDestino(String departamentoDestino) {
+		this.departamentoDestino = departamentoDestino;
+	}
+
+	public void setDepartamentoOrigen(String departamentoOrigen) {
+		this.departamentoOrigen = departamentoOrigen;
 	}
 
 	public void setDescripcion(String descripcion) {

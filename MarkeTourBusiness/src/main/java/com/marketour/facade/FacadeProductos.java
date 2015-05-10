@@ -6,10 +6,12 @@ import java.util.List;
 import com.marketour.business.Categoria;
 import com.marketour.business.Ciudad;
 import com.marketour.business.Departamento;
-//import com.marketour.business.PlanAlimentacion;
+import com.marketour.business.PlanAlimentacion;
 import com.marketour.business.Producto;
+import com.marketour.business.TipoContenido;
 import com.marketour.domain.Alimentacion;
 import com.marketour.domain.Alojamiento;
+import com.marketour.domain.Contenido;
 import com.marketour.domain.Tour;
 import com.marketour.domain.Trasporte;
 import com.marketour.persistence.Repository;
@@ -56,7 +58,7 @@ public class FacadeProductos {
 	}
 
 	public static Object ConsultarPlanAlimenticioTodos() {
-/*		List<PlanAlimentacion> business = new ArrayList<PlanAlimentacion>();
+		List<PlanAlimentacion> business = new ArrayList<PlanAlimentacion>();
 		List<com.marketour.domain.PlanAlimentacion> domain = new ArrayList<com.marketour.domain.PlanAlimentacion>();
 		Repository<com.marketour.domain.PlanAlimentacion> repository = new Repository<com.marketour.domain.PlanAlimentacion>(
 				com.marketour.domain.PlanAlimentacion.class);
@@ -65,8 +67,6 @@ public class FacadeProductos {
 			business.add(PlanAlimentacion.ConvertToBPlanAlimentacion(item));
 		}
 		return business;
-		*/
-		return null;
 	}
 
 	public static Producto ConsultarProducto(int id) {
@@ -119,6 +119,11 @@ public class FacadeProductos {
 							.getCiudadByOrigen().getDepartamento().getId());
 					business.setIdDepartamentoDestino(addInfo3
 							.getCiudadByDestino().getDepartamento().getId());
+					business.setDepartamentoOrigen(addInfo3.getCiudadByOrigen()
+							.getDepartamento().getDescripcion());
+					business.setDepartamentoDestino(addInfo3
+							.getCiudadByDestino().getDepartamento()
+							.getDescripcion());
 				}
 				break;
 			case 4:// Trasporte
@@ -141,6 +146,11 @@ public class FacadeProductos {
 							.getCiudadByOrigen().getDepartamento().getId());
 					business.setIdDepartamentoDestino(addInfo4
 							.getCiudadByDestino().getDepartamento().getId());
+					business.setDepartamentoOrigen(addInfo4.getCiudadByOrigen()
+							.getDepartamento().getDescripcion());
+					business.setDepartamentoDestino(addInfo4
+							.getCiudadByDestino().getDepartamento()
+							.getDescripcion());
 				}
 				break;
 			}
@@ -205,6 +215,19 @@ public class FacadeProductos {
 		return lstProducto;
 	}
 
+	public static Object ConsultarTipoContenidoTodos() {
+		List<TipoContenido> business = new ArrayList<TipoContenido>();
+		List<com.marketour.domain.TipoContenido> domain = new ArrayList<com.marketour.domain.TipoContenido>();
+		Repository<com.marketour.domain.TipoContenido> repository = new Repository<com.marketour.domain.TipoContenido>(
+				com.marketour.domain.TipoContenido.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.TipoContenido item : domain) {
+
+			business.add(TipoContenido.ConvertToBTipoContenido(item));
+		}
+		return business;
+	}
+
 	public static List<Producto> FiltrarProducto(String fechaInicio,
 			String fechaFin, double precio1, double precio2, int idCiudad) {
 		List<Producto> lstProducto = new ArrayList<Producto>();
@@ -256,6 +279,7 @@ public class FacadeProductos {
 			repositoryProduct.Save(domain);
 		}
 		boolean newAdditional = false;
+
 		// Info Additional
 		switch (business.getIdCategoria()) {
 		case 1:// Alojamiento
@@ -267,8 +291,10 @@ public class FacadeProductos {
 				addInfo1.setId(domain.getId());
 				newAdditional = true;
 			}
-			addInfo1.setFechaEntrada(business.getFechaEntrada());
-			addInfo1.setFechaSalida(business.getFechaSalida());
+			if (business.getFechaEntrada() != null)
+				addInfo1.setFechaEntrada(business.getFechaEntrada());
+			if (business.getFechaSalida() != null)
+				addInfo1.setFechaSalida(business.getFechaSalida());
 			addInfo1.setProducto(domain);
 			if (newAdditional)
 				repoAdd1.Save(addInfo1);
@@ -287,8 +313,9 @@ public class FacadeProductos {
 				addInfo2.setId(domain.getId());
 				newAdditional = true;
 			}
-			addInfo2.setPlanAlimentacion(repoPlan.FindById(business
-					.getIdPlanAlimentacion()));
+			if (business.getIdPlanAlimentacion() > 0)
+				addInfo2.setPlanAlimentacion(repoPlan.FindById(business
+						.getIdPlanAlimentacion()));
 			addInfo2.setProducto(domain);
 			if (newAdditional)
 				repoAdd2.Save(addInfo2);
@@ -306,12 +333,16 @@ public class FacadeProductos {
 				addInfo3.setId(domain.getId());
 				newAdditional = true;
 			}
-			addInfo3.setFechaEntrada(business.getFechaEntrada());
-			addInfo3.setFechaSalida(business.getFechaSalida());
-			addInfo3.setCiudadByOrigen(repoCity1.FindById(business
-					.getIdCiudadOrigen()));
-			addInfo3.setCiudadByDestino(repoCity1.FindById(business
-					.getIdCiudadDestino()));
+			if (business.getFechaEntrada() != null)
+				addInfo3.setFechaEntrada(business.getFechaEntrada());
+			if (business.getFechaSalida() != null)
+				addInfo3.setFechaSalida(business.getFechaSalida());
+			if (business.getIdCiudadOrigen() > 0)
+				addInfo3.setCiudadByOrigen(repoCity1.FindById(business
+						.getIdCiudadOrigen()));
+			if (business.getIdCiudadDestino() > 0)
+				addInfo3.setCiudadByDestino(repoCity1.FindById(business
+						.getIdCiudadDestino()));
 			addInfo3.setProducto(domain);
 			if (newAdditional)
 				repoAdd3.Save(addInfo3);
@@ -329,12 +360,16 @@ public class FacadeProductos {
 				addInfo4.setId(domain.getId());
 				newAdditional = true;
 			}
-			addInfo4.setFechaEntrada(business.getFechaEntrada());
-			addInfo4.setFechaSalida(business.getFechaSalida());
-			addInfo4.setCiudadByOrigen(repoCity2.FindById(business
-					.getIdCiudadOrigen()));
-			addInfo4.setCiudadByDestino(repoCity2.FindById(business
-					.getIdCiudadDestino()));
+			if (business.getFechaEntrada() != null)
+				addInfo4.setFechaEntrada(business.getFechaEntrada());
+			if (business.getFechaSalida() != null)
+				addInfo4.setFechaSalida(business.getFechaSalida());
+			if (business.getIdCiudadOrigen() > 0)
+				addInfo4.setCiudadByOrigen(repoCity2.FindById(business
+						.getIdCiudadOrigen()));
+			if (business.getIdCiudadDestino() > 0)
+				addInfo4.setCiudadByDestino(repoCity2.FindById(business
+						.getIdCiudadDestino()));
 			addInfo4.setProducto(domain);
 			if (newAdditional)
 				repoAdd4.Save(addInfo4);
@@ -342,6 +377,36 @@ public class FacadeProductos {
 				repoAdd4.Update(addInfo4);
 			break;
 		}
+
+		if (business.getContenidos() != null) {
+			Repository<com.marketour.domain.Contenido> repoContent = new Repository<com.marketour.domain.Contenido>(
+					com.marketour.domain.Contenido.class);
+			Repository<com.marketour.domain.TipoContenido> repoContentType = new Repository<com.marketour.domain.TipoContenido>(
+					com.marketour.domain.TipoContenido.class);
+			for (com.marketour.business.Contenido bcontent : business
+					.getContenidos()) {
+				if (bcontent.getId() > 0) {
+					Contenido dcontent = repoContent.FindById(bcontent.getId());
+					dcontent.setProducto(domain);
+					dcontent.setContenido(bcontent.getContenido());
+					if (bcontent.getIdTipoContenido() > 0)
+						dcontent.setTipoContenido(repoContentType
+								.FindById(bcontent.getIdTipoContenido()));
+					dcontent.setEstado(bcontent.getEstado());
+					repoContent.Update(dcontent);
+				} else {
+					Contenido dcontent = new Contenido();
+					dcontent.setProducto(domain);
+					dcontent.setContenido(bcontent.getContenido());
+					if (bcontent.getIdTipoContenido() > 0)
+						dcontent.setTipoContenido(repoContentType
+								.FindById(bcontent.getIdTipoContenido()));
+					dcontent.setEstado(bcontent.getEstado());
+					repoContent.Save(dcontent);
+				}
+			}
+		}
+
 		return ConsultarProducto(domain.getId());
 	}
 }

@@ -2,7 +2,7 @@ package com.marketour.business;
 
 import java.io.Serializable;
 
-public class Categoria implements Serializable {
+public class PlanAlimentacion implements Serializable {
 
 	private Integer id;
 	private String descripcion;
@@ -32,9 +32,9 @@ public class Categoria implements Serializable {
 		this.estado = estado;
 	}
 
-	public static Categoria ConvertToBCategoria(
-			com.marketour.domain.Categoria domain) {
-		Categoria business = new Categoria();
+	public static PlanAlimentacion ConvertToBPlanAlimentacion(
+			com.marketour.domain.PlanAlimentacion domain) {
+		PlanAlimentacion business = new PlanAlimentacion();
 		business.setId(domain.getId());
 		business.setEstado(domain.getEstado());
 		business.setDescripcion(domain.getDescripcion());
