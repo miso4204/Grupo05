@@ -170,13 +170,9 @@ public class DerivationMain extends JFrame{
 				
 				if(line.equalsIgnoreCase("SpecialOffers")){
 					incluirPromos = true;
-				} else {
-					incluirPromos = false;
-				}
+				} 
 				if(line.equalsIgnoreCase("Reports")){
 					incluirReportes = true;
-				} else {
-					incluirReportes = false;
 				}
 				if(line.equalsIgnoreCase("ByLocation")){
 					incluirBusquedaPorCiudad = true;
