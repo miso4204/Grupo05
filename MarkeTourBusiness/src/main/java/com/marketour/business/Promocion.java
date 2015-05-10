@@ -111,4 +111,18 @@ public class Promocion implements Serializable {
 		domain.setId(business.getId());
 		return domain;
 	}
+	
+	public static com.marketour.domain.Promocion ConvertToDBPromocion(
+			Promocion business, com.marketour.domain.Promocion domain) {
+		//com.marketour.domain.Promocion domain = new com.marketour.domain.Promocion();
+		domain.setCodigo(business.getCodigo());
+		domain.setCondiciones(business.getCondiciones());
+		domain.setDescripcion(business.getDescripcion());
+		domain.setDescuento(business.getDescuento());
+		domain.setEstado(business.getEstado());
+		domain.setFechaFin(business.getFechaFin());
+		domain.setFechaInicio(business.getFechaInicio());
+		domain.setId(business.getId());
+		return domain;
+	}
 }

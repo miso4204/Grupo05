@@ -6,7 +6,12 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.marketour.business.Cliente;
+import com.marketour.business.Producto;
 import com.marketour.business.Promocion;
+import com.marketour.domain.Alimentacion;
+import com.marketour.domain.Alojamiento;
+import com.marketour.domain.Tour;
+import com.marketour.domain.Trasporte;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.Repository;
 import com.marketour.persistence.RepositoryUser;
@@ -46,6 +51,32 @@ public class FacadePromo {
 			return null;
 		}
 		
+	}
+	
+	public static Promocion Create(com.marketour.business.Promocion business) {
+		Repository<com.marketour.domain.Promocion> repositoryPromo = new Repository<com.marketour.domain.Promocion>(
+				com.marketour.domain.Promocion.class);
+		com.marketour.domain.Promocion domain = null;
+	
+		domain = Promocion.ConvertToDBPromocion(business,
+				new com.marketour.domain.Promocion());
+		repositoryPromo.Save(domain);
+		
+		return ConsultarPromocion(domain.getId());
+	}
+	
+	public static Promocion Update(com.marketour.business.Promocion business) {
+		Repository<com.marketour.domain.Promocion> repositoryPromo = new Repository<com.marketour.domain.Promocion>(
+				com.marketour.domain.Promocion.class);
+		com.marketour.domain.Promocion domain = null;
+		
+		if (business.getId() > 0) {
+			domain = repositoryPromo.FindById(business.getId());
+			domain = Promocion.ConvertToDBPromocion(business, domain);
+			repositoryPromo.Update(domain);
+		} 
+		
+		return ConsultarPromocion(domain.getId());
 	}
 
 }

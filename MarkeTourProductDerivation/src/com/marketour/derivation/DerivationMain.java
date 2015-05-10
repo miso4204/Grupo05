@@ -51,6 +51,8 @@ public class DerivationMain extends JFrame{
 	public static boolean incluirPromos = false; //Indica si se desean incluir las promos en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirReportes = false; //Indica si se desean incluir los reportes en la compilacion (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirBusquedaPorCiudad = false; //Indica si se desean incluir la busqueda de productos y paquete por ciudad (spoon) (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirCreatePromo = false; //Indica si se pueden crear promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirUpdatePromo = false; //Indica si se pueden actualizar promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	
 	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
@@ -100,6 +102,8 @@ public class DerivationMain extends JFrame{
 		         public void actionPerformed(ActionEvent e) {
 		            
 		        	 	variabilidadPromos();
+		        	 	variabilidadCreatePromos();
+		        	 	variabilidadUpdatePromos();
 		 				variabilidadReportes();
 		        	    variabilidadBusquedaProductosPorCiudad();
 		 				updateProject();
@@ -171,6 +175,12 @@ public class DerivationMain extends JFrame{
 				if(line.equalsIgnoreCase("SpecialOffers")){
 					incluirPromos = true;
 				} 
+				if(line.equalsIgnoreCase("CreatePromo")){
+					incluirCreatePromo = true;
+				}
+				if(line.equalsIgnoreCase("UpdatePromo")){
+					incluirUpdatePromo = true;
+				}
 				if(line.equalsIgnoreCase("Reports")){
 					incluirReportes = true;
 				}
@@ -267,7 +277,153 @@ public class DerivationMain extends JFrame{
 		return true;
 	}
 	
-public static boolean variabilidadReportes(){
+	public static boolean variabilidadCreatePromos(){
+		
+		boolean createPromosExcluded = false; //Variable que indicará si las promociones se encuentran excluidas o no en el pom.xml actual (NO MODIFICAR)
+
+		   try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
+	 
+			// Elemento Principal en el xml
+			Node project = doc.getFirstChild();
+	 
+			// Elementos de interés 
+			Node dependencies = doc.getElementsByTagName("dependencies").item(0);
+			Node build = doc.getElementsByTagName("build").item(0);
+	 
+			NodeList buildList = build.getChildNodes();
+			
+			NodeList excludeList = doc.getElementsByTagName("exclude");
+			Node excludesNode = doc.getElementsByTagName("excludes").item(0);
+			Node excludePromoNode = null;
+			
+			for(int k = 0; k < excludeList.getLength(); k++){
+				System.out.println(excludeList.item(k).getTextContent());
+				if(excludeList.item(k).getTextContent().equals("com/marketour/services/PromoCreateService.java")){
+					createPromosExcluded = true;
+					excludePromoNode = excludeList.item(k);
+				}
+			}
+			
+			if(incluirCreatePromo == false && createPromosExcluded == true){
+				//No hay que hacer nada
+			} else if (incluirCreatePromo == true && createPromosExcluded == false) {
+				//No hay que hacer nada
+			} else if (incluirCreatePromo == false && createPromosExcluded == false) {
+				//Hay que insertar la exclusion en el xml
+				System.out.println("Quiero quitar cerate promos pero no estan excluidas...");
+				Element exclude = doc.createElement("exclude");
+				exclude.appendChild(doc.createTextNode("com/marketour/services/PromoCreateService.java"));
+				excludesNode.appendChild(exclude);
+			} else if (incluirCreatePromo == true && createPromosExcluded == true) {
+				//Hay que quitar la exclusion en el xml
+				System.out.println("Quiero incluir create promos pero estan excluidas...");
+				if(excludePromoNode != null){
+					excludePromoNode.getParentNode().removeChild(excludePromoNode);
+				}
+			}  
+
+			
+			// Se escribe el contenido en el pom.xml 
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
+			transformer.transform(source, result);
+	 
+			System.out.println("Se actualizó el pom!!");
+			
+			
+	 
+		   } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		   } catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		   } catch (IOException ioe) {
+			ioe.printStackTrace();
+		   } catch (SAXException sae) {
+			sae.printStackTrace();
+		   }
+		
+		return true;
+	}
+	
+	public static boolean variabilidadUpdatePromos(){
+		
+		boolean createPromosExcluded = false; //Variable que indicará si las promociones se encuentran excluidas o no en el pom.xml actual (NO MODIFICAR)
+
+		   try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
+	 
+			// Elemento Principal en el xml
+			Node project = doc.getFirstChild();
+	 
+			// Elementos de interés 
+			Node dependencies = doc.getElementsByTagName("dependencies").item(0);
+			Node build = doc.getElementsByTagName("build").item(0);
+	 
+			NodeList buildList = build.getChildNodes();
+			
+			NodeList excludeList = doc.getElementsByTagName("exclude");
+			Node excludesNode = doc.getElementsByTagName("excludes").item(0);
+			Node excludePromoNode = null;
+			
+			for(int k = 0; k < excludeList.getLength(); k++){
+				System.out.println(excludeList.item(k).getTextContent());
+				if(excludeList.item(k).getTextContent().equals("com/marketour/services/PromoUpdateService.java")){
+					createPromosExcluded = true;
+					excludePromoNode = excludeList.item(k);
+				}
+			}
+			
+			if(incluirUpdatePromo == false && createPromosExcluded == true){
+				//No hay que hacer nada
+			} else if (incluirUpdatePromo == true && createPromosExcluded == false) {
+				//No hay que hacer nada
+			} else if (incluirUpdatePromo == false && createPromosExcluded == false) {
+				//Hay que insertar la exclusion en el xml
+				System.out.println("Quiero quitar update promos pero no estan excluidas...");
+				Element exclude = doc.createElement("exclude");
+				exclude.appendChild(doc.createTextNode("com/marketour/services/PromoUpdateService.java"));
+				excludesNode.appendChild(exclude);
+			} else if (incluirUpdatePromo == true && createPromosExcluded == true) {
+				//Hay que quitar la exclusion en el xml
+				System.out.println("Quiero incluir update promos pero estan excluidas...");
+				if(excludePromoNode != null){
+					excludePromoNode.getParentNode().removeChild(excludePromoNode);
+				}
+			}  
+
+			
+			// Se escribe el contenido en el pom.xml 
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
+			transformer.transform(source, result);
+	 
+			System.out.println("Se actualizó el pom!!");
+			
+			
+	 
+		   } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		   } catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		   } catch (IOException ioe) {
+			ioe.printStackTrace();
+		   } catch (SAXException sae) {
+			sae.printStackTrace();
+		   }
+		
+		return true;
+	}	
+	
+	public static boolean variabilidadReportes(){
 		
 		boolean reportesExcluded = false; //Variable que indicará si los reportes se encuentran excluidos o no en el pom.xml actual (NO MODIFICAR)
 
