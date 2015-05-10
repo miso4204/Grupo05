@@ -19,8 +19,8 @@ public class SocialNetworkService {
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String socialNetwork() {
-	    return isSocialNetwork();
+	public Response socialNetwork() {
+	    return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(isSocialNetwork()).build();
 	}
 	
 	public static String isSocialNetwork(){

@@ -3,41 +3,42 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">Marketour!!</property>
-        <property name="hibernate.connection.url">jdbc:mysql://ns8279.hostgator.com:3306/devfloor_marketour</property>
-        <property name="hibernate.connection.username">devfloor_edc</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-        <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.search.autoregister_listeners">false</property>
-        <property name="hibernate.show_sql">true</property>
-        <mapping class="com.marketour.domain.Departamento" />
-        <mapping class="com.marketour.domain.ItemCompra" />
-        <mapping class="com.marketour.domain.Proveedor" />
-        <mapping class="com.marketour.domain.Ciudad" />
-        <mapping class="com.marketour.domain.FormaPago" />
-        <mapping class="com.marketour.domain.PlanAlimentacion" />
-        <mapping class="com.marketour.domain.Contenido" />
-        <mapping class="com.marketour.domain.Disponibilidad" />
-        <mapping class="com.marketour.domain.Promocion" />
-        <mapping class="com.marketour.domain.Compra" />
-        <mapping class="com.marketour.domain.Paquete" />
-        <mapping class="com.marketour.domain.Trasporte" />
-        <mapping class="com.marketour.domain.Pse" />
-        <mapping class="com.marketour.domain.TarjetaCredito" />
-        <mapping class="com.marketour.domain.Administrador" />
-        <mapping class="com.marketour.domain.Alimentacion" />
-        <mapping class="com.marketour.domain.Producto" />
-        <mapping class="com.marketour.domain.MedioPago" />
-        <mapping class="com.marketour.domain.TipoContenido" />
-        <mapping class="com.marketour.domain.Cliente" />
-        <mapping class="com.marketour.domain.Alojamiento" />
-        <mapping class="com.marketour.domain.Usuario" />
-        <mapping class="com.marketour.domain.Tour" />
-        <mapping class="com.marketour.domain.Categoria" />
-        <mapping class="com.marketour.domain.ContraEntrega" />
-    </session-factory>
+	<session-factory>
+		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">Marketour!!</property>
+		<property name="hibernate.connection.url">jdbc:mysql://ns8279.hostgator.com:3306/devfloor_marketour</property>
+		<property name="hibernate.connection.username">devfloor_edc</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.search.autoregister_listeners">false</property>
+		<property name="hibernate.show_sql">true</property>
+		<mapping class="com.marketour.domain.Departamento" />
+		<mapping class="com.marketour.domain.ItemCompra" />
+		<mapping class="com.marketour.domain.Proveedor" />
+		<mapping class="com.marketour.domain.Ciudad" />
+		<mapping class="com.marketour.domain.FormaPago" />
+		<mapping class="com.marketour.domain.PlanAlimentacion" />
+		<mapping class="com.marketour.domain.Contenido" />
+		<mapping class="com.marketour.domain.Disponibilidad" />
+		<mapping class="com.marketour.domain.Promocion" />
+		<mapping class="com.marketour.domain.Compra" />
+		<mapping class="com.marketour.domain.Paquete" />
+		<mapping class="com.marketour.domain.Trasporte" />
+		<mapping class="com.marketour.domain.Pse" />
+		<mapping class="com.marketour.domain.TarjetaCredito" />
+		<mapping class="com.marketour.domain.Administrador" />
+		<mapping class="com.marketour.domain.Alimentacion" />
+		<mapping class="com.marketour.domain.Producto" />
+		<mapping class="com.marketour.domain.Moneda" />
+		<mapping class="com.marketour.domain.MedioPago" />
+		<mapping class="com.marketour.domain.TipoContenido" />
+		<mapping class="com.marketour.domain.Cliente" />
+		<mapping class="com.marketour.domain.Alojamiento" />
+		<mapping class="com.marketour.domain.Usuario" />
+		<mapping class="com.marketour.domain.Tour" />
+		<mapping class="com.marketour.domain.Categoria" />
+		<mapping class="com.marketour.domain.ContraEntrega" />
+	</session-factory>
 </hibernate-configuration>

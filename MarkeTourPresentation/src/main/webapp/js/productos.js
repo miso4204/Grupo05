@@ -14,7 +14,27 @@ function verDetalleProducto(tipo,id){
 	localStorage.setItem("idPP",id);
 	window.location="product.html";
 }
+
+function mostrarRedesSociales(){
+	//Redes sociales
+	$.get("http://localhost:8080/SocialNetwork", function (res) {
+		if (res==""){
+			$("#facebook").hide();
+			$("#twitter").hide();
+		}else if(res=="facebook"){
+			$("#facebook").show();
+			$("#twitter").hide();			
+		}else if(res=="twitter"){
+			$("#facebook").hide();
+			$("#twitter").show();
+		}
+	});
+}
 function mostrarDetalleProductoPaquete(){
+
+	
+	mostrarRedesSociales();
+	
 	var tipo=localStorage.getItem("tipoPP");
 	var id=localStorage.getItem("idPP");
 	if (tipo=="producto"){
@@ -420,6 +440,7 @@ function borrarFiltro(tipo){
 
 
 function cargarTop10Paquetes() {	
+	mostrarRedesSociales();
 	var contador=0;
 	var contaLabel=0;
 	var baseHtml = '';

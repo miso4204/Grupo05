@@ -25,6 +25,15 @@ http://www.templatemo.com/preview/templatemo_409_travel
         <script src="js/productos.js"></script>
     </head>
     <body onload="mostrarDetalleProductoPaquete();">
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -196,8 +205,8 @@ http://www.templatemo.com/preview/templatemo_409_travel
                     <!-- /.col-md-4 -->
                     <div class="col-md-4 col-sm-4">
                         <ul class="social-icons">
-                            <li><a href="#" class="fa fa-facebook"></a></li>
-                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><div id="facebook" class="fb-share-button" data-href="http://localhost:8081/index.html" data-layout="button_count"></div></li>
+                            <li><a id="twitter" href="https://twitter.com/share" class="twitter-share-button" data-via="JuandaPatinoA">Tweet</a></li>
                         </ul>
                     </div>
                     <!-- /.col-md-4 -->
