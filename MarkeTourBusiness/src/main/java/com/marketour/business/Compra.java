@@ -74,7 +74,10 @@ public class Compra implements Serializable{
 		bCompra.setCliente(Cliente.ConvertToBCliente(compra.getCliente()));
 		bCompra.setEstado(compra.getEstado());
 		bCompra.setFechaCompra(compra.getFecha());
-		//bCompra.setItemCompras(compra.getItemCompras());
+		for (ItemCompra item : compra.getItemCompras()) {
+			bCompra.itemCompras.add(com.marketour.business.ItemCompra.ConvertTobItemCompra(item));
+		}
+		
 		//bCompra.setMedioPago(MedioPago.);
 		return bCompra;
 	}

@@ -8,6 +8,8 @@ import java.util.Set;
 
 
 
+
+
 /**
  * @author Andres
  * @version 1.0
@@ -96,6 +98,19 @@ public class MedioPago implements Serializable {
 
 	}
 
+	public static MedioPago ConvertToBMedioPago(com.marketour.domain.MedioPago mediopago )
+	{
+		MedioPago bMedio=new MedioPago();
+		bMedio.setCliente(mediopago.getCliente().getId());
+		//bMedio.setCompras(mediopago.getCompras());
+		//bMedio.setContraEntrega(contraEntrega);
+		bMedio.setEstado(mediopago.getEstado());
+		bMedio.setFormaPago(mediopago.getFormaPago().getId());
+		bMedio.setId(mediopago.getId());
+		//bMedio.setPse(mediopago.getPse());
+		//bMedio.setTarjetaCredito(tarjetaCredito);
+		return bMedio;
+	}
 
 
 }

@@ -69,5 +69,16 @@ public class ItemCompra implements Serializable {
 	public void finalize() throws Throwable {
 
 	}
+	public static ItemCompra ConvertTobItemCompra(com.marketour.domain.ItemCompra itemCompra)
+	{
+		ItemCompra item=new ItemCompra();
+		item.setCantidad(itemCompra.getCantidad());
+		item.setCompra(itemCompra.getCompra().getId());
+		item.setId(itemCompra.getId());
+		//item.setPaquete(itemCompra.getPaquete().getId());
+		item.setProducto(itemCompra.getProducto().getId());
+		item.setValor(itemCompra.getValor());
+		return item;
+	}
 
 }
