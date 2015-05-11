@@ -62,6 +62,20 @@ public class Repository<T> {
 		}
 		return entity;
 	}
+	public T FindByIdAspecto(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		T entity = null;
+		try {
+			session.beginTransaction();
+			entity = (T) session.get(this.entityClass, id);
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return entity;
+	}
 
 	public T Persist(T entity) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
