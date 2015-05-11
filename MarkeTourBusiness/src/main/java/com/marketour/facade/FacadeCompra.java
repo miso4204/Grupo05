@@ -26,7 +26,7 @@ import com.marketour.persistence.RepositoryCompra;
 public class FacadeCompra 
 {
 	
-	public static boolean tieneContraEntrega(){
+	public static  boolean tieneContraEntrega(){
 
 		boolean contraEntrega = false;
 		
@@ -147,7 +147,7 @@ public class FacadeCompra
 		for (FormaPago formaPago : lstdbFormapago) 
 		{
 			String contraEntrega="";
-			if (tieneContraEntrega()==false){
+			if (tieneContraEntrega()==false){ 
 				contraEntrega="Contra entrega";
 			}
 			if(!contraEntrega.equals(formaPago.getDescripcion())){
