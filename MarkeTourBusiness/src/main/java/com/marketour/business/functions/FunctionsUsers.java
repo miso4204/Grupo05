@@ -24,7 +24,7 @@ abstract class  FunctionsUsers
 	{
 		Repository repositorio= new com.marketour.persistence.RepositoryUser();
 		com.marketour.domain.Usuario dUsuario= (com.marketour.domain.Usuario) repositorio.FindByColumn("login = '" + usuario.getLogin()+"'").get(0);
-		dUsuario.setPassword(usuario.getDireccion());
+		dUsuario.setDireccion(usuario.getDireccion());
 		
 		repositorio.Update(dUsuario);
 		return true;
