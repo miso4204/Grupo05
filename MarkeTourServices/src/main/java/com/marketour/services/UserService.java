@@ -1,6 +1,5 @@
 package com.marketour.services;
 
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -14,9 +13,9 @@ import javax.ws.rs.core.Response;
 
 import com.marketour.business.Cliente;
 import com.marketour.business.Credenciales;
-import com.marketour.domain.*;
+import com.marketour.domain.Usuario;
 import com.marketour.facade.FacadeUsuarios;
-import com.marketour.persistence.*;
+import com.marketour.persistence.RepositoryUser;
 
 @Path("/UserService")
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,14 +28,14 @@ public class UserService {
 		repository = new com.marketour.persistence.RepositoryUser();
 	}
 
-	@GET
-	@Path("cliente/")
+	@PUT
+	@Path("autenticar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindAll() {
+	public Response Autenticar(Credenciales credenciales) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarClientes()).build();
+				.entity(FacadeUsuarios.Autenticar(credenciales)).build();
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(Usuario entity) {
@@ -47,46 +46,6 @@ public class UserService {
 						entity.getPassword())).build();
 	}
 
-	@GET
-	@Path("cliente/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindById(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
-	}
-	@GET
-	@Path("proveedor/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByProveedorId(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarProveedor(id)).build();
-	}
-	
-
-	@GET
-	@Path("delete/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Delete(@PathParam("id") int id) {
-		repository.Delete(id);
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(true).build();
-	}
-
-	/*
-	 * @PUT
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON) public Response Persist(Usuario
-	 * entity) { return
-	 * Response.status(200).header("Access-Control-Allow-Origin", "*")
-	 * .entity(repository.Persist(entity)).build(); }
-	 */
-	@POST
-	@Path("registrarcliente")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Cliente entity) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
-	}
 	@PUT
 	@Path("cambiarpassword")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -94,19 +53,13 @@ public class UserService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.CambiarContrasena(credenciales)).build();
 	}
+
 	@PUT
 	@Path("cambiardireccion")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response CambiarDireccion(com.marketour.business.Usuario usuario) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.CambiarDireccion(usuario)).build();
-	}
-	@PUT
-	@Path("autenticar")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Autenticar(Credenciales credenciales) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.Autenticar(credenciales)).build();
 	}
 
 	@OPTIONS
@@ -118,5 +71,53 @@ public class UserService {
 						"GET, POST, PUT, DELETE, OPTIONS")
 				.header("Access-Control-Allow-Headers",
 						"AUTHORIZATION, content-type, accept").build();
+	}
+
+	@GET
+	@Path("delete/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Delete(@PathParam("id") int id) {
+		repository.Delete(id);
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(true).build();
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindAll() {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarUsuarios()).build();
+	}
+
+	@GET
+	@Path("cliente/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindById(@PathParam("id") int id) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
+	}
+
+	@GET
+	@Path("proveedor/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByProveedorId(@PathParam("id") int id) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarProveedor(id)).build();
+	}
+
+	@GET
+	@Path("cliente/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindCustomer() {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarClientes()).build();
+	}
+
+	@POST
+	@Path("registrarcliente")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response Persist(Cliente entity) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
 	}
 }
