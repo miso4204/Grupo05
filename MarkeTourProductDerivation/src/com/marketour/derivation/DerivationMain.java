@@ -53,6 +53,7 @@ public class DerivationMain extends JFrame{
 	public static boolean incluirBusquedaPorCiudad = false; //Indica si se desean incluir la busqueda de productos y paquete por ciudad (spoon) (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirCreatePromo = false; //Indica si se pueden crear promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirUpdatePromo = false; //Indica si se pueden actualizar promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirAdminMoneda = false; //Indica si se incluye la administracion de moneda (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	
 	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
@@ -105,6 +106,7 @@ public class DerivationMain extends JFrame{
 		        	 	variabilidadCreatePromos();
 		        	 	variabilidadUpdatePromos();
 		 				variabilidadReportes();
+		 				variabilidadAdminMoneda();
 		        	    variabilidadBusquedaProductosPorCiudad();
 		 				updateProject();
 		        	 
@@ -187,6 +189,9 @@ public class DerivationMain extends JFrame{
 				if(line.equalsIgnoreCase("ByLocation")){
 					incluirBusquedaPorCiudad = true;
 				} 
+				if(line.equalsIgnoreCase("AdminMoneda")){
+					incluirAdminMoneda = true;
+				}
 				
 			}
 			
@@ -203,6 +208,78 @@ public class DerivationMain extends JFrame{
 		swingDerivationMain.showButtonDemo();
 		       
 		}
+	
+	
+	public static boolean variabilidadAdminMoneda(){
+		
+		boolean adminMonedaExcluded = false; //Variable que indicará si el admin moneda se encuentra excluido o no en el pom.xml actual (NO MODIFICAR)
+
+		   try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
+	 
+			// Elemento Principal en el xml
+			Node project = doc.getFirstChild();
+	 
+			// Elementos de interés 
+			Node dependencies = doc.getElementsByTagName("dependencies").item(0);
+			Node build = doc.getElementsByTagName("build").item(0);
+	 
+			NodeList buildList = build.getChildNodes();
+			
+			NodeList excludeList = doc.getElementsByTagName("exclude");
+			Node excludesNode = doc.getElementsByTagName("excludes").item(0);
+			Node excludePromoNode = null;
+			
+			for(int k = 0; k < excludeList.getLength(); k++){
+				System.out.println(excludeList.item(k).getTextContent());
+				if(excludeList.item(k).getTextContent().equals("com/marketour/aspectos/AspectoMoneda.aj")){
+					adminMonedaExcluded = true;
+					excludePromoNode = excludeList.item(k);
+				}
+			}
+			
+			if(incluirAdminMoneda == false && adminMonedaExcluded == true){
+				//No hay que hacer nada
+			} else if (incluirAdminMoneda == true && adminMonedaExcluded == false) {
+				//No hay que hacer nada
+			} else if (incluirAdminMoneda == false && adminMonedaExcluded == false) {
+				//Hay que insertar la exclusion en el xml
+				System.out.println("Quiero quitar admin moneda pero no estan excluido...");
+				Element exclude = doc.createElement("exclude");
+				exclude.appendChild(doc.createTextNode("com/marketour/aspectos/AspectoMoneda.aj"));
+				excludesNode.appendChild(exclude);
+			} else if (incluirAdminMoneda == true && adminMonedaExcluded == true) {
+				//Hay que quitar la exclusion en el xml
+				System.out.println("Quiero incluir admin moneda pero esta excluido...");
+				if(excludePromoNode != null){
+					excludePromoNode.getParentNode().removeChild(excludePromoNode);
+				}
+			}  
+
+			
+			// Se escribe el contenido en el pom.xml 
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
+			transformer.transform(source, result);
+	 
+			System.out.println("Se actualizó el pom!!");
+	 
+		   } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		   } catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		   } catch (IOException ioe) {
+			ioe.printStackTrace();
+		   } catch (SAXException sae) {
+			sae.printStackTrace();
+		   }
+		
+		return true;
+	}
 	
 	public static boolean variabilidadPromos(){
 		

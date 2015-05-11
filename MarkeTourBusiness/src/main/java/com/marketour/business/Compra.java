@@ -65,12 +65,13 @@ public class Compra implements Serializable{
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	/*
+	
 	public static Compra ConvertToBCompra(com.marketour.domain.Compra compra)
 	{
 		Compra bCompra= new Compra();
 		bCompra.setCalificacion(compra.getCalificacion());
-		bCompra.setCliente(Cliente.ConvertToBCliente(compra.getCliente()));
+		//bCompra.setCliente(Cliente.ConvertToBCliente(compra.getCliente()));
+		bCompra.setCliente(compra.getCliente().getId());
 		bCompra.setEstado(compra.getEstado());
 		bCompra.setFechaCompra(compra.getFecha());
 		for (ItemCompra item : compra.getItemCompras()) {
@@ -80,7 +81,7 @@ public class Compra implements Serializable{
 		//bCompra.setMedioPago(MedioPago.);
 		return bCompra;
 	}
-*/
+
 	
 }
 

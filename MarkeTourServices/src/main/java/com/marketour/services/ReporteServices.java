@@ -50,6 +50,14 @@ public class ReporteServices {
 				.entity(FacadeCompra.ConsultarCompra(fecha.getMonth(), fecha.getYear()))
 				.build();
 	}
+	@GET
+	@Path("salesubication/{idciudad}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByCiudad(@PathParam("idciudad") int idciudad) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idciudad))
+				.build();
+	}
 
 	@OPTIONS
 	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {

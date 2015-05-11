@@ -115,7 +115,7 @@ public class FacadeCompra
 		return dbCompra;
 
 	}
-	
+	/*
 	public static List<com.marketour.business.Compra> ConsultarCompra(int mes, int ano) 
 	{
 		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(com.marketour.domain.Compra.class);
@@ -135,7 +135,7 @@ public class FacadeCompra
 			lstCompras.add(tmpCompra);
 		}
 		return lstCompras;
-	}
+	}*/
 	
 	public static List<com.marketour.business.FormaPago> ConsultarFormasdePago()
 	{
@@ -199,7 +199,7 @@ public class FacadeCompra
 		return lstMedioPago;
 	}
 
-	/*
+	
 	
 	public static List<com.marketour.business.Compra> ConsultarCompra(int mes, int ano) 
 	{
@@ -225,7 +225,7 @@ public class FacadeCompra
 			lstCompras.add(Compra.ConvertToBCompra(compra));
 		}
 		return lstCompras;
-	}*/
+	}
 	
 	
 }

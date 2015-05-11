@@ -55,7 +55,7 @@ public class PuschaseService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.FindById(id)).build();
 	}
-	/*
+	
 	@GET
 	@Path("compraubicacion/{idubicacion}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,7 +69,7 @@ public class PuschaseService {
 	public Response FindByUbicacion(@PathParam("fecha") Date fecha) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeCompra.ConsultarCompra(fecha.getMonth(), fecha.getYear())).build();
-	}*/
+	}
 
 	@DELETE
 	@Path("{id}")
