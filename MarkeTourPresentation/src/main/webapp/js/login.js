@@ -28,6 +28,11 @@ var baseNoLoguedHtml =
                 '<i class="fa fa-user"></i> <span id="login">Login</span> ' +
             '</a> ' +
         '</li> ' +
+        '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
+            '<a href="/admin/agregarUsuario.html#?id=0" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+                '<i class="fa fa-user"></i> <span id="login">Registro</span> ' +
+            '</a> ' +
+        '</li> ' +
     '</ul> ' +
     '<a href="#" class="toggle-menu visible-sm visible-xs"> <i class="fa fa-bars"></i></a>';
 
@@ -37,16 +42,28 @@ var baseProviderHtml =
 	    	'<i class="fa fa-truck"></i> <span>&nbsp;Proveedor</span> ' +
 	    '</a> ' +
     '</li> ';
+var baseClientHtml =
+    '<li style="border-left: 0px solid #eee;" class="pull-right"> ' +
+    '<a href="javascript:void(0)" id="cliente_registro" style="line-height: 40px;   text-transform: none; color: #ffffff" > ' +
+    '<i class="fa fa-user"></i> <span>&nbsp;Cliente</span> ' +
+    '</a> ' +
+    '</li> ';
 
  if(window.sessionStorage.getItem("usuario")){
      $("#login-div").append(baseLoguedHtml);
      if(window.sessionStorage.getItem("provider") == "true"){
     	 $("#login-container").append(baseProviderHtml);
+     }else{
+         $("#login-container").append(baseClientHtml);
      }
      $("#username").text(sessionStorage.getItem("username"));
  }else{
      $("#login-div").append(baseNoLoguedHtml);
  }
+
+$("#cliente_registro").click(function () {
+    location.href = "/admin/agregarUsuario.html?#id="+window.sessionStorage.getItem("usuario");
+});
 
 $("#signout").click(function () {
     sessionStorage.clear();
