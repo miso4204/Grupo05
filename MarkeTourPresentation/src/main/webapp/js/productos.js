@@ -105,7 +105,7 @@ function mostrarDetalleProductoPaquete(){
         	$("#boton2").append("<button onclick=\"addProduct('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
         	
         	
-        	//Información adicional
+        	//Información adicional por categoria
         	$("#infAdicional").empty();
         	if(res.idCategoria==3 || res.idCategoria==4){        		
         		$("#infAdicional").append("<h4  class='consult-title'>Información del Tour</h4><br>");
