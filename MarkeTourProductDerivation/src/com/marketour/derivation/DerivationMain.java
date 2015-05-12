@@ -747,11 +747,7 @@ public class DerivationMain extends JFrame{
 	public static boolean updateProject() {
 		
 		ProcessBuilder builder = new ProcessBuilder(
-	            "cmd.exe", "/c", "cd " + filepath + " && mvn clean && mvn install && mvn eclipse:eclipse"
-	            		+ " && cd " + filepath + "MarkeTourPresentation" + " && mvn eclipse:eclipse"
-	            		+ " && cd " + filepath + "MarkeTourPersistence" + " && mvn eclipse:eclipse"
-	            		+ " && cd " + filepath + "MarkeTourBusiness" + " && mvn eclipse:eclipse"
-	            		+ " && cd " + filepath + "MarkeTourServices" + " && mvn eclipse:eclipse");
+	            "cmd.exe", "/c", "cd " + filepath + " && mvn eclipse:eclipse && mvn install ");
 	        builder.redirectErrorStream(true);
 	        Process p;
 			try {
