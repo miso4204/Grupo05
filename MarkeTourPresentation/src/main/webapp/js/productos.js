@@ -49,6 +49,23 @@ function mostrarRedesSociales(){
 		}
 	});
 }
+
+function formatoFecha(fecha){
+	var myDate = new Date(fecha);
+	var month = myDate.getMonth() + 1;
+	month=month+"";
+	if(month.length==1){
+		month="0"+month;
+	}
+	var day = myDate.getDate();
+	day=day+"";
+	if(day.length==1){
+		day="0"+day;
+	}
+	var year = myDate.getFullYear();
+	return day + "/" + month + "/" + year;
+}
+
 function mostrarDetalleProductoPaquete(){
 	cargarSgino();
 	
@@ -86,6 +103,32 @@ function mostrarDetalleProductoPaquete(){
         	$("#video").attr('src',video);
         	$("#boton1").append("<button onclick=\"addProduct('label1','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
         	$("#boton2").append("<button onclick=\"addProduct('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
+        	
+        	
+        	//Información adicional por categoria
+        	$("#infAdicional").empty();
+        	if(res.idCategoria==3 || res.idCategoria==4){        		
+        		$("#infAdicional").append("<h4  class='consult-title'>Información del Tour</h4><br>");
+            	$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Origen:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+res.ciudadOrigen+"</label><br>");
+            	$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Destino:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+res.ciudadDestino+"</label><br>");
+            	$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Fecha Entrada:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+formatoFecha(res.fechaEntrada)+"</label><br>");
+            	$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Fecha Salida:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+formatoFecha(res.fechaSalida)+"</label><br>");	
+        	}else if(res.idCategoria==2){
+        		$("#infAdicional").append("<h4  class='consult-title'>Plan de Alimentación</h4><br>");            	
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+res.planAlimentacion+"</label><br>");
+        	}else if(res.idCategoria==1){
+        		$("#infAdicional").append("<h4  class='consult-title'>Alojamiento</h4><br>");            
+        		$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Fecha Entrada:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+formatoFecha(res.fechaEntrada)+"</label><br>");
+            	$("#infAdicional").append("<label	style='color: green; font-size: 15px;'>Fecha Salida:&nbsp;&nbsp;</label>");
+            	$("#infAdicional").append("<label	style=' font-size: 13px;'>"+formatoFecha(res.fechaSalida)+"</label><br>");
+        	}
+        	
+        	
         	cargarCarrusel();
         	$("#loader").hide(); 
 	    });
