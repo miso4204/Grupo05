@@ -68,7 +68,7 @@ public class ReporteServices {
 				.build();
 	}
 	@GET
-	@Path("salespaquetecalificada/{idciudad}")
+	@Path("salespaquetecalificada/{idpaquete}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByPaqueteCalificada(@PathParam("idpaquete") int idpaquete) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
