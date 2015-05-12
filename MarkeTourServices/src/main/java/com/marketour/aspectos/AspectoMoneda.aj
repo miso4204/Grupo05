@@ -25,17 +25,19 @@ public aspect AspectoMoneda {
 		
 	}
 
-	pointcut conversionMonedaDomain():
+	pointcut conversionMonedaDomainMostrar():
 		call(public * com.marketour.domain.*.getValor(..)) ;
 
-	BigDecimal around(): conversionMonedaDomain(){
-		System.out.println("LOCATIONNNN   "+thisJoinPointStaticPart.getSourceLocation());
+	BigDecimal around(): conversionMonedaDomainMostrar(){		
 		BigDecimal original = proceed();
 		if (idUsuario>0){			
-			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);				
-			com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
-			original=original.multiply(moneda.getConversion());
-			System.out.println("MONEDAAAAA:" + moneda.getDescripcion());
+			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);	
+			if (usuario.getMoneda()!=null){
+				com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
+				original=original.multiply(moneda.getConversion());
+				System.out.println("MONEDAAAAA:" + moneda.getDescripcion());	
+			}
+			
 		}else{
 			System.out.println("LOGEARSE PARA TIPO DE MONEDA         ");
 		}
@@ -45,17 +47,19 @@ public aspect AspectoMoneda {
 		return original;
 	}
 	
-	pointcut conversionMonedaBusiness():
+	pointcut conversionMonedaBusinessCompra():
 		call(public * com.marketour.business.*.getValor(..)) ;
 
-	BigDecimal around(): conversionMonedaBusiness(){
-		System.out.println("LOCATIONNNN   "+thisJoinPointStaticPart.getSourceLocation());
+	BigDecimal around(): conversionMonedaBusinessCompra(){		
 		BigDecimal original = proceed();
 		if (idUsuario>0){			
-			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);				
-			com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
-			original=original.divide(moneda.getConversion());
-			System.out.println("MONEDAAAAA:" + moneda.getDescripcion());
+			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);	
+			if (usuario.getMoneda()!=null){
+				com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
+				original=original.divide(moneda.getConversion());
+				System.out.println("MONEDAAAAA:" + moneda.getDescripcion());	
+			}
+			
 		}else{
 			System.out.println("LOGEARSE PARA TIPO DE MONEDA         ");
 		}

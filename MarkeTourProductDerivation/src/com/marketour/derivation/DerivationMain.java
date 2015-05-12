@@ -55,6 +55,9 @@ public class DerivationMain extends JFrame{
 	public static boolean incluirUpdatePromo = false; //Indica si se pueden actualizar promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirAdminMoneda = false; //Indica si se incluye la administracion de moneda (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirPerformance = false; //Indica si se incluye el atributo de calidad performance alto. (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirAdminMonedaEuro = false; //Indica si se incluye la moneda euro (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirAdminMonedaPeso = false; //Indica si se incluye la moneda Peso colombiano (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+
 	
 	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
@@ -110,6 +113,7 @@ public class DerivationMain extends JFrame{
 		 				variabilidadReportes();
 		 				variabilidadAdminMoneda();
 		        	    variabilidadBusquedaProductosPorCiudad();
+		        	    variabilidadMonedaEuroPeso();
 		 				updateProject();
 		        	 
 		        	 statusLabel.setText("Producto Generado!");
@@ -197,6 +201,13 @@ public class DerivationMain extends JFrame{
 				if(line.equalsIgnoreCase("Performance")){
 					incluirPerformance = true;
 				}
+				if(line.equalsIgnoreCase("Euro")){
+					incluirAdminMonedaEuro = true;
+				}
+				if(line.equalsIgnoreCase("Colombian")){
+					incluirAdminMonedaPeso = true;
+				}
+
 				
 			}
 			
@@ -661,14 +672,33 @@ public class DerivationMain extends JFrame{
 		
 		return true;
 	}
-@SuppressWarnings("unused")
-public void variabilidadBusquedaProductosPorCiudad(){
-	if (incluirBusquedaPorCiudad==true){
-		Invoker i = new Invoker("6");
-	}else{
-		Invoker i = new Invoker("7");
+	@SuppressWarnings("unused")
+	public void variabilidadBusquedaProductosPorCiudad(){
+		if (incluirBusquedaPorCiudad==true){
+			Invoker i = new Invoker("6","busequedaCiudad");
+		}else{
+			Invoker i = new Invoker("7","busequedaCiudad");
+		}
 	}
-}
+
+	@SuppressWarnings("unused")
+	public void variabilidadMonedaEuroPeso(){
+		//7 peso+euro
+		//6 ninguna
+		//5 euro
+		//4 peso
+		if (incluirAdminMonedaEuro==true && incluirAdminMonedaPeso==true){
+			Invoker i = new Invoker("7","moneda");
+		}else if (incluirAdminMonedaEuro==false && incluirAdminMonedaPeso==false){
+			Invoker i = new Invoker("6","moneda");
+		}else if (incluirAdminMonedaEuro==true){
+			Invoker i = new Invoker("5","moneda");
+		}else if (incluirAdminMonedaPeso==true){
+			Invoker i = new Invoker("4","moneda");
+		}
+	}
+
+
 
 	public static boolean updateProject() {
 		

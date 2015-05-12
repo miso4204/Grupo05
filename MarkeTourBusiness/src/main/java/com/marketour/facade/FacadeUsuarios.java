@@ -16,9 +16,11 @@ import com.marketour.business.functions.FactoryUsers;
 import com.marketour.domain.Compra;
 import com.marketour.domain.MedioPago;
 import com.marketour.hibernate.HibernateUtil;
+import com.marketour.persistence.Annotation;
 import com.marketour.persistence.Repository;
 import com.marketour.persistence.RepositoryUser;
 
+@Annotation(tipo="Moneda")
 public class FacadeUsuarios {
 
 	public static Boolean Autenticar(Credenciales credenciales) {
