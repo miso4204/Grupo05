@@ -30,7 +30,7 @@ public class Processor extends AbstractProcessor<CtAnnotation<?>> {
 		super.init();
 	}
 	
-	@Override 
+	//@Override 
 	public void process(CtAnnotation<?> annotation) {
 		if (annotation.toString().contains("SearchByLocation")){
 			CtClass<?> target=(CtClass<?>) annotation.getParent();

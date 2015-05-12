@@ -76,7 +76,7 @@ public class ItemCompra implements Serializable {
 		item.setCompra(itemCompra.getCompra().getId());
 		item.setId(itemCompra.getId());
 		//item.setPaquete(itemCompra.getPaquete().getId());
-		item.setProducto(itemCompra.getProducto().getId());
+		//item.setProducto(itemCompra.getProducto().getId());
 		item.setValor(itemCompra.getValor());
 		return item;
 	}

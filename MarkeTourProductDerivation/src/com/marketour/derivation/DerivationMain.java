@@ -54,6 +54,7 @@ public class DerivationMain extends JFrame{
 	public static boolean incluirCreatePromo = false; //Indica si se pueden crear promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirUpdatePromo = false; //Indica si se pueden actualizar promos (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	public static boolean incluirAdminMoneda = false; //Indica si se incluye la administracion de moneda (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
+	public static boolean incluirPerformance = false; //Indica si se incluye el atributo de calidad performance alto. (SE MODIFICA SEGUN LOS REQUERIM. DEL CLIENTE)
 	
 	public static String filepath; //= "C:\\Users\\JUAN DAVID\\workspace\\MarkeTour\\Grupo05\\MarkeTourServices\\pom.xml"; //Ruta en el pc del archivo MarkeTourServices/pom.xml 
 	
@@ -102,6 +103,7 @@ public class DerivationMain extends JFrame{
 		      okButton.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
 		            
+		 				variabilidadPerformance();
 		        	 	variabilidadPromos();
 		        	 	variabilidadCreatePromos();
 		        	 	variabilidadUpdatePromos();
@@ -192,6 +194,9 @@ public class DerivationMain extends JFrame{
 				if(line.equalsIgnoreCase("AdminMoneda")){
 					incluirAdminMoneda = true;
 				}
+				if(line.equalsIgnoreCase("Performance")){
+					incluirPerformance = true;
+				}
 				
 			}
 			
@@ -209,6 +214,90 @@ public class DerivationMain extends JFrame{
 		       
 		}
 	
+	public static boolean variabilidadPerformance(){
+		
+		boolean performance = false; //Variable que indicará si el servidor jetty se usara en version 7 o 9 en el pom.xml actual (NO MODIFICAR)
+
+		   try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath + "MarkeTourServices" + File.separator + "pom.xml");
+	 
+			// Elemento Principal en el xml
+			Node project = doc.getFirstChild();
+	 
+			// Elementos de interés 
+			Node dependencies = doc.getElementsByTagName("dependencies").item(0);
+			Node build = doc.getElementsByTagName("build").item(0);
+	 
+			NodeList dependenciesList = dependencies.getChildNodes();
+			
+			NodeList versionList = doc.getElementsByTagName("version");
+			Node versionNode = null;
+			
+			System.out.println("VersionList: " + versionList.getLength());
+			
+			for(int k = 0; k < versionList.getLength(); k++){
+				System.out.println(versionList.item(k).getTextContent());
+				if(versionList.item(k).getTextContent().equals("9.2.10.v20150310")){
+					System.out.println("Jetty Equals 9.2 ");
+					performance = true;
+					versionNode = versionList.item(k);
+					
+					if(!incluirPerformance){
+						Node jettyNode = versionNode.getParentNode();
+						jettyNode.removeChild(versionNode);
+						
+						Element versionNew = doc.createElement("version");
+						versionNew.appendChild(doc.createTextNode("7.6.16.v20140903"));
+						jettyNode.appendChild(versionNew);
+					} else {
+						//No se hace nada porque ya esta con performance...
+					}
+					
+				}
+				
+				if(versionList.item(k).getTextContent().equals("7.6.16.v20140903")){
+					System.out.println("Jetty Equals 7.6 ");
+					performance = false;
+					versionNode = versionList.item(k);
+					
+					if(incluirPerformance){
+						Node jettyNode = versionNode.getParentNode();
+						jettyNode.removeChild(versionNode);
+						
+						Element versionNew = doc.createElement("version");
+						versionNew.appendChild(doc.createTextNode("9.2.10.v20150310"));
+						jettyNode.appendChild(versionNew);
+					} else {
+						//No se hace nada porque ya esta sin performance...
+					}
+					
+				}
+			}
+			
+			
+			// Se escribe el contenido en el pom.xml 
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
+			transformer.transform(source, result);
+	 
+			System.out.println("Se actualizó el pom con performance!!");
+			
+		   } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		   } catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		   } catch (IOException ioe) {
+			ioe.printStackTrace();
+		   } catch (SAXException sae) {
+			sae.printStackTrace();
+		   }
+		
+		return true;
+	}
 	
 	public static boolean variabilidadAdminMoneda(){
 		
@@ -266,7 +355,7 @@ public class DerivationMain extends JFrame{
 			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
-			System.out.println("Se actualizó el pom!!");
+			System.out.println("Se actualizó el pom con adminMoneda!!");
 	 
 		   } catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -337,7 +426,7 @@ public class DerivationMain extends JFrame{
 			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
-			System.out.println("Se actualizó el pom!!");
+			System.out.println("Se actualizó el pom con promos!!");
 			
 			
 	 
@@ -410,7 +499,7 @@ public class DerivationMain extends JFrame{
 			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
-			System.out.println("Se actualizó el pom!!");
+			System.out.println("Se actualizó el pom con create promos!!");
 			
 			
 	 
@@ -483,7 +572,7 @@ public class DerivationMain extends JFrame{
 			StreamResult result = new StreamResult(new File(filepath + "MarkeTourServices" + File.separator + "pom.xml"));
 			transformer.transform(source, result);
 	 
-			System.out.println("Se actualizó el pom!!");
+			System.out.println("Se actualizó el pom con update promos!!");
 			
 			
 	 

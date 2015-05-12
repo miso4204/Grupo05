@@ -26,4 +26,22 @@ public class RepositoryCompra extends Repository<Compra>
 		session.getTransaction().commit();
 		return list;
 	}
+	public List<Compra> FindByUbicacionCalificada(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<Compra> list = session
+				.createSQLQuery(
+						"SELECT t1.* FROM Compra AS t1 INNER JOIN ItemCompra AS t2 ON t1.id = t2.compra INNER JOIN Producto AS t3 ON t2.producto = t3.id where t1.calificacion>0 and t3.ubicacion="+ id).addEntity(Compra.class).list();
+		session.getTransaction().commit();
+		return list;
+	}
+	public List<Compra> FindByPaqueteCalificado(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<Compra> list = session
+				.createSQLQuery(
+						"SELECT t1.* FROM Compra AS t1 INNER JOIN ItemCompra AS t2 ON t1.id = t2.compra INNER JOIN Paquete_Producto AS t3 ON t2.producto = t3.producto where t1.calificacion>0 and t3.paquete="+ id).addEntity(Compra.class).list();
+		session.getTransaction().commit();
+		return list;
+	}
 }
