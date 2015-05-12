@@ -9,6 +9,18 @@ public class Proveedor extends Usuario implements Serializable {
 	private int id = 0;
 	private String nit = "";
 
+	public static com.marketour.domain.Proveedor ConvertToBDProveedor(
+			Proveedor business) {
+		com.marketour.domain.Proveedor domain = new com.marketour.domain.Proveedor();
+		if (business != null) {
+			domain.setId(business.getId());
+			domain.setDescripcion(business.getDescripcion());
+			domain.setNit(business.getNit());
+			domain.setCuenta(business.getCuenta());
+		}
+		return domain;
+	}
+
 	public static Proveedor ConvertToBProveedor(
 			com.marketour.domain.Proveedor domain) {
 		com.marketour.business.Proveedor business = new com.marketour.business.Proveedor();
