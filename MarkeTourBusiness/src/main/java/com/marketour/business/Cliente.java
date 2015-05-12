@@ -1,108 +1,68 @@
-
 package com.marketour.business;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class Cliente extends Usuario implements java.io.Serializable {
 
-/**
- * @author Andres
- * @version 1.0
- * @created 13-abr.-2015 9:52:32 a. m.
- */
-@Entity
-@Table(name="Cliente"
-    ,catalog="grupocre_marketour"
-)
-public class Cliente  extends Usuario implements java.io.Serializable {
-
+	private String descripcion;
+	private int id;
 	private CarritoCompra m_CarritoCompra;
-	private MedioPago m_MedioPago;
 	private Compra m_Compra;
-    private int id;
-    private String descripcion;
+	private MedioPago m_MedioPago;
 
-	public Cliente(){
-
+	public static Cliente ConvertToBCliente(com.marketour.domain.Cliente domain) {
+		Cliente bCliente = new Cliente();
+		if (domain != null) {
+			bCliente.setId(domain.getId());
+			bCliente.setDescripcion(domain.getDescripcion());
+		}
+		return bCliente;
 	}
 
-	public Integer getId() {
-		return id;
+	public static com.marketour.domain.Cliente ConvertToDBCliente(
+			Cliente cliente) {
+		com.marketour.domain.Cliente dbcliente = new com.marketour.domain.Cliente();
+
+		dbcliente.setDescripcion(cliente.getDescripcion());
+		dbcliente.setId(cliente.getId());
+		return dbcliente;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public CarritoCompra getCarritoCompra() {
+		return m_CarritoCompra;
+	}
+
+	public Compra getCompra() {
+		return m_Compra;
 	}
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public CarritoCompra getCarritoCompra(){
-		return m_CarritoCompra;
+	public Integer getId() {
+		return id;
 	}
 
-	public Compra getCompra(){
-		return m_Compra;
-	}
-
-	public MedioPago getMedioPago(){
+	public MedioPago getMedioPago() {
 		return m_MedioPago;
 	}
 
-	/**
-	 * 
-	 * @param newVal
-	 */
-	public void setCarritoCompra(CarritoCompra newVal){
+	public void setCarritoCompra(CarritoCompra newVal) {
 		m_CarritoCompra = newVal;
 	}
 
-	/**
-	 * 
-	 * @param newVal
-	 */
-	public void setCompra(Compra newVal){
+	public void setCompra(Compra newVal) {
 		m_Compra = newVal;
 	}
 
-	/**
-	 * 
-	 * @param newVal
-	 */
-	public void setMedioPago(MedioPago newVal){
-		m_MedioPago = newVal;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	
-	public static Cliente ConvertToBCliente(com.marketour.domain.Cliente cliente)
-    {
-		
-		Cliente bCliente=new Cliente();
-		bCliente.setDescripcion(cliente.getDescripcion());
-		bCliente.setId(cliente.getId());
-		
-		bCliente.setCelular(cliente.getUsuario().getCelular());
-		bCliente.setCorreo(cliente.getUsuario().getCorreo());
-		bCliente.setDireccion(cliente.getUsuario().getCorreo());
-		bCliente.setEstado(cliente.getUsuario().getEstado());
-		bCliente.setLogin(cliente.getUsuario().getLogin());
-		bCliente.setNombre(cliente.getUsuario().getNombre());
-		bCliente.setTelefono(cliente.getUsuario().getTelefono());
-		return bCliente;
-    	
-    }
-	public static com.marketour.domain.Cliente ConvertToDBCliente(Cliente cliente)
-    {
-		com.marketour.domain.Cliente dbcliente=new com.marketour.domain.Cliente();
-		
-		dbcliente.setDescripcion(cliente.getDescripcion());
-		dbcliente.setId(cliente.getId());
-		return dbcliente;
-    	
-    }
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public void setMedioPago(MedioPago newVal) {
+		m_MedioPago = newVal;
+	}
 }

@@ -90,11 +90,11 @@ public class UserService {
 	}
 
 	@GET
-	@Path("cliente/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindById(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
+				.entity(FacadeUsuarios.ConsultarUsuario(id)).build();
 	}
 
 	@GET
@@ -103,6 +103,14 @@ public class UserService {
 	public Response FindByProveedorId(@PathParam("id") int id) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(FacadeUsuarios.ConsultarProveedor(id)).build();
+	}
+
+	@GET
+	@Path("cliente/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindClienteById(@PathParam("id") int id) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
 	}
 
 	@GET
