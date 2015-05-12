@@ -1,44 +1,44 @@
 package com.marketour.business;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "Usuario", catalog = "grupocre_marketour")
 public class Usuario implements java.io.Serializable {
-
-	public static com.marketour.business.Usuario ConvertToBUsuario(
-			com.marketour.domain.Usuario usuario) {
-		com.marketour.business.Usuario bUsuario = new com.marketour.business.Usuario();
-		bUsuario.setCelular(usuario.getCelular());
-		bUsuario.setCorreo(usuario.getCorreo());
-		bUsuario.setDireccion(usuario.getDireccion());
-		bUsuario.setEstado(usuario.getEstado());
-		bUsuario.setId(usuario.getId());
-		bUsuario.setLogin(usuario.getLogin());
-		bUsuario.setNombre(usuario.getNombre());
-		bUsuario.setPassword(usuario.getPassword());
-		bUsuario.setTelefono(usuario.getTelefono());
-		if (usuario.getAdministrador() != null)
-			bUsuario.setTipoUsuario("Administrador");
-		if (usuario.getProveedor() != null)
-			bUsuario.setTipoUsuario("Proveedor");
-		if (usuario.getCliente() != null)
-			bUsuario.setTipoUsuario("Cliente");
-		return bUsuario;
-	}
 
 	private String celular = "";
 	private String correo = "";
 	private String direccion = "";
 	private int estado = 0;
 	private Integer id = 0;
+	private Integer idMoneda = 0;
 	private String login = "";
+	private String moneda = "";
 	private String nombre = "";
 	private String password = "";
 	private String telefono = "";
-
 	private String tipoUsuario = "";
+
+	public static com.marketour.business.Usuario ConvertToBUsuario(
+			com.marketour.domain.Usuario domain) {
+		com.marketour.business.Usuario business = new com.marketour.business.Usuario();
+		business.setId(domain.getId());
+		business.setLogin(domain.getLogin());
+		business.setNombre(domain.getNombre());
+		business.setPassword(domain.getPassword());
+		business.setTelefono(domain.getTelefono());
+		business.setCelular(domain.getCelular());
+		business.setCorreo(domain.getCorreo());
+		business.setDireccion(domain.getDireccion());
+		business.setEstado(domain.getEstado());
+		if (domain.getMoneda() != null) {
+			business.setMoneda(domain.getMoneda().getDescripcion());
+			business.setIdMoneda(domain.getMoneda().getId());
+		}
+		if (domain.getAdministrador() != null)
+			business.setTipoUsuario("Administrador");
+		if (domain.getProveedor() != null)
+			business.setTipoUsuario("Proveedor");
+		if (domain.getCliente() != null)
+			business.setTipoUsuario("Cliente");
+		return business;
+	}
 
 	public String getCelular() {
 		return celular;
@@ -60,8 +60,16 @@ public class Usuario implements java.io.Serializable {
 		return id;
 	}
 
+	public Integer getIdMoneda() {
+		return idMoneda;
+	}
+
 	public String getLogin() {
 		return login;
+	}
+
+	public String getMoneda() {
+		return moneda;
 	}
 
 	public String getNombre() {
@@ -100,8 +108,16 @@ public class Usuario implements java.io.Serializable {
 		this.id = id;
 	}
 
+	public void setIdMoneda(Integer idMoneda) {
+		this.idMoneda = idMoneda;
+	}
+
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 
 	public void setNombre(String nombre) {

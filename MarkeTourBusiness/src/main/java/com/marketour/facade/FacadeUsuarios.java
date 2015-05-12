@@ -54,9 +54,28 @@ public class FacadeUsuarios {
 		return (List<Cliente>) (List<?>) users.ConsultarLista();
 	}
 
+	public static Object ConsultarMonedaTodos() {
+
+		List<Moneda> business = new ArrayList<Moneda>();
+		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+				com.marketour.domain.Moneda.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.Moneda item : domain) {
+
+			business.add(Moneda.ConvertToBMoneda(item));
+		}
+		return business;
+	}
+
 	public static Proveedor ConsultarProveedor(int id) {
 		FactoryUsers users = new FactoryUsers("Proveedor");
 		return (Proveedor) users.Consultar(id);
+	}
+
+	public static Usuario ConsultarUsuario(int id) {
+		FactoryUsers users = new FactoryUsers("");
+		return (Usuario) users.Consultar(id);
 	}
 
 	public static List<Usuario> ConsultarUsuarios() {
@@ -135,19 +154,5 @@ public class FacadeUsuarios {
 			registro = false;
 		}
 		return registro;
-	}
-
-	public static Object ConsultarMonedaTodos() {
-
-		List<Moneda> business = new ArrayList<Moneda>();
-		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
-		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
-				com.marketour.domain.Moneda.class);
-		domain = repository.FindAll();
-		for (com.marketour.domain.Moneda item : domain) {
-
-			business.add(Moneda.ConvertToBMoneda(item));
-		}
-		return business;
 	}
 }
