@@ -98,18 +98,31 @@ public class MedioPago implements Serializable {
 
 	}
 
-	public static MedioPago ConvertToBMedioPago(com.marketour.domain.MedioPago mediopago )
+	public static MedioPago ConvertToBMedioPago(com.marketour.domain.MedioPago medioPago )
 	{
-		MedioPago bMedio=new MedioPago();
-		bMedio.setCliente(mediopago.getCliente().getId());
-		//bMedio.setCompras(mediopago.getCompras());
-		//bMedio.setContraEntrega(contraEntrega);
-		bMedio.setEstado(mediopago.getEstado());
-		bMedio.setFormaPago(mediopago.getFormaPago().getId());
-		bMedio.setId(mediopago.getId());
-		//bMedio.setPse(mediopago.getPse());
-		//bMedio.setTarjetaCredito(tarjetaCredito);
-		return bMedio;
+		
+		MedioPago mp=new MedioPago();
+		mp.setId(medioPago.getId());
+		mp.setCliente(medioPago.getCliente().getId());
+		if (medioPago.getTarjetaCredito()!=null){
+			com.marketour.business.TarjetaCredito tc=new com.marketour.business.TarjetaCredito();
+			tc.setId(medioPago.getTarjetaCredito().getId());
+			tc.setNombre(medioPago.getTarjetaCredito().getNombre());
+			tc.setNumero(medioPago.getTarjetaCredito().getNumero());
+			tc.setCodigo(medioPago.getTarjetaCredito().getCodigo());
+			tc.setVencimiento(medioPago.getTarjetaCredito().getVencimiento());
+			mp.setTarjetaCredito(tc);	
+		}
+		
+		if (medioPago.getContraEntrega()!=null){
+			com.marketour.business.ContraEntrega co=new com.marketour.business.ContraEntrega();
+			co.setId(medioPago.getContraEntrega().getId());
+			co.setDireccion(medioPago.getContraEntrega().getDireccion());
+			mp.setContraEntrega(co);
+		}
+		
+		
+		return mp;
 	}
 
 
