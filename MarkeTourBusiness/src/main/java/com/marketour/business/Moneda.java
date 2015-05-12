@@ -17,6 +17,7 @@ public class Moneda implements Serializable {
 		business.setEstado(domain.getEstado());
 		business.setSigno(domain.getSigno());
 		business.setDescripcion(domain.getDescripcion());
+		business.setConversion(domain.getConversion());
 		return business;
 	}
 
