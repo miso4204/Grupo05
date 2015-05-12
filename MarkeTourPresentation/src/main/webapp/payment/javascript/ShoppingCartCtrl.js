@@ -17,6 +17,7 @@
 		$scope.totalPlanes="";
 		$scope.error="";
 		$scope.medioPago=[];
+		$scope.signoMoneda="$";
         var html=window.location+"";
         function buscarArticulo(idArticulo){
         for(i=0;i<articulos.length;i++){
@@ -47,10 +48,10 @@
 				 }
 			 }
 			 $scope.total=(suma-descuento);	  
-			 if (descuento>0){
-				 $scope.totalPlanes="Descuento: " + $filter('currency')(descuento,"$");
+			 if (descuento>0){				 
+				 $scope.totalPlanes=descuento;
 			 }else{
-				 $scope.totalPlanes="";	 
+				 $scope.totalPlanes=0;	 
 			 }
 			 
        }
@@ -73,7 +74,19 @@
 			 calcularTotal();
 			 
 		}
-	    
+	    $scope.getUsuario = function() {
+			$http.get("http://localhost:8080/UserService/"+sessionStorage.getItem('usuario')).success(function(response) {
+				var moneda=response.moneda;
+				if(moneda=="Dolar"){
+					$scope.signoMoneda = "USD";	
+				}else if(moneda=="Euro"){
+					$scope.signoMoneda = "EUR";
+				}else if(moneda=="Peso Colombiano"){
+					$scope.signoMoneda = "COP";
+				}
+				
+			});
+		};
 	   
 	    $scope.FindAll = function() {
 			$http.get($scope.service).success(function(response) {
@@ -327,6 +340,7 @@
 		}
 		//$scope.FindAll();
 		//$scope.FindAllPackages();
+		$scope.getUsuario();
 		$scope.FindAllFormaPago();
 		 if (localStorage.getItem("medioPago")!=null){
 				$scope.buscarMedioPago(localStorage.getItem("medioPago"));			 

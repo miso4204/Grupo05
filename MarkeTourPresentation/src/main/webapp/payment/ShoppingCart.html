@@ -116,7 +116,7 @@
 						<div class="col-md-7" align="left">			
 							<label style="font-size: 20px; font-family: sans-serif">{{item.nombre}}</label> <br> 
 							<label style="font-size: 10px; font-family: sans-serif">{{item.descripcion}}</label> <br> 
-							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{item.valor | currency}}</label>
+							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{item.valor | currency:signoMoneda+" "}}</label>
 							
 						</div>
 						<div class="col-md-1" align="left">
@@ -139,7 +139,7 @@
 						<div class="col-md-7" align="left">			
 							<label style="font-size: 20px; font-family: sans-serif">{{package.nombre}}  <label style="color:red">{{package.descuento>0? package.descuento+"%":""}}</label></label> <br> 
 							<label style="font-size: 10px; font-family: sans-serif">{{package.descripcion}}</label> <br> 
-							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{package.valor | currency}}  <label style="color:red">{{package.descuento>0? (package.valor-((package.descuento/100)*package.valor) | currency):""}}</label></label>							
+							<label style="font-size: 20px; font-family: sans-serif;color: green;">{{package.valor | currency:signoMoneda+" "}}  <label style="color:red">{{package.descuento>0? (package.valor-((package.descuento/100)*package.valor) | currency:signoMoneda+" "):""}}</label></label>							
 						</div>
 						<div class="col-md-1" align="left">
 						<img Style="cursor: pointer;" alt="Agregar" src="imagenes/mas.png" ng-click="sumarPaquete(package.id);">
@@ -163,10 +163,10 @@
 						Compra</label>
 					<div style="margin: 3%">
 						<label
-							style="font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{totalPlanes}}</label>
+							style="font-family: sans-serif; background-color: white; text-align: center; width: 100%; border-radius: 3px;">{{totalPlanes>0? ("Descuento: "+(totalPlanes| currency:signoMoneda+" ")):""}}</label>
 					</div>
 					<div style="background-color: white;margin: 3%; height: 100%">
-						<label 	style="margin:3%; font-size: 30px; font-family: sans-serif;  text-align: center; width: 100%; border-radius: 3px;">Total: {{total | currency}}</label>
+						<label 	style="margin:3%; font-size: 30px; font-family: sans-serif;  text-align: center; width: 100%; border-radius: 3px;">Total: {{total | currency:signoMoneda+" "}}</label>
 					</div>
 					<div style="margin: 3%">
 						Seleccione forma de pago: <br> 						
