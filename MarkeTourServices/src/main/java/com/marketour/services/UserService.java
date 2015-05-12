@@ -1,5 +1,6 @@
 package com.marketour.services;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -13,7 +14,8 @@ import javax.ws.rs.core.Response;
 
 import com.marketour.business.Cliente;
 import com.marketour.business.Credenciales;
-import com.marketour.domain.Usuario;
+import com.marketour.business.Proveedor;
+import com.marketour.business.Usuario;
 import com.marketour.facade.FacadeUsuarios;
 import com.marketour.persistence.RepositoryUser;
 
@@ -62,17 +64,6 @@ public class UserService {
 				.entity(FacadeUsuarios.CambiarDireccion(usuario)).build();
 	}
 
-	@OPTIONS
-	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {
-		return Response
-				.status(200)
-				.header("Access-Control-Allow-Origin", "*")
-				.header("Access-Control-Allow-Methods",
-						"GET, POST, PUT, DELETE, OPTIONS")
-				.header("Access-Control-Allow-Headers",
-						"AUTHORIZATION, content-type, accept").build();
-	}
-
 	@GET
 	@Path("delete/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -97,35 +88,22 @@ public class UserService {
 				.entity(FacadeUsuarios.ConsultarUsuario(id)).build();
 	}
 
-	@GET
-	@Path("proveedor/{id}")
+	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindByProveedorId(@PathParam("id") int id) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response Persist(Usuario entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarProveedor(id)).build();
+				.entity(FacadeUsuarios.RegistrarUsuario(entity)).build();
 	}
 
-	@GET
-	@Path("cliente/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindClienteById(@PathParam("id") int id) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarCliente(id)).build();
-	}
-
-	@GET
-	@Path("cliente/")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response FindCustomer() {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.ConsultarClientes()).build();
-	}
-
-	@POST
-	@Path("registrarcliente")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(Cliente entity) {
-		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeUsuarios.RegistrarCliente(entity)).build();
+	@OPTIONS
+	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {
+		return Response
+				.status(200)
+				.header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods",
+						"GET, POST, PUT, DELETE, OPTIONS")
+				.header("Access-Control-Allow-Headers",
+						"AUTHORIZATION, content-type, accept").build();
 	}
 }

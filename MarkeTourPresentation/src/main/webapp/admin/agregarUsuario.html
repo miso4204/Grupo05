@@ -163,15 +163,19 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label" for="data.usuario">Tipo</label>
+                                    <label class="control-label" for="data.tipoUsuario">Tipo</label>
 
                                     <div class="controls">
                                         <select id="data.tipoUsuario" class="span4"
-                                                ng-model="data.tipoUsuario">
+                                                ng-model="data.tipoUsuario" ng-change="ChangeUserType()"
+                                                ng-hide="data.id > 0 && data.tipoUsuario!=''">
                                             <option ng-repeat="type in typeUser" value="{{type}}">
                                                 {{type}}
                                             </option>
                                         </select>
+
+                                        <input type="text" id="data.tipoUsuario" class="span4"
+                                               ng-model="data.tipoUsuario" ng-show="data.id > 0 && data.tipoUsuario!=''" ng-readonly="data.id > 0 && data.tipoUsuario!=''">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -203,7 +207,8 @@
                                     <div class="module-body">
                                         <div class="form-horizontal row-fluid">
                                             <div class="control-group">
-                                                <label class="control-label" for="dataProvider.descripcion">Descripción</label>
+                                                <label class="control-label"
+                                                       for="dataProvider.descripcion">Descripción</label>
 
                                                 <div class="controls">
                                                     <textarea rows="5" id="dataProvider.descripcion" class="span8"
@@ -246,7 +251,8 @@
                                         <div class="form-horizontal row-fluid">
 
                                             <div class="control-group">
-                                                <label class="control-label" for="dataCustomer.descripcion">Descripción</label>
+                                                <label class="control-label"
+                                                       for="dataCustomer.descripcion">Descripción</label>
 
                                                 <div class="controls">
                                                     <textarea rows="5" id="dataCustomer.descripcion" class="span8"
@@ -255,11 +261,11 @@
                                             </div>
 
                                             <div class="control-group">
-                                                <label class="control-label" for="dataCustomer.moneda">Moneda</label>
+                                                <label class="control-label" for="data.idMoneda">Moneda</label>
 
                                                 <div class="controls">
-                                                    <select id="dataCustomer.moneda" class="span4"
-                                                            ng-model="dataCustomer.moneda">
+                                                    <select id="data.idMoneda" class="span4"
+                                                            ng-model="data.idMoneda">
                                                         <option ng-hide="currencies.length > 0" ng-disabled="true">
                                                             (Cargando...)
                                                         </option>
@@ -278,7 +284,7 @@
                     </div>
                     <div class="module-head align-center">
                         <a href="#" class="btn btn-success" role="button"
-                           ng-click="PersistUser(data);" data-toggle="tooltip"
+                           ng-click="PersistUser();" data-toggle="tooltip"
                            title="Registrar Usuario">Registrar Usuario</a>
                     </div>
                 </div>

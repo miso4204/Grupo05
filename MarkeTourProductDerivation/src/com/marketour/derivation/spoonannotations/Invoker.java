@@ -3,10 +3,18 @@ package com.marketour.derivation.spoonannotations;
 import spoon.Launcher;
 
 public class Invoker {
-	static String rut=System.getProperty("user.dir").replace("MarkeTourProductDerivation", "MarkeTourPersistence");
+	static String rut="";
 	
-	public Invoker(String tipo){
-		invokeSpoon(rut+"\\src\\main\\java\\com\\marketour\\persistence\\RepositoryProduct.java", "com.marketour.derivation.spoonannotations.Processor",tipo);
+	public Invoker(String tipo,String feature){
+		String rutaFeature="";
+		if(feature.equals("busequedaCiudad")){
+			rut=System.getProperty("user.dir").replace("MarkeTourProductDerivation", "MarkeTourPersistence");
+			rutaFeature="\\src\\main\\java\\com\\marketour\\persistence\\RepositoryProduct.java";
+		}else if(feature.equals("moneda")){
+			rut=System.getProperty("user.dir").replace("MarkeTourProductDerivation", "MarkeTourBusiness");
+			rutaFeature="\\src\\main\\java\\com\\marketour\\facade\\FacadeUsuarios.java";
+		}
+		invokeSpoon(rut+rutaFeature, "com.marketour.derivation.spoonannotations.Processor",tipo);
 	}
 	
 	 

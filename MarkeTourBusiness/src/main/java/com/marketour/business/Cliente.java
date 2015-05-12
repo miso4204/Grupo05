@@ -2,28 +2,30 @@ package com.marketour.business;
 
 public class Cliente extends Usuario implements java.io.Serializable {
 
-	private String descripcion;
-	private int id;
-	private CarritoCompra m_CarritoCompra;
-	private Compra m_Compra;
-	private MedioPago m_MedioPago;
+	private String descripcion = "";
+	private int id = 0;
+
+	private CarritoCompra m_CarritoCompra = new CarritoCompra();
+	private Compra m_Compra = new Compra();
+	private MedioPago m_MedioPago = new MedioPago();
 
 	public static Cliente ConvertToBCliente(com.marketour.domain.Cliente domain) {
-		Cliente bCliente = new Cliente();
+		Cliente business = new Cliente();
 		if (domain != null) {
-			bCliente.setId(domain.getId());
-			bCliente.setDescripcion(domain.getDescripcion());
+			business.setId(domain.getId());
+			business.setDescripcion(domain.getDescripcion());
 		}
-		return bCliente;
+		return business;
 	}
 
-	public static com.marketour.domain.Cliente ConvertToDBCliente(
-			Cliente cliente) {
-		com.marketour.domain.Cliente dbcliente = new com.marketour.domain.Cliente();
-
-		dbcliente.setDescripcion(cliente.getDescripcion());
-		dbcliente.setId(cliente.getId());
-		return dbcliente;
+	public static com.marketour.domain.Cliente ConvertToBDCliente(
+			Cliente business) {
+		com.marketour.domain.Cliente domain = new com.marketour.domain.Cliente();
+		if (business != null) {
+			domain.setId(business.getId());
+			domain.setDescripcion(business.getDescripcion());
+		}
+		return domain;
 	}
 
 	public CarritoCompra getCarritoCompra() {
