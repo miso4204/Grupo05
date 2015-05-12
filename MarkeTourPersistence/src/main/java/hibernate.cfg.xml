@@ -5,7 +5,7 @@
  <session-factory name="">
   <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password">Marketour!!</property>
+    <property name="hibernate.connection.password">Marketour!!</property>
   <property name="hibernate.connection.url">jdbc:mysql://ns8279.hostgator.com:3306/devfloor_marketour</property>
   <property name="hibernate.connection.username">devfloor_edc</property>
   <property name="hibernate.current_session_context_class">thread</property>

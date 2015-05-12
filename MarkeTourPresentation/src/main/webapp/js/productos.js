@@ -2,6 +2,7 @@
 var articulos=[];
 var paquetes=[];
 var ciudades=[];
+var signoMoneda="$";
 
 function load(){
 cargarPaquetes("");
@@ -13,6 +14,24 @@ function verDetalleProducto(tipo,id){
 	localStorage.setItem("tipoPP",tipo);
 	localStorage.setItem("idPP",id);
 	window.location="product.html";
+}
+function cargarSgino(){
+	$.get("http://localhost:8080/UserService/"+sessionStorage.getItem('usuario'), function (res) {
+		var moneda=res.moneda;
+		if(moneda=="Dolar"){
+			signoMoneda = "USD";	
+		}else if(moneda=="Euro"){
+			signoMoneda = "EUR";
+		}else if(moneda=="Peso Colombiano"){
+			signoMoneda = "COP";
+		}
+		
+	});	
+}
+function formatoNumero(numero){
+	
+	
+	return signoMoneda+" "+numero.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
 function mostrarRedesSociales(){
@@ -31,7 +50,7 @@ function mostrarRedesSociales(){
 	});
 }
 function mostrarDetalleProductoPaquete(){
-
+	cargarSgino();
 	
 	mostrarRedesSociales();
 	
@@ -63,7 +82,7 @@ function mostrarDetalleProductoPaquete(){
         	$("#incluye").remove();
         	$("#titulo").text(res.nombre);
         	$("#descripcion").html(res.descripcion+"</br></br>"+descripcion);
-        	$("#precio").text("$"+res.valor);
+        	$("#precio").text(formatoNumero(res.valor));
         	$("#video").attr('src',video);
         	$("#boton1").append("<button onclick=\"addProduct('label1','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
         	$("#boton2").append("<button onclick=\"addProduct('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
@@ -93,7 +112,7 @@ function mostrarDetalleProductoPaquete(){
                 baseHtml += '<h4>' + productos[j].nombre+'</h4></div>';
                 baseHtml += '<img src="' + imagen + '" height="200px" width="270px" ></div>';
                 baseHtml += '<div class="list-content">';            
-                baseHtml += '<h5>$' + productos[j].valor + '</h5>';
+                baseHtml += '<h5>' + formatoNumero(productos[j].valor) + '</h5>';
                 baseHtml += '<span>' + productos[j].descripcion + '</span>';
                 baseHtml += "<a class='price-btn' onclick=\"verDetalleProducto('producto','" + productos[j].id + "');\" href='#'>Ver producto</a>";
                 baseHtml += '</div></div>';
@@ -111,7 +130,7 @@ function mostrarDetalleProductoPaquete(){
             		//labelDescuento='<label style="color:red">'+descuento+'%</label>';	
             		
             		$("#pDescuento").text(descuento+"%");
-            		$("#descuento").text("$"+valor);
+            		$("#descuento").text(formatoNumero(valor));
         		}
         		
         	}
@@ -119,7 +138,7 @@ function mostrarDetalleProductoPaquete(){
         	
         	$("#titulo").text(res.nombre);
         	$("#descripcion").html(res.descripcion);
-        	$("#precio").text("$"+res.valor);
+        	$("#precio").text(formatoNumero(res.valor));
         	$("#video").remove();
         	$("#boton1").append("<button onclick=\"addPaquete('label1','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "','" + descuento + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
         	$("#boton2").append("<button onclick=\"addPaquete('label2','" + res.id + "','" + imagen + "','" + res.nombre + "','" + res.descripcion + "','" + res.valor + "','" + descuento + "');\" type='button' class='btn btn-default btn-lg pull-right'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Agregar al Carrito</button>");
@@ -154,6 +173,7 @@ function compare(a,b) {
 	}
 
 function cargarProductos(urlFiltro) {	
+	cargarSgino();
 	var contador=1;
 	var contaLabel=0;
 	var baseHtml = '';
@@ -191,7 +211,7 @@ function cargarProductos(urlFiltro) {
             baseHtml += '<div class="sample-thumb">';
             baseHtml += '<img src="' + imagen + '" alt="New Event" title="New Event">';
             baseHtml += '</div>';
-            baseHtml += '<h4 class="consult-title">$' + value.valor + '</h4>';
+            baseHtml += '<h4 class="consult-title">' + formatoNumero(value.valor) + '</h4>';
             baseHtml += '<p>' + value.descripcion + '</p></a>';
             baseHtml += '<label id="'+contaLabel+'"	style="color: green; font-size: 15px;"></label>';
             baseHtml +="<button onclick=\"addProduct('" + contaLabel + "','" + value.id + "','" + imagen + "','" + value.nombre + "','" + value.descripcion + "','" + value.valor + "');\" class='btn btn-large btn-success' type='button'>Agregar a carrito <i class='fa fa-shopping-cart'></i></button>";
@@ -228,6 +248,7 @@ function cargarProductos(urlFiltro) {
 }
 
 function cargarPaquetes(urlFiltro) {	
+	cargarSgino();
 	var contador=0;
 	var contaLabel=0;
 	var baseHtml = '';
@@ -266,7 +287,7 @@ function cargarPaquetes(urlFiltro) {
         		descuento=value.promocion.descuento;
         		if(descuento>0){
         			var valor=value.valor-((descuento/100)*value.valor);
-        			valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">$' + value.valor + '    <label style="color:red">    $'+valor+'</label></h4>';
+        			valorDescuento='<h4 class="consult-title" style="text-decoration:line-through">' + formatoNumero(value.valor) + '    <label style="color:red">    '+formatoNumero(valor)+'</label></h4>';
             		labelDescuento='<label style="color:red">'+descuento+'%</label>';	
         		}
         		
@@ -440,6 +461,7 @@ function borrarFiltro(tipo){
 
 
 function cargarTop10Paquetes() {	
+	cargarSgino();
 	mostrarRedesSociales();
 	var contador=0;
 	var contaLabel=0;
@@ -487,7 +509,7 @@ function cargarTop10Paquetes() {
                 baseHtml += '<h4>' + value.nombre+'</h4></div>';
                 baseHtml += '<img src="' + imagen + '" height="200px" width="270px" ></div>';
                 baseHtml += '<div class="list-content">';            
-                baseHtml += '<h5>$' + value.valor + '</h5>';
+                baseHtml += '<h5>' + formatoNumero(value.valor) + '</h5>';
                 baseHtml += '<span>' + value.descripcion + '</span>';
                 baseHtml += "<a onclick=\"verDetalleProducto('paquete','" + value.id + "');\" href='#' class='price-btn'>Ver paquete</a>";
                 baseHtml += '</div></div>';
