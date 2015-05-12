@@ -49,7 +49,6 @@ var baseProviderHtml =
  }
 
 $("#signout").click(function () {
-	console.log("entra a sign out");
     sessionStorage.clear();
-    //location.href = "/index.html"
+    location.href = "/index.html"
 });
