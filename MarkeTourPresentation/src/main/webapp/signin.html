@@ -258,6 +258,7 @@
                     if(res.response == "true"){
                         sessionStorage.setItem("usuario", res.id);
                         sessionStorage.setItem("username", res.username);
+                        sessionStorage.setItem("provider", res.provider);
                         location.href="index.html"
                     }else{
                         location.href="signin.html"
