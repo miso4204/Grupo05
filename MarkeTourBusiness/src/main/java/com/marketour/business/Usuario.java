@@ -18,25 +18,27 @@ public class Usuario implements java.io.Serializable {
 	public static com.marketour.business.Usuario ConvertToBUsuario(
 			com.marketour.domain.Usuario domain) {
 		com.marketour.business.Usuario business = new com.marketour.business.Usuario();
-		business.setId(domain.getId());
-		business.setLogin(domain.getLogin());
-		business.setNombre(domain.getNombre());
-		business.setPassword(domain.getPassword());
-		business.setTelefono(domain.getTelefono());
-		business.setCelular(domain.getCelular());
-		business.setCorreo(domain.getCorreo());
-		business.setDireccion(domain.getDireccion());
-		business.setEstado(domain.getEstado());
-		if (domain.getMoneda() != null) {
-			business.setMoneda(domain.getMoneda().getDescripcion());
-			business.setIdMoneda(domain.getMoneda().getId());
+		if (domain != null) {
+			business.setId(domain.getId());
+			business.setLogin(domain.getLogin());
+			business.setNombre(domain.getNombre());
+			business.setPassword(domain.getPassword());
+			business.setTelefono(domain.getTelefono());
+			business.setCelular(domain.getCelular());
+			business.setCorreo(domain.getCorreo());
+			business.setDireccion(domain.getDireccion());
+			business.setEstado(domain.getEstado());
+			if (domain.getMoneda() != null) {
+				business.setMoneda(domain.getMoneda().getDescripcion());
+				business.setIdMoneda(domain.getMoneda().getId());
+			}
+			if (domain.getAdministrador() != null)
+				business.setTipoUsuario("Administrador");
+			if (domain.getProveedor() != null)
+				business.setTipoUsuario("Proveedor");
+			if (domain.getCliente() != null)
+				business.setTipoUsuario("Cliente");
 		}
-		if (domain.getAdministrador() != null)
-			business.setTipoUsuario("Administrador");
-		if (domain.getProveedor() != null)
-			business.setTipoUsuario("Proveedor");
-		if (domain.getCliente() != null)
-			business.setTipoUsuario("Cliente");
 		return business;
 	}
 

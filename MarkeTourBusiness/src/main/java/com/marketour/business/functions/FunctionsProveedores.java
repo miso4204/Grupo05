@@ -9,34 +9,29 @@ import com.marketour.business.Proveedor;
 import com.marketour.hibernate.HibernateUtil;
 import com.marketour.persistence.RepositoryUser;
 
-class FunctionsProveedores extends FunctionsUsers
-{
+class FunctionsProveedores extends FunctionsUsers {
 
 	public Object Consultar(int id) {
 		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repository;
 		repository = new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(
 				com.marketour.domain.Proveedor.class);
 		com.marketour.domain.Proveedor proveedor = repository.FindById(id);
-		Proveedor bProveedor = new Proveedor();
-		bProveedor.setDescripcion(proveedor.getDescripcion());
-		bProveedor.setId(proveedor.getId());
-		bProveedor.setCuenta(proveedor.getCuenta());
-		bProveedor.setNit(proveedor.getNit());
-		return bProveedor;
-
+		return Proveedor.ConvertToBProveedor(proveedor);
 	}
 
 	public List<Object> ConsultarLista() {
 		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repository;
 		repository = new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(
 				com.marketour.domain.Proveedor.class);
-		List<com.marketour.domain.Proveedor> lstProveedor = repository.FindAll();
+		List<com.marketour.domain.Proveedor> lstProveedor = repository
+				.FindAll();
 		List<Object> ListaProveedor = new ArrayList<Object>();
 		for (com.marketour.domain.Proveedor proveedor2 : lstProveedor) {
 			ListaProveedor.add(Proveedor.ConvertToBProveedor(proveedor2));
 		}
 		return ListaProveedor;
 	}
+
 	public static Boolean RegistrarProveedor(Proveedor proveedor) {
 		Boolean registro = false;
 
