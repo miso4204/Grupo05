@@ -1,17 +1,15 @@
 package com.marketour.facade;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Session;
 
-import com.marketour.persistence.*;
 import com.marketour.business.Administrador;
 import com.marketour.business.Cliente;
 import com.marketour.business.Credenciales;
+import com.marketour.business.Moneda;
 import com.marketour.business.Proveedor;
 import com.marketour.business.Usuario;
 import com.marketour.business.functions.FactoryUsers;
@@ -137,5 +135,19 @@ public class FacadeUsuarios {
 			registro = false;
 		}
 		return registro;
+	}
+
+	public static Object ConsultarMonedaTodos() {
+
+		List<Moneda> business = new ArrayList<Moneda>();
+		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+				com.marketour.domain.Moneda.class);
+		domain = repository.FindAll();
+		for (com.marketour.domain.Moneda item : domain) {
+
+			business.add(Moneda.ConvertToBMoneda(item));
+		}
+		return business;
 	}
 }
