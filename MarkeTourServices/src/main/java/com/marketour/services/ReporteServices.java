@@ -50,6 +50,14 @@ public class ReporteServices {
 				.entity(FacadeCompra.ConsultarCompra(fecha.getMonth(), fecha.getYear()))
 				.build();
 	}
+	@GET	
+	@Path("salesfechas/{fechaInicio}/{fechaFin}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindBySaleXFechas(@PathParam("fechaInicio") Date fechaInicio,@PathParam("fechaFin") Date fechaFin) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompraXFechas(fechaInicio,fechaFin))
+				.build();
+	}
 	@GET
 	@Path("salesubication/{idciudad}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,6 +83,7 @@ public class ReporteServices {
 				.entity(FacadeCompra.ConsultarCompraXPaqueteCalificada(idpaquete))
 				.build();
 	}
+	
 	@OPTIONS
 	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {
 		return Response

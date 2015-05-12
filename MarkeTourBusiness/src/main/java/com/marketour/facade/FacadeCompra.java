@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -206,6 +207,20 @@ public class FacadeCompra
 		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(com.marketour.domain.Compra.class);
 
 		List<com.marketour.domain.Compra> lstsCompras =repository.FindByColumn("fecha>'"+ano+"-"+mes+"-1'");
+																				//"fecha>'"+ano+"-"+mes+"-1'"+ ", fecha<'"+ano+"-"+mes+"-30'"
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			lstCompras.add(Compra.ConvertToBCompra(compra));
+		}
+		return lstCompras;
+	}
+	public static List<com.marketour.business.Compra> ConsultarCompraXFechas(Date fechaInicio, Date fechaFin) 
+	{
+		com.marketour.persistence.Repository<com.marketour.domain.Compra> repository = new com.marketour.persistence.Repository<com.marketour.domain.Compra>(com.marketour.domain.Compra.class);
+
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByColumn("fecha>'"+fechaInicio+"' AND fecha<'"+fechaFin+"'");
+		//List<com.marketour.domain.Compra> lstsCompras =repository.FindByColumn("fecha>'"+fechaInicio.getYear()+"-"+fechaInicio.getMonth()+"-"+fechaInicio.getDay()+"' AND fecha<'"+fechaFin.getYear()+"-"+fechaFin.getMonth()+"-"+fechaFin.getDay()+"'");
 																				//"fecha>'"+ano+"-"+mes+"-1'"+ ", fecha<'"+ano+"-"+mes+"-30'"
 		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
 		for (com.marketour.domain.Compra compra : lstsCompras) 
