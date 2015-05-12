@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import com.marketour.domain.*;
 import com.marketour.facade.FacadeCompra;
 import com.marketour.facade.FacadeProductos;
+import com.marketour.facade.FacadeReports;
 import com.marketour.persistence.*;
 
 @Path("/ReporteServices")
@@ -55,7 +56,7 @@ public class ReporteServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindBySaleXFechas(@PathParam("fechaInicio") Date fechaInicio,@PathParam("fechaFin") Date fechaFin) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeCompra.ConsultarCompraXFechas(fechaInicio,fechaFin))
+				.entity(FacadeReports.ConsultarCompraXFechas(fechaInicio,fechaFin))
 				.build();
 	}
 	@GET
@@ -63,7 +64,7 @@ public class ReporteServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByCiudad(@PathParam("idciudad") int idciudad) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idciudad))
+				.entity(FacadeReports.ConsultarCompraXLocalizacion(idciudad))
 				.build();
 	}
 	
@@ -72,7 +73,7 @@ public class ReporteServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByCiudadCalificada(@PathParam("idciudad") int idciudad) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeCompra.ConsultarCompraXLocalizacionCalificada(idciudad))
+				.entity(FacadeReports.ConsultarCompraXLocalizacionCalificada(idciudad))
 				.build();
 	}
 	@GET
@@ -80,7 +81,7 @@ public class ReporteServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FindByPaqueteCalificada(@PathParam("idpaquete") int idpaquete) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(FacadeCompra.ConsultarCompraXPaqueteCalificada(idpaquete))
+				.entity(FacadeReports.ConsultarCompraXPaqueteCalificada(idpaquete))
 				.build();
 	}
 	
