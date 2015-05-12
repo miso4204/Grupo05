@@ -58,7 +58,22 @@ public class ReporteServices {
 				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idciudad))
 				.build();
 	}
-
+	@GET
+	@Path("salesubicationcalificada/{idciudad}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByCiudadCalificada(@PathParam("idciudad") int idciudad) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompraXLocalizacionCalificada(idciudad))
+				.build();
+	}
+	@GET
+	@Path("salespaquetecalificada/{idciudad}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByPaqueteCalificada(@PathParam("idpaquete") int idpaquete) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeCompra.ConsultarCompraXPaqueteCalificada(idpaquete))
+				.build();
+	}
 	@OPTIONS
 	public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {
 		return Response

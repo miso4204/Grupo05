@@ -226,6 +226,28 @@ public class FacadeCompra
 		}
 		return lstCompras;
 	}
-	
-	
+	public static List<com.marketour.business.Compra> ConsultarCompraXLocalizacionCalificada(int idciudad) 
+	{		
+		RepositoryCompra repository=new RepositoryCompra();
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByUbicacionCalificada(idciudad);
+
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			lstCompras.add(Compra.ConvertToBCompra(compra));
+		}
+		return lstCompras;
+	}
+	public static List<com.marketour.business.Compra> ConsultarCompraXPaqueteCalificada(int idpaquete) 
+	{		
+		RepositoryCompra repository=new RepositoryCompra();
+		List<com.marketour.domain.Compra> lstsCompras =repository.FindByPaqueteCalificado(idpaquete);
+
+		List<com.marketour.business.Compra> lstCompras= new ArrayList<Compra>();
+		for (com.marketour.domain.Compra compra : lstsCompras) 
+		{
+			lstCompras.add(Compra.ConvertToBCompra(compra));
+		}
+		return lstCompras;
+	}
 }
