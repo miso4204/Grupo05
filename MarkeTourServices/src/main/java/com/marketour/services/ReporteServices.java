@@ -58,6 +58,7 @@ public class ReporteServices {
 				.entity(FacadeCompra.ConsultarCompraXLocalizacion(idciudad))
 				.build();
 	}
+	
 	@GET
 	@Path("salesubicationcalificada/{idciudad}")
 	@Produces(MediaType.APPLICATION_JSON)
