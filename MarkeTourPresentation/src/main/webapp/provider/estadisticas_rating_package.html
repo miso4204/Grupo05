@@ -131,7 +131,7 @@
     $(document).ready(function () {
         $.get("http://localhost:8080/PackageServices", function (res) {
             $.each(res, function (index, value) {
-                $("#packages").append('<option value="'+res[index].id+'">'+res[index].descripcion+'</option>');
+                $("#packages").append('<option value="'+res[index].id+'">'+res[index].nombre+'</option>');
             });
         });
         $("#packages").change(function () {
