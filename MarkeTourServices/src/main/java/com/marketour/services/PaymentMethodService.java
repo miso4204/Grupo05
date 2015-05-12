@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.marketour.domain.*;
+import com.marketour.facade.FacadeMedioPago;
 import com.marketour.persistence.*;
 
 @Path("/PaymentMethodService")
@@ -40,6 +41,21 @@ public class PaymentMethodService {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
 				.entity(repository.FindById(id)).build();
 	}
+	
+	@GET
+	@Path("MedioCliente/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByIdCliente(@PathParam("id") int id) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeMedioPago.ConsultarMediodePagoXCliente(id)).build();
+	}
+	@GET
+	@Path("MedioClienteForma/{idcliente}/{idforma}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response FindByIdCliente(@PathParam("idcliente") int idcliente,@PathParam("idforma") int idforma) {
+		return Response.status(200).header("Access-Control-Allow-Origin", "*")
+				.entity(FacadeMedioPago.ConsultarMedioPagoXClienteForma(idcliente, idforma)).build();
+	}
 
 	@DELETE
 	@Path("{id}")
@@ -52,9 +68,9 @@ public class PaymentMethodService {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Persist(MedioPago entity) {
+	public Response Persist(com.marketour.business.MedioPago entity) {
 		return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity(repository.Persist(entity)).build();
+				.entity(FacadeMedioPago.CrearMediodePago(entity)).build();
 	}
 
 	@OPTIONS
