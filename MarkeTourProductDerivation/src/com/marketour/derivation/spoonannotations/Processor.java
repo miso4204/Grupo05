@@ -63,6 +63,29 @@ public class Processor extends AbstractProcessor<CtAnnotation<?>> {
 				}
 				
 			}
+		}else if (annotation.toString().contains("Moneda")){
+			CtClass<?> target=(CtClass<?>) annotation.getParent();
+			SimpleTemplate te =new SimpleTemplate();
+			int tipoMoneda=this.getEnvironment().getComplianceLevel();
+			String metodo="";			
+			if (tipoMoneda==7){
+				metodo="ConsultarMonedaTodos";				
+			}else if (tipoMoneda==6){
+				metodo="ConsultarSoloDolar";				
+			}else if (tipoMoneda==5){
+				metodo="ConsultarSoloEuro";				
+			}else if (tipoMoneda==4){
+				metodo="ConsultarSoloPeso";				
+			}
+			
+			//Substitution.insertAll(annotation, te);			
+			for (CtMethod<?> c : target.getAllMethods()) {				
+				if(c.getSimpleName().toString().equals("ConsultarMonedaTodos")){					
+					c.getBody().replace((CtStatement)			
+							Substitution.substituteMethodBody(target, te,metodo));	
+				}
+				
+			}
 		}
 
 		 

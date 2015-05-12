@@ -1,11 +1,14 @@
 package template;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import com.marketour.business.Moneda;
 import com.marketour.domain.Producto;
 import com.marketour.hibernate.HibernateUtil;
+import com.marketour.persistence.Repository;
 
 import spoon.template.Local;
 import spoon.template.Parameter;
@@ -134,4 +137,65 @@ import spoon.template.Template;
    		session.getTransaction().commit();
    		return list;
    	}
+     
+       public static Object ConsultarMonedaTodos() {
+   		List<Moneda> business = new ArrayList<Moneda>();
+   		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+   		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+   				com.marketour.domain.Moneda.class);
+   		domain = repository.FindAll();
+   		for (com.marketour.domain.Moneda item : domain) {
+
+   			business.add(Moneda.ConvertToBMoneda(item));
+   		}
+   		return business;
+   	}
+       public static Object ConsultarSoloDolar() {
+      		List<Moneda> business = new ArrayList<Moneda>();
+      		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+      		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+      				com.marketour.domain.Moneda.class);
+      		domain = repository.FindAll();
+      		for (com.marketour.domain.Moneda item : domain) {
+      			if(item.getSigno().equals("USD")){
+      				business.add(Moneda.ConvertToBMoneda(item));	
+      			}
+      			
+      		}
+      		return business;
+      	}
+       
+       public static Object ConsultarSoloEuro() {
+    		List<Moneda> business = new ArrayList<Moneda>();
+    		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+    		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+    				com.marketour.domain.Moneda.class);
+    		domain = repository.FindAll();
+    		for (com.marketour.domain.Moneda item : domain) {
+    			if(!item.getSigno().equals("COP")){
+    				business.add(Moneda.ConvertToBMoneda(item));	
+    			}
+
+    			
+    		}
+    		return business;
+    	} 
+
+       public static Object ConsultarSoloPeso() {
+     		List<Moneda> business = new ArrayList<Moneda>();
+     		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
+     		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
+     				com.marketour.domain.Moneda.class);
+     		domain = repository.FindAll();
+     		for (com.marketour.domain.Moneda item : domain) {
+     			if(!item.getSigno().equals("EUR")){
+     				business.add(Moneda.ConvertToBMoneda(item));	
+     			}
+     			
+     		}
+     		return business;
+     	}
+       
+           
+
    }

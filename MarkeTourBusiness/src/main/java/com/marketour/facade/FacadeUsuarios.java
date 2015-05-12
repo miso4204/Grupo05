@@ -1,10 +1,7 @@
 package com.marketour.facade;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-
-import org.hibernate.Session;
 
 import com.marketour.business.Administrador;
 import com.marketour.business.Cliente;
@@ -13,12 +10,10 @@ import com.marketour.business.Moneda;
 import com.marketour.business.Proveedor;
 import com.marketour.business.Usuario;
 import com.marketour.business.functions.FactoryUsers;
-import com.marketour.domain.Compra;
-import com.marketour.domain.MedioPago;
-import com.marketour.hibernate.HibernateUtil;
+import com.marketour.persistence.Annotation;
 import com.marketour.persistence.Repository;
-import com.marketour.persistence.RepositoryUser;
 
+@Annotation(tipo = "Moneda")
 public class FacadeUsuarios {
 
 	public static Boolean Autenticar(Credenciales credenciales) {
@@ -55,7 +50,6 @@ public class FacadeUsuarios {
 	}
 
 	public static Object ConsultarMonedaTodos() {
-
 		List<Moneda> business = new ArrayList<Moneda>();
 		List<com.marketour.domain.Moneda> domain = new ArrayList<com.marketour.domain.Moneda>();
 		Repository<com.marketour.domain.Moneda> repository = new Repository<com.marketour.domain.Moneda>(
@@ -83,76 +77,68 @@ public class FacadeUsuarios {
 		return (List<Usuario>) (List<?>) users.ConsultarLista();
 	}
 
-	public static boolean RegistrarCliente(Cliente cliente) {
-
-		RepositoryUser repositoryUser = new com.marketour.persistence.RepositoryUser();
-		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repositoryClient = new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(
+	public static Cliente RegistrarCliente(Cliente business) {
+		com.marketour.persistence.Repository<com.marketour.domain.Cliente> repository = new com.marketour.persistence.Repository<com.marketour.domain.Cliente>(
 				com.marketour.domain.Cliente.class);
 
-		com.marketour.domain.Cliente dbCliente = new com.marketour.domain.Cliente();
-		com.marketour.domain.Usuario dbUsuario = new com.marketour.domain.Usuario();
+		com.marketour.persistence.Repository<com.marketour.domain.Usuario> repositoryUser = new com.marketour.persistence.Repository<com.marketour.domain.Usuario>(
+				com.marketour.domain.Usuario.class);
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		dbCliente.setDescripcion(cliente.getDescripcion());
-		dbCliente.setId(cliente.getId());
-		dbCliente.setMedioPagos(new HashSet<MedioPago>(0));
-		dbCliente.setCompras(new HashSet<Compra>(0));
-
-		dbUsuario.setCelular(cliente.getCelular());
-		dbUsuario.setCorreo(cliente.getCorreo());
-		dbUsuario.setDireccion(cliente.getDireccion());
-		dbUsuario.setEstado(cliente.getEstado());
-		dbUsuario.setLogin(cliente.getLogin());
-		dbUsuario.setNombre(cliente.getNombre());
-		dbUsuario.setPassword(cliente.getPassword());
-		dbUsuario.setTelefono(cliente.getTelefono());
-
-		try {
-			session.beginTransaction();
-			dbCliente.setUsuario(repositoryUser.Persist(dbUsuario));
-
-			repositoryClient.Persist(dbCliente);
-			session.getTransaction().commit();
-			return true;
-
-		} catch (Exception ex) {
-			return false;
-		}
+		com.marketour.domain.Usuario domainUser = repositoryUser
+				.FindById(business.getId());
+		com.marketour.domain.Cliente domain = domainUser.getCliente();
+		boolean update = domain != null;
+		domain = repository.FindById(business.getId());
+		domain = Cliente.ConvertToBDCliente(business);
+		domain.setUsuario(domainUser);
+		if (update)
+			repository.Update(domain);
+		else
+			repository.Save(domain);
+		return ConsultarCliente(domain.getId());
 	}
 
-	public static Boolean RegistrarProveedor(Proveedor proveedor) {
-		Boolean registro = false;
-
-		RepositoryUser repositoryUser = new com.marketour.persistence.RepositoryUser();
-		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repositoryProveedor = new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(
+	public static Object RegistrarProveedor(Proveedor business) {
+		com.marketour.persistence.Repository<com.marketour.domain.Proveedor> repository = new com.marketour.persistence.Repository<com.marketour.domain.Proveedor>(
 				com.marketour.domain.Proveedor.class);
 
-		com.marketour.domain.Proveedor dbProveedor = new com.marketour.domain.Proveedor();
-		com.marketour.domain.Usuario dbUsuario = new com.marketour.domain.Usuario();
+		com.marketour.persistence.Repository<com.marketour.domain.Usuario> repositoryUser = new com.marketour.persistence.Repository<com.marketour.domain.Usuario>(
+				com.marketour.domain.Usuario.class);
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		com.marketour.domain.Usuario domainUser = repositoryUser
+				.FindById(business.getId());
+		com.marketour.domain.Proveedor domain = domainUser.getProveedor();
+		boolean update = domain != null;
+		domain = repository.FindById(business.getId());
+		domain = Proveedor.ConvertToBDProveedor(business);
+		domain.setUsuario(domainUser);
+		if (update)
+			repository.Update(domain);
+		else
+			repository.Save(domain);
+		return ConsultarProveedor(domain.getId());
+	}
 
-		dbProveedor.setDescripcion(proveedor.getDescripcion());
-		dbProveedor.setId(proveedor.getId());
-
-		dbUsuario.setCelular(proveedor.getCelular());
-		dbUsuario.setCorreo(proveedor.getCelular());
-		dbUsuario.setDireccion(proveedor.getCelular());
-		dbUsuario.setEstado(proveedor.getEstado());
-		dbUsuario.setLogin(proveedor.getLogin());
-		dbUsuario.setNombre(proveedor.getNombre());
-		dbUsuario.setPassword(proveedor.getPassword());
-		dbUsuario.setTelefono(proveedor.getTelefono());
-		try {
-			session.beginTransaction();
-			repositoryUser.Persist(dbUsuario);
-			repositoryProveedor.Persist(dbProveedor);
-			session.getTransaction().commit();
-			registro = true;
-		} catch (Exception ex) {
-			registro = false;
+	public static Usuario RegistrarUsuario(Usuario business) {
+		com.marketour.persistence.Repository<com.marketour.domain.Usuario> repository = new com.marketour.persistence.Repository<com.marketour.domain.Usuario>(
+				com.marketour.domain.Usuario.class);
+		com.marketour.persistence.Repository<com.marketour.domain.Moneda> repoCurrency = new com.marketour.persistence.Repository<com.marketour.domain.Moneda>(
+				com.marketour.domain.Moneda.class);
+		com.marketour.domain.Usuario domain = null;
+		if (business.getId() > 0) {
+			domain = repository.FindById(business.getId());
+			domain = Usuario.ConvertToBDUsuario(business);
+			if (business.getIdMoneda() > 0) {
+				domain.setMoneda(repoCurrency.FindById(business.getIdMoneda()));
+			}
+			repository.Update(domain);
+		} else {
+			domain = Usuario.ConvertToBDUsuario(business);
+			if (business.getIdMoneda() > 0) {
+				domain.setMoneda(repoCurrency.FindById(business.getIdMoneda()));
+			}
+			repository.Save(domain);
 		}
-		return registro;
+		return ConsultarUsuario(domain.getId());
 	}
 }
