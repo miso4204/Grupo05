@@ -1,8 +1,9 @@
 (function () {
     var ctrl = function ($scope, $http, $routeParams, $location) {
-        $scope.id = $location.search().id || 0;
+        $scope.id = 0;
+        $scope.rol = "";
         $scope.appName = "Marketour";
-        $scope.moduleName = "Gestión Usuarios";
+        $scope.moduleName = "Gestionar Usuario";
         $scope.serviceUser = "http://localhost:8080/UserService/";
         $scope.serviceProvider = "http://localhost:8080/ProviderService/";
         $scope.serviceCustomer = "http://localhost:8080/CustomerService/";
@@ -12,10 +13,34 @@
         $scope.dataCustomer = {};
         $scope.currencies = [];
         $scope.typeUser = ["Proveedor", "Cliente"];
+        $scope.GetSession = function () {
+            try {
+                if ($location.search().id > 0)
+                    $scope.id = $location.search().id;
+                else {
+                    if (window.sessionStorage.getItem("usuario") > 0)
+                        $scope.id = window.sessionStorage.getItem("usuario");
+                }
+            } catch (e) {
+                try {
+                    $scope.id = window.sessionStorage.getItem("usuario");
+                } catch (e) {
+                    $scope.id = 0;
+                }
+            }
+            if ($scope.id > 0) {
+                $http.get("http://localhost:8080/UserService/" + $scope.id).success(function (response) {
+                    $scope.rol = response.tipoUsuario;
+                })
+            }
+        };
         $scope.FindUserById = function (id) {
             $http.get($scope.serviceUser + id).success(function (response) {
                 $scope.data = response;
                 $scope.ChangeUserType();
+                toastr.success("Se obtuvo la información", $scope.moduleName);
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.ChangeUserType = function () {
@@ -29,6 +54,8 @@
         $scope.FindProviderById = function (id) {
             $http.get($scope.serviceProvider + id).success(function (response) {
                 $scope.dataProvider = response;
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.FindCustomerById = function (id) {
@@ -39,6 +66,8 @@
         $scope.FindCurrencies = function () {
             $http.get($scope.serviceCurrency).success(function (response) {
                 $scope.currencies = response;
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistUser = function () {
@@ -66,6 +95,9 @@
                     response.tipoUsuario = "Proveedor";
                 }
                 $scope.data = response;
+                toastr.success("Se registró la información de Usuario", $scope.moduleName);
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistCustomer = function (id) {
@@ -85,6 +117,9 @@
                 }
             }).success(function (response) {
                 $scope.dataCustomer = response;
+                toastr.success("Se registró la información de Cliente", $scope.moduleName);
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistProvider = function (id) {
@@ -104,6 +139,9 @@
                 }
             }).success(function (response) {
                 $scope.dataProvider = response;
+                toastr.success("Se registró la información de Proveedor", $scope.moduleName);
+            }).error(function (error) {
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.Delete = function (id) {
@@ -112,6 +150,24 @@
                     $scope.FindAll();
                 });
         };
+        //INIT
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "showDuration": "150",
+            "hideDuration": "500",
+            "timeOut": "2500",
+            "extendedTimeOut": "500",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $scope.GetSession();
         $scope.FindUserById($scope.id);
         $scope.FindCurrencies();
     };
