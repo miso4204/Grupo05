@@ -40,7 +40,7 @@
 
             <div class="nav-collapse collapse navbar-inverse-collapse">
                 <form class="navbar-search pull-left input-append" action="#">
-                    <input type="text" class="span3">
+                    <input type="text" maxlength="50" class="span3">
                     <button class="btn" type="button">
                         <i class="icon-search"></i>
                     </button>
@@ -113,26 +113,27 @@
                         </div>
                         <div class="module-body">
                             <div class="form-horizontal row-fluid">
-                                <div class="control-group">
+                                <!--div class="control-group">
                                     <label class="control-label" for="data.id">Id</label>
 
                                     <div class="controls">
-                                        <input type="text" id="data.id" class="span8" ng-model="data.id"
+                                        <input type="text" maxlength="50" id="data.id" class="span8" ng-model="data.id"
                                                ng-disabled="true">
                                     </div>
-                                </div>
+                                </div-->
                                 <div class="control-group">
                                     <label class="control-label" for="data.nombre">Nombre</label>
 
                                     <div class="controls">
-                                        <input type="text" id="data.nombre" class="span8" ng-model="data.nombre">
+                                        <input type="text" maxlength="50" id="data.nombre" class="span8"
+                                               ng-model="data.nombre">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="data.descripcion">Descripción</label>
 
                                     <div class="controls">
-                                        <textarea rows="5" id="data.descripcion" class="span8"
+                                        <textarea maxlength="50" rows="5" id="data.descripcion" class="span8"
                                                   ng-model="data.descripcion"></textarea>
                                     </div>
                                 </div>
@@ -170,7 +171,7 @@
                                         <label class="control-label" for="data.promocion.id">Id</label>
 
                                         <div class="controls">
-                                            <input type="text" id="data.promocion.id" class="span8"
+                                            <input type="text" maxlength="50" id="data.promocion.id" class="span8"
                                                    ng-model="data.promocion.id" ng-disabled="true">
                                         </div>
                                     </div>
@@ -179,7 +180,8 @@
                                                for="data.promocion.descripcion">Descripción</label>
 
                                         <div class="controls">
-                                            <textarea rows="5" id="data.promocion.descripcion" class="span8"
+                                            <textarea maxlength="50" rows="5" id="data.promocion.descripcion"
+                                                      class="span8"
                                                       ng-model="data.promocion.descripcion"></textarea>
                                         </div>
                                     </div>
@@ -205,7 +207,8 @@
                                                for="data.promocion.condiciones">Condiciones</label>
 
                                         <div class="controls">
-                                            <textarea rows="5" id="data.promocion.condiciones" class="span8"
+                                            <textarea maxlength="50" rows="5" id="data.promocion.condiciones"
+                                                      class="span8"
                                                       ng-model="data.promocion.condiciones"></textarea>
                                         </div>
                                     </div>
@@ -221,7 +224,7 @@
                                         <label class="control-label" for="data.promocion.codigo">Codigo</label>
 
                                         <div class="controls">
-                                            <input type="text" id="data.promocion.codigo" class="span8"
+                                            <input type="text" maxlength="50" id="data.promocion.codigo" class="span8"
                                                    ng-model="data.promocion.codigo">
                                         </div>
                                     </div>

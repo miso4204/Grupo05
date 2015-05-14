@@ -30,9 +30,9 @@
         $scope.FindUsers = function () {
             $http.get($scope.serviceUser).success(function (response) {
                 $scope.data = response;
-                toastr.success("Se obtuvo la informaciÃ³n", $scope.moduleName);
+                toastr.success("Se obtuvo la información", $scope.moduleName);
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.Filter = function (data) {
@@ -48,7 +48,7 @@
             if ($scope.rol == "Cliente") {
                 return $scope.id == data.id;
             }
-            return true;
+            return false;
         };
         //INIT
         toastr.options = {

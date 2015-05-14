@@ -38,9 +38,9 @@
             $http.get($scope.serviceUser + id).success(function (response) {
                 $scope.data = response;
                 $scope.ChangeUserType();
-                toastr.success("Se obtuvo la informaciÃ³n", $scope.moduleName);
+                toastr.success("Se obtuvo la información", $scope.moduleName);
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.ChangeUserType = function () {
@@ -55,7 +55,7 @@
             $http.get($scope.serviceProvider + id).success(function (response) {
                 $scope.dataProvider = response;
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.FindCustomerById = function (id) {
@@ -67,7 +67,7 @@
             $http.get($scope.serviceCurrency).success(function (response) {
                 $scope.currencies = response;
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistUser = function () {
@@ -95,9 +95,9 @@
                     response.tipoUsuario = "Proveedor";
                 }
                 $scope.data = response;
-                toastr.success("Se registrÃ³ la informaciÃ³n de Usuario", $scope.moduleName);
+                toastr.success("Se registró la información de Usuario", $scope.moduleName);
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistCustomer = function (id) {
@@ -117,9 +117,9 @@
                 }
             }).success(function (response) {
                 $scope.dataCustomer = response;
-                toastr.success("Se registrÃ³ la informaciÃ³n de Cliente", $scope.moduleName);
+                toastr.success("Se registró la información de Cliente", $scope.moduleName);
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.PersistProvider = function (id) {
@@ -139,9 +139,9 @@
                 }
             }).success(function (response) {
                 $scope.dataProvider = response;
-                toastr.success("Se registrÃ³ la informaciÃ³n de Proveedor", $scope.moduleName);
+                toastr.success("Se registró la información de Proveedor", $scope.moduleName);
             }).error(function (error) {
-                toastr.success("Se presentÃ³ un problema, contacte a su Administrador", $scope.moduleName);
+                toastr.success("Se presentó un problema, contacte a su Administrador", $scope.moduleName);
             });
         };
         $scope.Delete = function (id) {

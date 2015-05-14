@@ -183,9 +183,16 @@ public class FacadePackage {
 			domain = Paquete.ConvertToDBPaquete(business,
 					new com.marketour.domain.Paquete());
 			// Provider
-			Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
-					com.marketour.domain.Proveedor.class);
-			domain.setProveedor(repositoryProvider.FindById(1));
+			if (business.getProveedor() != null) {
+				Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
+						com.marketour.domain.Proveedor.class);
+				domain.setProveedor(repositoryProvider.FindById(business
+						.getProveedor().getId()));
+			} else {
+				Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
+						com.marketour.domain.Proveedor.class);
+				domain.setProveedor(repositoryProvider.FindById(1));
+			}
 			// Offer
 			Repository<com.marketour.domain.Promocion> repositoryOffer = new Repository<com.marketour.domain.Promocion>(
 					com.marketour.domain.Promocion.class);

@@ -134,7 +134,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="info in data | orderBy:'+id'">
+                                    <tr ng-repeat="info in data | filter:FilterPackage">
                                         <td>
                                             <span>{{info.id}}</span>
                                         </td>
@@ -215,7 +215,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="info in detail | orderBy:'+id'">
+                                    <tr ng-repeat="info in detail |  filter:FilterProduct">
                                         <td>
                                             <span>{{info.id}}</span>
                                         </td>

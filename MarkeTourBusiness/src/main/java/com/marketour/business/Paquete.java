@@ -13,11 +13,6 @@ import com.marketour.domain.Promocion;
 import com.marketour.domain.Proveedor;
 import com.marketour.persistence.Repository;
 
-/**
- * @author Andres
- * @version 1.0
- * @created 13-abr.-2015 9:52:38 a. m.
- */
 public class Paquete implements Serializable {
 
 	private Integer id = 0;
@@ -40,9 +35,8 @@ public class Paquete implements Serializable {
 		business.setEstado(domain.getEstado());
 		// Provider
 		if (domain.getProveedor() != null) {
-			com.marketour.business.Proveedor proveedorB = com.marketour.business.Proveedor
-					.ConvertToBProveedor(domain.getProveedor());
-			business.setProveedor(proveedorB);
+			business.setProveedor(com.marketour.business.Proveedor
+					.ConvertToBProveedor(domain.getProveedor()));
 		}
 		// Product
 		if (domain.getProductos() != null) {

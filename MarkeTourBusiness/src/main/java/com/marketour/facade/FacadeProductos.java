@@ -264,9 +264,16 @@ public class FacadeProductos {
 			domain = Producto.ConvertToDBProducto(business,
 					new com.marketour.domain.Producto());
 			// Provider
-			Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
-					com.marketour.domain.Proveedor.class);
-			domain.setProveedor(repositoryProvider.FindById(1));
+			if (business.getProveedor() != null) {
+				Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
+						com.marketour.domain.Proveedor.class);
+				domain.setProveedor(repositoryProvider.FindById(business
+						.getProveedor().getId()));
+			} else {
+				Repository<com.marketour.domain.Proveedor> repositoryProvider = new Repository<com.marketour.domain.Proveedor>(
+						com.marketour.domain.Proveedor.class);
+				domain.setProveedor(repositoryProvider.FindById(1));
+			}
 			// Category
 			Repository<com.marketour.domain.Categoria> repositoryCategory = new Repository<com.marketour.domain.Categoria>(
 					com.marketour.domain.Categoria.class);

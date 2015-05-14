@@ -73,6 +73,11 @@ public class Producto implements Serializable {
 			}
 			business.setContenidos(contentB);
 		}
+		// Provider
+		if (domain.getProveedor() != null) {
+			business.setProveedor(Proveedor.ConvertToBProveedor(domain
+					.getProveedor()));
+		}
 		return business;
 	}
 
