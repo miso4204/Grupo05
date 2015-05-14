@@ -28,17 +28,17 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			
-		<version>7.6.16.v20140903</version></dependency>
+		<version>9.2.10.v20150310</version></dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
 			
-		<version>7.6.16.v20140903</version></dependency>
+		<version>9.2.10.v20150310</version></dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlet</artifactId>
 			
-		<version>7.6.16.v20140903</version></dependency>
+		<version>9.2.10.v20150310</version></dependency>
 
 		<!-- Jersey -->
 		<dependency>
@@ -86,7 +86,7 @@
       			<configuration>
       				<excludes>
                   	  
-                	<exclude>com/marketour/services/PromoService.java</exclude><exclude>com/marketour/services/PromoCreateService.java</exclude><exclude>com/marketour/services/PromoUpdateService.java</exclude></excludes>
+                	</excludes>
       			</configuration>
     		</plugin>
   		</plugins>

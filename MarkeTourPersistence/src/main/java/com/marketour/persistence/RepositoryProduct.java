@@ -26,9 +26,13 @@ public class RepositoryProduct extends com.marketour.persistence.Repository<com.
         if ((precio1 > 0) && (precio2 > 0)) {
             rangoPrecios = ((" AND prod.valor>=" + precio1) + " and prod.valor<=") + precio2;
         } 
+        java.lang.String ciudad = "";
+        if (idCiudad > 0) {
+            ciudad = " and prod.ubicacion=" + idCiudad;
+        } 
         org.hibernate.Session session = com.marketour.hibernate.HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        java.util.List<com.marketour.domain.Producto>  list = session.createSQLQuery((((("SELECT prod.* FROM Producto prod " + innerDisponibilidad) + " WHERE 1=1 ") + rangoFechas) + rangoPrecios)).addEntity(com.marketour.domain.Producto.class).list();
+        java.util.List<com.marketour.domain.Producto>  list = session.createSQLQuery(((((("SELECT prod.* FROM Producto prod " + innerDisponibilidad) + " WHERE 1=1 ") + rangoFechas) + rangoPrecios) + ciudad)).addEntity(com.marketour.domain.Producto.class).list();
         session.getTransaction().commit();
         return list;
     }
@@ -45,9 +49,13 @@ public class RepositoryProduct extends com.marketour.persistence.Repository<com.
             rangoPrecios = ((" AND prod.valor>=" + precio1) + " and prod.valor<=") + precio2;
         } 
         rangoPrecios = "";
+        java.lang.String ciudad = "";
+        if (idCiudad > 0) {
+            ciudad = " and prod.ubicacion=" + idCiudad;
+        } 
         org.hibernate.Session session = com.marketour.hibernate.HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        java.util.List<com.marketour.domain.Producto>  list = session.createSQLQuery((((((("SELECT prod.* FROM Producto prod " + innerDisponibilidad) + " INNER JOIN Paquete_Producto pp ON prod.id = pp.producto ") + "INNER JOIN Paquete pqt ON pqt.id = pp.paquete WHERE pqt.id = ") + idPaquete) + rangoFechas) + rangoPrecios)).addEntity(com.marketour.domain.Producto.class).list();
+        java.util.List<com.marketour.domain.Producto>  list = session.createSQLQuery(((((((("SELECT prod.* FROM Producto prod " + innerDisponibilidad) + " INNER JOIN Paquete_Producto pp ON prod.id = pp.producto ") + "INNER JOIN Paquete pqt ON pqt.id = pp.paquete WHERE pqt.id = ") + idPaquete) + rangoFechas) + rangoPrecios) + ciudad)).addEntity(com.marketour.domain.Producto.class).list();
         session.getTransaction().commit();
         return list;
     }

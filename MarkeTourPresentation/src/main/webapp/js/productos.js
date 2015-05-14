@@ -325,7 +325,7 @@ function cargarPaquetes(urlFiltro) {
         	
         	var descuento=0;
         	var labelDescuento="";
-        	var valorDescuento='<h4 class="consult-title">$' + value.valor + '</h4>';
+        	var valorDescuento='<h4 class="consult-title">' + formatoNumero(value.valor) + '</h4>';
         	if (value.promocion!=null){
         		descuento=value.promocion.descuento;
         		if(descuento>0){

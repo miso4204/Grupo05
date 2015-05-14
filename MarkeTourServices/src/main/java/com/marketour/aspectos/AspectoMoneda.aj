@@ -3,6 +3,7 @@ package com.marketour.aspectos;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public aspect AspectoMoneda {
 	pointcut conversionMonedaDomainMostrar():
 		call(public * com.marketour.domain.*.getValor(..)) ;
 
-	BigDecimal around(): conversionMonedaDomainMostrar(){		
+	BigDecimal around(): conversionMonedaDomainMostrar(){		 
 		BigDecimal original = proceed();
 		if (idUsuario>0){			
 			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);	
@@ -36,7 +37,7 @@ public aspect AspectoMoneda {
 				com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
 				original=original.multiply(moneda.getConversion());
 				System.out.println("MONEDAAAAA:" + moneda.getDescripcion());	
-			}
+			} 
 			
 		}else{
 			System.out.println("LOGEARSE PARA TIPO DE MONEDA         ");
@@ -56,7 +57,7 @@ public aspect AspectoMoneda {
 			com.marketour.domain.Usuario usuario =repository.FindByIdAspecto(idUsuario);	
 			if (usuario.getMoneda()!=null){
 				com.marketour.domain.Moneda moneda =repositorymoneda.FindByIdAspecto(usuario.getMoneda().getId());
-				original=original.divide(moneda.getConversion());
+				original=original.divide(moneda.getConversion(), 2, RoundingMode.HALF_UP);
 				System.out.println("MONEDAAAAA:" + moneda.getDescripcion());	
 			}
 			
