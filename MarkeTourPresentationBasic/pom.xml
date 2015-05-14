@@ -10,9 +10,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>MarkeTourPresentation</artifactId>
+	<artifactId>MarkeTourPresentationBasic</artifactId>
 	<packaging>war</packaging>
-	<name>MarkeTourPresentation Maven Webapp</name>
+	<name>MarkeTourPresentationBasic Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
