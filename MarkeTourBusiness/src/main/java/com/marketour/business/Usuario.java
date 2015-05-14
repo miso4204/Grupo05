@@ -16,6 +16,24 @@ public class Usuario implements java.io.Serializable {
 	private String tipoUsuario = "";
 
 	public static com.marketour.domain.Usuario ConvertToBDUsuario(
+			Usuario business, com.marketour.domain.Usuario domain) {
+		if (business != null) {
+			domain.setId(business.getId());
+			domain.setLogin(business.getLogin());
+			domain.setNombre(business.getNombre());
+			domain.setTelefono(business.getTelefono());
+			domain.setCelular(business.getCelular());
+			domain.setCorreo(business.getCorreo());
+			domain.setEstado(business.getEstado());
+			if (domain.getId() == 0) {
+				domain.setPassword(business.getPassword());
+				domain.setDireccion(business.getDireccion());
+			}
+		}
+		return domain;
+	}
+
+	public static com.marketour.domain.Usuario ConvertToBDUsuario(
 			Usuario business) {
 		com.marketour.domain.Usuario domain = new com.marketour.domain.Usuario();
 		if (business != null) {
