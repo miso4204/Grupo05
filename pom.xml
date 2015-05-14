@@ -13,5 +13,7 @@
 		<module>MarkeTourPresentation</module>
 		<module>MarkeTourServices</module>
 		<module>MarkeTourBusiness</module>
+		<module>MarkeTourPresentationIntermediate</module>
+		<module>MarkeTourPresentationBasic</module>
 	</modules>
 </project>

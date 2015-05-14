@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="user" ng-controller="appUserCtrl">
+<head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Angular-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-route.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/appUserCtrl.js"></script>
+    <!--Legacy-->
+    <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link type="text/css" href="css/theme.css" rel="stylesheet">
+    <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+          rel='stylesheet'>
+    <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/common.js" type="text/javascript"></script>
+    <!-- Toastr -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+          rel="stylesheet">
+    <title>{{appName}} - {{moduleName}}</title>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <i class="icon-reorder shaded"></i>
+            </a>
+            <a class="brand" href="index.html">{{appName}}</a>
+
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+                <form class="navbar-search pull-left input-append" action="#">
+                    <input type="text" maxlength="50" class="span3">
+                    <button class="btn" type="button">
+                        <i class="icon-search"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /.nav-collapse -->
+        </div>
+    </div>
+    <!-- /navbar-inner -->
+</div>
+<!-- /navbar -->
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div class="sidebar">
+                    <ul class="widget widget-menu unstyled">
+                        <li class="active">
+                            <a href="../index.html">
+                                <i class="menu-icon icon-dashboard"></i>Início
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html">
+                                <i class="menu-icon icon-dashboard"></i>Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="agregarUsuario.html">
+                                <i class="menu-icon icon-user"></i>Gestionar Usuario
+                            </a>
+                        </li>
+                    </ul>
+                    <!--/.widget-nav-->
+                    <!--/.widget-nav-->
+                </div>
+                <!--/.sidebar-->
+            </div>
+            <!--/.span3-->
+            <div class="span9">
+                <div class="content">
+                    <div class="module">
+                        <div class="module-head">
+                            <h3>{{moduleName}}</h3>
+
+                            <h3 class="control-label" ng-hide="(data.id >= 0)" ng-disabled="true">(Cargando...)</h3>
+                        </div>
+                        <div class="module-body">
+                            <div class="form-horizontal row-fluid">
+                                <!--div class="control-group"><label class="control-label" for="data.id">Id</label><div class="controls"><input type="text" maxlength="50" id="data.id" class="span8"                                                ng-model="data.id" ng-disabled="true"></div></div-->
+                                <div class="control-group">
+                                    <label class="control-label" for="data.login">Usuario</label>
+
+                                    <div class="controls">
+                                        <input type="text" maxlength="50" id="data.login" class="span4"
+                                               ng-model="data.login">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.password">Contraseña</label>
+
+                                    <div class="controls">
+                                        <input type="password" id="data.password" class="span4"
+                                               ng-model="data.password">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.nombre">Nombre</label>
+
+                                    <div class="controls">
+                                        <input type="text" maxlength="50" id="data.nombre" class="span8"
+                                               ng-model="data.nombre">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.telefono">Teléfono</label>
+
+                                    <div class="controls">
+                                        <input type="text" maxlength="50" id="data.telefono" class="span4"
+                                               ng-model="data.telefono">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.celular">Celular</label>
+
+                                    <div class="controls">
+                                        <input type="text" maxlength="50" id="data.celular" class="span4"
+                                               ng-model="data.celular">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.correo">E-Mail</label>
+
+                                    <div class="controls">
+                                        <input type="email" id="data.correo" class="span4" ng-model="data.correo">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.direccion">Dirección</label>
+
+                                    <div class="controls">
+                                        <input type="text" maxlength="50" id="data.direccion" class="span8"
+                                               ng-model="data.direccion">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.tipoUsuario">Tipo</label>
+
+                                    <div class="controls">
+                                        <select id="data.tipoUsuario" class="span4" ng-model="data.tipoUsuario"
+                                                ng-change="ChangeUserType()"
+                                                ng-hide="data.id > 0 && data.tipoUsuario!=''">
+                                            <option ng-repeat="type in typeUser" value="{{type}}"> {{type}}</option>
+                                        </select>
+                                        <input type="text" maxlength="50" id="data.tipoUsuario" class="span4"
+                                               ng-model="data.tipoUsuario" ng-show="data.id > 0 && data.tipoUsuario!=''"
+                                               ng-readonly="data.id > 0 && data.tipoUsuario!=''">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="data.estado">¿Habilitado?</label>
+
+                                    <div class="controls">
+                                        <label class="radio inline">Si
+                                            <input type="radio" id="data.estado" ng-model="data.estado" value="1">
+                                        </label>
+                                        <label class="radio inline">No
+                                            <input type="radio" id="data.estado" ng-model="data.estado" value="0">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch on="data.tipoUsuario">
+                            <!--Proveedor-->
+                            <div ng-switch-when="Proveedor">
+                                <div class="module-head">
+                                    <h3>
+                                        <a data-toggle="collapse" data-target="#collapseProveedor" aria-expanded="false"
+                                           aria-controls="collapseProveedor">Proveedor</a>
+                                    </h3>
+                                </div>
+                                <div class="collapse" id="collapseProveedor">
+                                    <div class="module-body">
+                                        <div class="form-horizontal row-fluid">
+                                            <div class="control-group">
+                                                <label class="control-label"
+                                                       for="dataProvider.descripcion">Descripción</label>
+
+                                                <div class="controls">
+                                                    <textarea maxlength="50" rows="5" id="dataProvider.descripcion"
+                                                              class="span8"
+                                                              ng-model="dataProvider.descripcion"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label" for="dataProvider.nit">Nit</label>
+
+                                                <div class="controls">
+                                                    <input type="text" maxlength="50" id="dataProvider.nit"
+                                                           class="span4"
+                                                           ng-model="dataProvider.nit">
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label" for="dataProvider.cuenta">Cuenta</label>
+
+                                                <div class="controls">
+                                                    <input type="text" maxlength="50" id="dataProvider.cuenta"
+                                                           class="span4"
+                                                           ng-model="dataProvider.cuenta">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Cliente-->
+                            <div ng-switch-when="Cliente">
+                                <div class="module-head">
+                                    <h3>
+                                        <a data-toggle="collapse" data-target="#collapseCliente" aria-expanded="false"
+                                           aria-controls="collapseCliente">Cliente</a>
+                                    </h3>
+                                </div>
+                                <div class="collapse" id="collapseCliente">
+                                    <div class="module-body">
+                                        <div class="form-horizontal row-fluid">
+                                            <div class="control-group">
+                                                <label class="control-label"
+                                                       for="dataCustomer.descripcion">Descripción</label>
+
+                                                <div class="controls">
+                                                    <textarea maxlength="50" rows="5" id="dataCustomer.descripcion"
+                                                              class="span8"
+                                                              ng-model="dataCustomer.descripcion"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label" for="data.idMoneda">Moneda</label>
+
+                                                <div class="controls">
+                                                    <select id="data.idMoneda" class="span4" ng-model="data.idMoneda">
+                                                        <option ng-hide="currencies.length > 0" ng-disabled="true">
+                                                            (Cargando...)
+                                                        </option>
+                                                        <option ng-repeat="currency in currencies"
+                                                                value="{{currency.id}}"> {{currency.descripcion}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-head align-center">
+                        <a href="#" class="btn btn-success" role="button" ng-click="PersistUser();"
+                           data-toggle="tooltip" title="Registrar Usuario">Registrar Usuario</a>
+                    </div>
+                </div>
+            </div>
+            <!--/.content-->
+        </div>
+        <!--/.span9-->
+    </div>
+</div>
+<!--/.container-->
+</div>
+<!--/.wrapper-->
+<div class="footer">
+    <div class="container">
+        <b class="copyright">&copy; 2015 Marketour - Marketour.com </b>All rights reserved.
+    </div>
+</div>
+</body>
