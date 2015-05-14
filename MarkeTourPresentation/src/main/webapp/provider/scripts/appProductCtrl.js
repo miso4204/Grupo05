@@ -2,7 +2,7 @@
     var ctrl = function ($scope, $http, $routeParams, $location) {
         $scope.id = $location.search().id || 0;
         $scope.appName = "Marketour";
-        $scope.moduleName = "Gestión Productos";
+        $scope.moduleName = "Gestionar Productos";
         $scope.moduleDetailsName = "Contenidos";
         $scope.serviceProduct = "http://localhost:8080/ProductService/";
         $scope.serviceCategory = "http://localhost:8080/CategoryServices/";
